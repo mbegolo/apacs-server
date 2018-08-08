@@ -1,0 +1,27 @@
+{
+  "connection": "default",
+  "collectionName": "category",
+  "info": {
+    "name": "category",
+    "description": "Le 5 categorie in cui si divide l'interview APACS"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Nome": {
+      "type": "string",
+      "required": true
+    },
+    "Colore": {
+      "maxLength": 7,
+      "minLength": 4,
+      "type": "string",
+      "required": true
+    },
+    "examVoices": {
+      "collection": "examvoice",
+      "via": "category"
+    }
+  }
+}

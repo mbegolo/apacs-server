@@ -1,0 +1,29 @@
+{
+  "esame": {
+    "attributes": {
+      "Data": {
+        "appearance": ""
+      }
+    }
+  },
+  "category": {
+    "attributes": {
+      "Nome": {
+        "appearance": ""
+      },
+      "Colore": {
+        "appearance": ""
+      }
+    }
+  },
+  "examVoice": {
+    "attributes": {
+      "Nome": {
+        "appearance": ""
+      },
+      "Valutazione": {
+        "appearance": ""
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "connection": "default",
+  "collectionName": "esame",
+  "info": {
+    "name": "exam",
+    "description": "Ogni voce di questa entità rappresenta l'istanza di un esame somministrato ad un paziente, e contiene i dati relativi a paziente, esaminatore, registrazione dell'intervista e punteggi ottenuti"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Data": {
+      "type": "date",
+      "required": true
+    },
+    "user": {
+      "model": "user",
+      "via": "exams",
+      "plugin": "users-permissions"
+    },
+    "examVoices": {
+      "collection": "examvoice",
+      "via": "exam"
+    }
+  }
+}
