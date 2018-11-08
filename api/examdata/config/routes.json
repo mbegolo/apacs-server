@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/examdata",
+      "handler": "Examdata.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/examdata/count",
+      "handler": "Examdata.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/examdata/:_id",
+      "handler": "Examdata.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/examdata",
+      "handler": "Examdata.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/examdata/:_id",
+      "handler": "Examdata.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/examdata/:_id",
+      "handler": "Examdata.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

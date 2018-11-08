@@ -1,0 +1,93 @@
+{
+  "connection": "default",
+  "collectionName": "",
+  "info": {
+    "name": "anagrafica",
+    "description": "Anagrafica di un paziente (una per ogni esame)"
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Nome": {
+      "default": "",
+      "type": "string",
+      "required": true
+    },
+    "Cognome": {
+      "default": "",
+      "type": "string"
+    },
+    "Sesso": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "",
+        "M",
+        "F"
+      ]
+    },
+    "Età": {
+      "default": "",
+      "type": "integer"
+    },
+    "Lateralità": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "",
+        "DX",
+        "SX"
+      ]
+    },
+    "Luogo di Nascita": {
+      "default": "",
+      "type": "string"
+    },
+    "Professione": {
+      "default": "",
+      "type": "string"
+    },
+    "Scolarizzazione": {
+      "default": "",
+      "type": "integer"
+    },
+    "Lingua": {
+      "default": "",
+      "type": "string"
+    },
+    "Dati Clinici": {
+      "default": "",
+      "type": "string"
+    },
+    "Data": {
+      "default": "",
+      "type": "date"
+    },
+    "Esaminatore": {
+      "default": "",
+      "type": "string"
+    },
+    "Diagnosi": {
+      "default": "",
+      "type": "enumeration",
+      "enum": [
+        "",
+        "Nessun disturbo",
+        "Disturbo dello Spettro Autistico",
+        "Malattia di Alzheimer",
+        "Malattia di Parkinson",
+        "Schizofrenia",
+        "Sclerosi Laterale Amiotrofica",
+        "Trauma cranico",
+        "Non nota",
+        "Multiple",
+        "Altro..."
+      ]
+    },
+    "esame": {
+      "model": "esame",
+      "via": "anagrafica"
+    }
+  }
+}

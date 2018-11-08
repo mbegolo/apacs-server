@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/esames",
+      "handler": "Esame.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/esames/count",
+      "handler": "Esame.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/esames/:_id",
+      "handler": "Esame.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/esames",
+      "handler": "Esame.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/esames/:_id",
+      "handler": "Esame.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/esames/:_id",
+      "handler": "Esame.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

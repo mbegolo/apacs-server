@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/voceesames",
+      "handler": "Voceesame.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/voceesames/count",
+      "handler": "Voceesame.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/voceesames/:_id",
+      "handler": "Voceesame.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/voceesames",
+      "handler": "Voceesame.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/voceesames/:_id",
+      "handler": "Voceesame.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/voceesames/:_id",
+      "handler": "Voceesame.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

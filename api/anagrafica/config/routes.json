@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/anagraficas",
+      "handler": "Anagrafica.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/anagraficas/count",
+      "handler": "Anagrafica.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/anagraficas/:_id",
+      "handler": "Anagrafica.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/anagraficas",
+      "handler": "Anagrafica.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/anagraficas/:_id",
+      "handler": "Anagrafica.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/anagraficas/:_id",
+      "handler": "Anagrafica.destroy",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "connection": "default",
+  "collectionName": "examdata",
+  "info": {
+    "name": "examData",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Agrammatismo": {
+      "default": "",
+      "type": "integer"
+    },
+    "Parafasie fonemiche": {
+      "default": "",
+      "type": "integer"
+    },
+    "Parafasie semantiche": {
+      "default": "",
+      "type": "integer"
+    },
+    "Circonlocuzioni": {
+      "default": "",
+      "type": "integer"
+    },
+    "Ripetizioni": {
+      "default": "",
+      "type": "integer"
+    },
+    "Frasi incomplete": {
+      "default": "",
+      "type": "integer"
+    },
+    "Ecolalia": {
+      "default": "",
+      "type": "integer"
+    },
+    "Coprolalia": {
+      "default": "",
+      "type": "integer"
+    },
+    "Difficoltà si-no": {
+      "default": "",
+      "type": "integer"
+    },
+    "Sovrainformativo": {
+      "default": "",
+      "type": "integer"
+    },
+    "Sottoinformativo": {
+      "default": "",
+      "type": "integer"
+    },
+    "Mancata iniziativa verbale": {
+      "default": "",
+      "type": "integer"
+    },
+    "Assenza referenti": {
+      "default": "",
+      "type": "integer"
+    },
+    "Assenza legami": {
+      "default": "",
+      "type": "integer"
+    },
+    "Ordine errato": {
+      "default": "",
+      "type": "integer"
+    },
+    "Cambio argomento": {
+      "default": "",
+      "type": "integer"
+    },
+    "Velocità alterata": {
+      "default": "",
+      "type": "integer"
+    },
+    "Intonazione alterata": {
+      "default": "",
+      "type": "integer"
+    },
+    "Mancanza contatto visivo": {
+      "default": "",
+      "type": "integer"
+    },
+    "Espressione fissa": {
+      "default": "",
+      "type": "integer"
+    },
+    "Abuso gesti": {
+      "default": "",
+      "type": "integer"
+    },
+    "prova": {
+      "default": "",
+      "type": "string"
+    }
+  }
+}
