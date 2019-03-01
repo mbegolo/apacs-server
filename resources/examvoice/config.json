@@ -1,0 +1,85 @@
+{
+	"type": "Collection",
+	"properties": {
+		"r": {
+			"name": "r",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "r",
+			"order": 0
+		},
+		"c": {
+			"name": "c",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "c",
+			"order": 1
+		},
+		"nome": {
+			"name": "nome",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "nome",
+			"order": 2
+		},
+		"icona": {
+			"name": "icona",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "icona",
+			"order": 3
+		},
+		"m": {
+			"name": "m",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "m",
+			"order": 4
+		},
+		"qv": {
+			"name": "qv",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "qv",
+			"order": 5
+		},
+		"s": {
+			"name": "s",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "s",
+			"order": 6
+		},
+		"progress": {
+			"name": "progress",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "progress",
+			"order": 7
+		},
+		"punteggio": {
+			"name": "punteggio",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "punteggio",
+			"order": 8
+		},
+		"countable": {
+			"name": "countable",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "countable",
+			"order": 9
+		}
+	}
+}

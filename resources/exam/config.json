@@ -1,0 +1,45 @@
+{
+	"type": "Collection",
+	"properties": {
+		"date": {
+			"name": "date",
+			"type": "date",
+			"typeLabel": "date",
+			"required": true,
+			"id": "date",
+			"order": 0
+		},
+		"user": {
+			"name": "user",
+			"type": "array",
+			"typeLabel": "array",
+			"required": true,
+			"id": "user",
+			"order": 1
+		},
+		"patient": {
+			"name": "patient",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "patient",
+			"order": 2
+		},
+		"voices": {
+			"name": "voices",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "voices",
+			"order": 3
+		},
+		"recordings": {
+			"name": "recordings",
+			"type": "array",
+			"typeLabel": "array",
+			"required": false,
+			"id": "recordings",
+			"order": 4
+		}
+	}
+}

@@ -1,0 +1,93 @@
+{
+	"type": "Collection",
+	"properties": {
+		"nome": {
+			"name": "nome",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "nome",
+			"order": 0
+		},
+		"cognome": {
+			"name": "cognome",
+			"type": "string",
+			"typeLabel": "string",
+			"required": true,
+			"id": "cognome",
+			"order": 1
+		},
+		"sesso": {
+			"name": "sesso",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "sesso",
+			"order": 2
+		},
+		"eta": {
+			"name": "eta",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "eta",
+			"order": 3
+		},
+		"lateralita": {
+			"name": "lateralita",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "lateralita",
+			"order": 4
+		},
+		"luogonascita": {
+			"name": "luogonascita",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "luogonascita",
+			"order": 5
+		},
+		"professione": {
+			"name": "professione",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "professione",
+			"order": 6
+		},
+		"lingua": {
+			"name": "lingua",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "lingua",
+			"order": 7
+		},
+		"scolarita": {
+			"name": "scolarita",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "scolarita",
+			"order": 8
+		},
+		"diagnosi": {
+			"name": "diagnosi",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "diagnosi",
+			"order": 9
+		},
+		"altro": {
+			"name": "altro",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "altro",
+			"order": 10
+		}
+	}
+}

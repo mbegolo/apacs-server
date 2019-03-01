@@ -1,0 +1,30 @@
+{
+  "connection": "default",
+  "collectionName": "esame",
+  "info": {
+    "name": "esame",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "user": {
+      "model": "user",
+      "via": "esames",
+      "plugin": "users-permissions"
+    },
+    "anagrafica": {
+      "model": "anagrafica",
+      "via": "esame"
+    },
+    "Nome": {
+      "default": "",
+      "type": "string"
+    },
+    "voceesames": {
+      "collection": "voceesame",
+      "via": "esame"
+    }
+  }
+}

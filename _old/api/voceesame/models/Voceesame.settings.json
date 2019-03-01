@@ -1,0 +1,55 @@
+{
+  "connection": "default",
+  "collectionName": "Singole voci",
+  "info": {
+    "name": "voceesame",
+    "description": ""
+  },
+  "options": {
+    "timestamps": true
+  },
+  "attributes": {
+    "Punteggio": {
+      "default": 0,
+      "type": "integer"
+    },
+    "Valutazione": {
+      "default": 0,
+      "type": "integer",
+      "required": true
+    },
+    "esame": {
+      "model": "esame",
+      "via": "voceesames"
+    },
+    "Tipo": {
+      "default": "",
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "Anomie",
+        "Agrammatismo",
+        "Parafasie fonemiche",
+        "Parafasie semantiche",
+        "Circonlocuzioni",
+        "Ripetizioni",
+        "Frasi incomplete",
+        "Ecolalia",
+        "Coprolalia",
+        "Difficolta si-no",
+        "sotto-informativo",
+        "sovra-informativo",
+        "Mancata iniziativa verbale",
+        "Assenza legami",
+        "Assenza referenti",
+        "Ordine errato elementi",
+        "Cambio argomento",
+        "Velocita alterata",
+        "Intonazione alterata",
+        "Mancanza contatto visivo",
+        "Espressione fissa",
+        "Abuso gesti"
+      ]
+    }
+  }
+}
