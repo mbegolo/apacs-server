@@ -25,20 +25,20 @@
 			"id": "sesso",
 			"order": 2
 		},
-		"eta": {
-			"name": "eta",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "eta",
-			"order": 3
-		},
 		"lateralita": {
 			"name": "lateralita",
 			"type": "boolean",
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "lateralita",
+			"order": 3
+		},
+		"eta": {
+			"name": "eta",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "eta",
 			"order": 4
 		},
 		"luogonascita": {

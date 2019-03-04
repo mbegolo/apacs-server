@@ -1,0 +1,3 @@
+{"_id":"3175ba3924e21890","date":{"$date":"2019-03-02T00:00:00.000Z"},"user":["e128fc2fc2fb9883"],"patient":{"id":"11ac8548a10ae9f4"}}
+{"_id":"4f91c3bc6743f9e6","date":{"$date":"2019-03-02T00:00:00.000Z"},"user":["e128fc2fc2fb9883"],"patient":{"id":"4ef6f2d10887c802"}}
+{"_id":"f67e543c0cbacad3","date":{"$date":"2000-03-02T00:00:00.000Z"},"user":["e128fc2fc2fb9883"],"patient":{"id":"d7d097c176913888"}}
