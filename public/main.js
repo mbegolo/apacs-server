@@ -115,8 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Patient", function() { return Patient; });
 var Patient = /** @class */ (function () {
     function Patient() {
-        this.nome = "";
-        this.cognome = "";
+        this.nome = "nuovo_paziente";
+        this.cognome = "___";
         this.sesso = null;
         this.eta = 0;
         this.lateralita = null;
@@ -202,7 +202,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-var API_URL = _environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl;
+var API_URL = "https://web.math.unipd.it/apacs";//_environments_environment__WEBPACK_IMPORTED_MODULE_1__["environment"].apiUrl;
 var ExamService = /** @class */ (function () {
     function ExamService(userService, http) {
         this.userService = userService;
@@ -359,7 +359,7 @@ var PatientService = /** @class */ (function () {
         });
     };
     PatientService.prototype.saveOnLocal = function (p) {
-        //this.activePatient = p;
+        this.activePatient = p;
         localStorage.setItem('activePatient', JSON.stringify(this.activePatient));
         this.loadFromLocal();
     };
@@ -518,7 +518,7 @@ var UserService = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\r\n  <div class=\"alert-items\">\r\n    <div class=\"alert-item\">\r\n      <div class=\"alert-icon-wrapper\">\r\n        <clr-icon class=\"alert-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n      </div>\r\n      <span class=\"alert-text\">{{this.msg}}</span>\r\n    </div>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\n  <div class=\"alert-items\">\n    <div class=\"alert-item\">\n      <div class=\"alert-icon-wrapper\">\n        <clr-icon class=\"alert-icon\" shape=\"exclamation-circle\"></clr-icon>\n      </div>\n      <span class=\"alert-text\">{{this.msg}}</span>\n    </div>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -529,7 +529,7 @@ module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\r\n  <div cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FsZXJ0LW1lc3NhZ2UvYWxlcnQtbWVzc2FnZS5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhbGVydC1tZXNzYWdlL2FsZXJ0LW1lc3NhZ2UuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -639,7 +639,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<a [routerLink]=\"[{ outlets: { primary: ['login'] } }]\">login</a>\r\n<a [routerLink]=\"[{ outlets: { primary: ['main'] } }]\">main</a>\r\n<a [routerLink]=\"['main',{ outlets: { logged: ['dashboard'] } }]\">dashboard</a>\r\n\r\n<router-outlet name=\"primary\"></router-outlet>\r\n\r\n\r\n"
+module.exports = "<a [routerLink]=\"[{ outlets: { primary: ['login'] } }]\">login</a>\n<a [routerLink]=\"[{ outlets: { primary: ['main'] } }]\">main</a>\n<a [routerLink]=\"['main',{ outlets: { logged: ['dashboard'] } }]\">dashboard</a>\n\n<router-outlet name=\"primary\"></router-outlet>\n\n\n"
 
 /***/ }),
 
@@ -650,7 +650,7 @@ module.exports = "<a [routerLink]=\"[{ outlets: { primary: ['login'] } }]\">logi
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -718,12 +718,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _test_test_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./test/test.component */ "./src/app/test/test.component.ts");
 /* harmony import */ var _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./exam-list-view/exam-list-view.component */ "./src/app/exam-list-view/exam-list-view.component.ts");
 /* harmony import */ var _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./edit-patient/edit-patient.component */ "./src/app/edit-patient/edit-patient.component.ts");
+/* harmony import */ var _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./interview/interview.component */ "./src/app/interview/interview.component.ts");
+/* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -758,7 +762,9 @@ var AppModule = /** @class */ (function () {
                 _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"],
                 _test_test_component__WEBPACK_IMPORTED_MODULE_15__["TestComponent"],
                 _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_16__["ExamListViewComponent"],
-                _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__["EditPatientComponent"]
+                _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__["EditPatientComponent"],
+                _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__["InterviewComponent"],
+                _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__["InterviewItemComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -800,7 +806,7 @@ module.exports = "<div class=\"clr clr-col-12 clr-col-md-6 clr-col-lg-4\" style=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2Rhc2hib2FyZC9kYXNoYm9hcmQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJkYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -858,7 +864,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<p>\r\n  edit-patient works!\r\n</p>\r\n"
+module.exports = "<form clrForm clrLayout=\"horizontal\" [formGroup]=\"patientForm\" (ngSubmit)=\"onSubmit()\">\n    \n    <h2>Dati Esame</h2>\n\n    <div class=\"form-group\">\n      <label>Esaminatore</label>\n      <input type=\"text\" formControlName=\"esaminatore\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.esaminatore.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.esaminatore.errors\">\n      <alert-message *ngIf=\"f.esaminatore.errors.required\" msg=\"Il campo 'Esaminatore' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Data</label>\n      <input type=\"date\" formControlName=\"data\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.data.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.data.errors\">\n      <alert-message *ngIf=\"f.data.errors.required\" msg=\"Il campo 'Data' è obbligatorio\"></alert-message>\n    </div>\n\n\n\n    <h2>Dati Personali</h2>\n\n    <div class=\"form-group\">\n      <label>Nome</label>\n      <input type=\"text\" formControlName=\"nome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.nome.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.nome.errors\">\n      <alert-message *ngIf=\"f.nome.errors.required\" msg=\"Il campo 'Nome' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Cognome</label>\n      <input type=\"text\" formControlName=\"cognome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.cognome.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.cognome.errors\">\n      <alert-message *ngIf=\"f.cognome.errors.required\" msg=\"Il campo 'Cognome' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Sesso</label>\n      <div class=\"clr-control-container clr-control-inline\">\n        <div class=\"clr-radio-wrapper\">\n          <input type=\"radio\" id=\"sex-radio1\" formControlName=\"sesso\" value=\"true\" class=\"clr-radio\" [checked]=\"show_sex\">\n          <label for=\"sex-radio1\" class=\"clr-control-label\">M</label>\n        </div>\n        <div class=\"clr-radio-wrapper\">\n          <input type=\"radio\" id=\"sex-radio2\" formControlName=\"sesso\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_sex\">\n          <label for=\"sex-radio2\" class=\"clr-control-label\">F</label>\n        </div>\n        <div class=\"clr-subtext-wrapper\">\n          <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\n          <span class=\"clr-subtext\">Helper Text</span>\n        </div>\n      </div>\n      <div class=\"errors\" *ngIf=\"submitted && f.sesso.errors\">\n        <alert-message *ngIf=\"f.sesso.errors.required\" msg=\"Il campo 'Sesso' è obbligatorio\"></alert-message>\n      </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Età</label>\n      <input type=\"number\" formControlName=\"eta\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.eta.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.eta.errors\">\n      <alert-message *ngIf=\"f.eta.errors.required\" msg=\"Il campo 'Età' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Luogo di nascita</label>\n      <input type=\"text\" formControlName=\"luogonascita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.luogonascita.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.luogonascita.errors\">\n      <alert-message *ngIf=\"f.luogonascita.errors.required\" msg=\"Il campo 'Luogo di nascita' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Professione</label>\n      <input type=\"text\" formControlName=\"professione\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.professione.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.professione.errors\">\n      <alert-message *ngIf=\"f.professione.errors.required\" msg=\"Il campo 'Professione' è obbligatorio\"></alert-message>\n    </div>\n\n\n\n    <h2>Dati Clinici</h2>\n\n    <div class=\"form-group\">\n      <label>Lateralità</label>\n      <div class=\"clr-control-container clr-control-inline\">\n        <div class=\"clr-radio-wrapper\">\n          <input type=\"radio\" id=\"lat-radio1\" formControlName=\"lateralita\" value=\"true\" class=\"clr-radio\" [checked]=\"show_lat\">\n          <label for=\"lat-radio1\" class=\"clr-control-label\">DX</label>\n        </div>\n        <div class=\"clr-radio-wrapper\">\n          <input type=\"radio\" id=\"lat-radio2\" formControlName=\"lateralita\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_lat\">\n          <label for=\"lat-radio2\" class=\"clr-control-label\">SX</label>\n        </div>\n        <div class=\"clr-subtext-wrapper\">\n          <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\n          <span class=\"clr-subtext\">Helper Text</span>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Lingua</label>\n      <input type=\"text\" formControlName=\"lingua\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.lingua.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.lingua.errors\">\n      <alert-message *ngIf=\"f.lingua.errors.required\" msg=\"Il campo 'Lingua' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Scolarità</label>\n      <input type=\"number\" formControlName=\"scolarita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.scolarita.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.scolarita.errors\">\n      <alert-message *ngIf=\"f.scolarita.errors.required\" msg=\"Il campo 'Scolarità' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n      <label>Diagnosi</label>\n      <select clrSelect formControlName=\"diagnosi\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.diagnosi.errors }\" >\n        <option value=\"Nessun disturbo\" > Nessun disturbo </option>\n        <option value=\"Disturbo dello Spettro Autistico\" > Disturbo dello Spettro Autistico </option>\n        <option value=\"Malattia di Alzheimer\" > Malattia di Alzheimer </option>\n        <option value=\"Malattia di Parkinson\" > Malattia di Parkinson </option>\n        <option value=\"Schizofrenia\" > Schizofrenia </option>\n        <option value=\"Sclerosi Laterale Amiotrofica\" > Sclerosi Laterale Amiotrofica </option>\n        <option value=\"Trauma cranico\" > Trauma cranico </option>\n        <option value=\"Non nota\" > Non nota </option>\n        <option value=\"Multiple (specificare in &quot;Note&quot;)\"> Multiple (specificare in \"Note\") </option>\n        <option value=\"Altro... (da riportare in &quot;Note&quot;)\"> Altro... (da riportare in \"Note\") </option>\n      </select>\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.diagnosi.errors\">\n      <alert-message *ngIf=\"f.diagnosi.errors.required\" msg=\"Il campo 'Diagnosi' è obbligatorio\"></alert-message>\n    </div>\n\n\n    <h2>Note</h2>\n\n    <div class=\"form-group\">\n      <label for=\"altro\">Altre informazioni</label>\n      <div class=\"clr-control-container\">\n        <div class=\"clr-textarea-wrapper\">\n          <textarea clrTextarea formControlName=\"altro\" id=\"altro\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.altro.errors }\"></textarea>\n        </div>\n      </div>\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.altro.errors\">\n      <alert-message *ngIf=\"f.altro.errors.required\" msg=\"Il campo 'Altre informazioni' è obbligatorio\"></alert-message>\n    </div>\n\n    <button type=\"submit\" class=\"btn btn-primary\">Salva dati</button>\n</form>\n\n\n<button class=\"btn\" (click)=\"printPat()\">Stampa actual-patient</button>\n<button class=\"btn\" (click)=\"printExam()\">Stampa actual-exam</button>\n"
 
 /***/ }),
 
@@ -869,7 +875,7 @@ module.exports = "<p>\r\n  edit-patient works!\r\n</p>\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2VkaXQtcGF0aWVudC9lZGl0LXBhdGllbnQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJlZGl0LXBhdGllbnQvZWRpdC1wYXRpZW50LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -884,6 +890,9 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EditPatientComponent", function() { return EditPatientComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -894,10 +903,87 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+//import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
+
+
+
 var EditPatientComponent = /** @class */ (function () {
-    function EditPatientComponent() {
+    function EditPatientComponent(route, patientService, examService, userService, formBuilder) {
+        this.route = route;
+        this.patientService = patientService;
+        this.examService = examService;
+        this.userService = userService;
+        this.formBuilder = formBuilder;
     }
     EditPatientComponent.prototype.ngOnInit = function () {
+        this.activeExam = this.examService.getActiveExam();
+        this.activePatient = this.patientService.getActivePatient();
+        this.loggedUser = this.userService.getLoggedUser();
+        this.patientForm = this.formBuilder.group({
+            //email: ['', [Validators.required, Validators.email]],
+            //password: ['', [Validators.required, Validators.minLength(6)]],
+            nome: [this.activePatient.nome],
+            cognome: [this.activePatient.cognome],
+            sesso: [this.activePatient.sesso],
+            eta: [this.activePatient.eta],
+            lateralita: [this.activePatient.lateralita],
+            luogonascita: [this.activePatient.luogonascita],
+            professione: [this.activePatient.professione],
+            scolarita: [this.activePatient.scolarita],
+            lingua: [this.activePatient.lingua],
+            altro: [this.activePatient.altro],
+            diagnosi: [this.activePatient.diagnosi],
+            data: [('' + this.activeExam.date).substring(0, 10)],
+            esaminatore: [this.loggedUser.name + " " + this.loggedUser.surname]
+        });
+        this.show_sex = this.activePatient.sesso; // ((this.activePatient.sesso == "true")||(this.activePatient.sesso == true));
+        this.show_lat = this.activePatient.lateralita; // ((this.activePatient.lateralita == "true")||(this.activePatient.lateralita == true));
+        console.log(this.show_sex, this.show_lat);
+    };
+    Object.defineProperty(EditPatientComponent.prototype, "f", {
+        get: function () { return this.patientForm.controls; },
+        enumerable: true,
+        configurable: true
+    });
+    EditPatientComponent.prototype.onSubmit = function () {
+        if (confirm("Sicuro di voler salvare? L'azione non è reversibile")) {
+            var control = this.patientForm.controls;
+            var new_exam = this.activeExam;
+            new_exam.date = new Date(control.data.value);
+            var new_pat = this.activePatient;
+            new_pat.nome = control.nome.value;
+            new_pat.cognome = control.cognome.value;
+            new_pat.sesso = (control.sesso.value == "true" || control.sesso.value == true);
+            new_pat.eta = control.eta.value;
+            new_pat.lateralita = (control.lateralita.value == "true" || control.lateralita.value == true);
+            new_pat.luogonascita = control.luogonascita.value;
+            new_pat.professione = control.professione.value;
+            new_pat.scolarita = control.scolarita.value;
+            new_pat.lingua = control.lingua.value;
+            new_pat.altro = control.altro.value;
+            new_pat.diagnosi = control.diagnosi.value;
+            this.save(new_exam, new_pat);
+        }
+    };
+    EditPatientComponent.prototype.save = function (e, p) {
+        var _this = this;
+        this.patientService.savePatient(p).subscribe(function (data) {
+            var returnobj = (JSON.parse(data._body));
+            console.log(returnobj);
+            _this.patientService.saveOnLocal(returnobj);
+        }, function (error) { return console.log(error); });
+        this.examService.saveExam(e).subscribe(function (data) {
+            var returnobj = (JSON.parse(data._body));
+            console.log(returnobj);
+            _this.examService.saveOnLocal(returnobj);
+        }, function (error) { return console.log(error); });
+        //console.log(e,p);
+    };
+    EditPatientComponent.prototype.printPat = function () {
+        console.log(this.activePatient);
+    };
+    EditPatientComponent.prototype.printExam = function () {
+        console.log(this.activeExam);
     };
     EditPatientComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -905,7 +991,11 @@ var EditPatientComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./edit-patient.component.html */ "./src/app/edit-patient/edit-patient.component.html"),
             styles: [__webpack_require__(/*! ./edit-patient.component.scss */ "./src/app/edit-patient/edit-patient.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["PatientService"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["ExamService"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
     ], EditPatientComponent);
     return EditPatientComponent;
 }());
@@ -921,7 +1011,7 @@ var EditPatientComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<clr-datagrid [clrDgLoading]=\"loading\">\r\n    <clr-dg-column>ID esame</clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'date'\">Data\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column>Azioni</clr-dg-column>\r\n\r\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\r\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\r\n        <clr-dg-cell>\r\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\">\r\n            <clr-icon shape=\"pencil\"></clr-icon> edit\r\n          </button>\r\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">\r\n            <clr-icon shape=\"trash\"></clr-icon> delete\r\n          </button>\r\n          \r\n        </clr-dg-cell>\r\n    </clr-dg-row>\r\n\r\n    <clr-dg-footer>\r\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\r\n            <clr-dg-page-size [clrPageSizeOptions]=\"[10,20,50,100]\">Users per page</clr-dg-page-size>\r\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\r\n            of {{pagination.totalItems}} exams\r\n        </clr-dg-pagination>\r\n    </clr-dg-footer>\r\n</clr-datagrid>"
+module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n    <clr-icon shape=\"plus\"></clr-icon> Crea un nuovo esame\n</button>\n<clr-datagrid [clrDgLoading]=\"loading\">\n    <clr-dg-column>ID esame</clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'date'\" [clrDgSortOrder]=\"defaultSort\">Data\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column>Azioni</clr-dg-column>\n\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\n        <clr-dg-cell>\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\">\n            <clr-icon shape=\"pencil\"></clr-icon> edit\n          </button>\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"delete_exam = true; new_id = exam.id\">\n          <!--<button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">-->\n            <clr-icon shape=\"trash\"></clr-icon> delete\n          </button>\n          \n        </clr-dg-cell>\n    </clr-dg-row>\n\n    <clr-dg-footer>\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\n            <clr-dg-page-size [clrPageSizeOptions]=\"[10,20,50,100]\">Users per page</clr-dg-page-size>\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\n            of {{pagination.totalItems}} exams\n        </clr-dg-pagination>\n    </clr-dg-footer>\n</clr-datagrid>\n\n<clr-modal [(clrModalOpen)]=\"delete_exam\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per eliminare questo esame, l'azione non è reversibile. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"delete_exam = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteExam(new_id); delete_exam = false\">Ok</button>\n    </div>\n</clr-modal>"
 
 /***/ }),
 
@@ -932,7 +1022,7 @@ module.exports = "\r\n<clr-datagrid [clrDgLoading]=\"loading\">\r\n    <clr-dg-c
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2V4YW0tbGlzdC12aWV3L2V4YW0tbGlzdC12aWV3LmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLWxpc3Qtdmlldy9leGFtLWxpc3Qtdmlldy5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1003,12 +1093,12 @@ var ExamListViewComponent = /** @class */ (function () {
         this.router = router;
         this.examService = examService;
         this.patientService = patientService;
-        this.descSort = _clr_angular__WEBPACK_IMPORTED_MODULE_1__["ClrDatagridSortOrder"].DESC;
         this.patients = [];
         this.dateFilter = new DateFilter();
         this.nameFilter = new NameFilter();
         this.surnameFilter = new SurnameFilter();
         this.loaded_data = false;
+        this.defaultSort = _clr_angular__WEBPACK_IMPORTED_MODULE_1__["ClrDatagridSortOrder"].DESC;
     }
     ExamListViewComponent.prototype.ngOnInit = function () {
         this.refresh();
@@ -1050,13 +1140,28 @@ var ExamListViewComponent = /** @class */ (function () {
     };
     ExamListViewComponent.prototype.deleteExam = function (e) {
         var _this = this;
-        if (confirm("Sicuro di voler eliminare questo esame? L'azione non è reversibile")) {
-            this.examService.deleteExam(e).subscribe(function (response) {
+        //alert(e);
+        //if (confirm("Sicuro di voler eliminare questo esame? L'azione non è reversibile")) {
+        this.examService.deleteExam(e).subscribe(function (response) {
+            _this.refresh();
+            console.log(response);
+        }, function (errors) { return console.log(errors); });
+        console.log("elimina ", e);
+        //}
+    };
+    ExamListViewComponent.prototype.createNewExam = function () {
+        var _this = this;
+        this.patientService.createNewPatient().subscribe(function (response) {
+            var pid = (JSON.parse(response._body)).id;
+            _this.patientService.saveOnLocal(JSON.parse(response._body));
+            _this.examService.createNewExam(pid).subscribe(function (data) {
+                var new_exam = JSON.parse(data._body);
+                console.log(new_exam);
+                _this.examService.saveOnLocal(new_exam);
+                //this.getMyLastExams(5);
                 _this.refresh();
-                console.log(response);
-            }, function (errors) { return console.log(errors); });
-            console.log("elimina ", e);
-        }
+            });
+        });
     };
     ExamListViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1080,7 +1185,7 @@ var ExamListViewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form clrForm clrLayout=\"horizontal\" [formGroup]=\"patientForm\" (ngSubmit)=\"onSubmit()\">\r\n    \r\n    <h2>Dati Esame</h2>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Esaminatore</label>\r\n      <input type=\"text\" formControlName=\"esaminatore\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.esaminatore.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.esaminatore.errors\">\r\n      <alert-message *ngIf=\"f.esaminatore.errors.required\" msg=\"Il campo 'Esaminatore' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Data</label>\r\n      <input type=\"date\" formControlName=\"data\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.data.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.data.errors\">\r\n      <alert-message *ngIf=\"f.data.errors.required\" msg=\"Il campo 'Data' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n\r\n\r\n    <h2>Dati Personali</h2>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Nome</label>\r\n      <input type=\"text\" formControlName=\"nome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.nome.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.nome.errors\">\r\n      <alert-message *ngIf=\"f.nome.errors.required\" msg=\"Il campo 'Nome' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Cognome</label>\r\n      <input type=\"text\" formControlName=\"cognome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.cognome.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.cognome.errors\">\r\n      <alert-message *ngIf=\"f.cognome.errors.required\" msg=\"Il campo 'Cognome' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Sesso</label>\r\n      <div class=\"clr-control-container clr-control-inline\">\r\n        <div class=\"clr-radio-wrapper\">\r\n          <input type=\"radio\" id=\"sex-radio1\" formControlName=\"sesso\" value=\"true\" class=\"clr-radio\" [checked]=\"show_sex\">\r\n          <label for=\"sex-radio1\" class=\"clr-control-label\">M</label>\r\n        </div>\r\n        <div class=\"clr-radio-wrapper\">\r\n          <input type=\"radio\" id=\"sex-radio2\" formControlName=\"sesso\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_sex\">\r\n          <label for=\"sex-radio2\" class=\"clr-control-label\">F</label>\r\n        </div>\r\n        <div class=\"clr-subtext-wrapper\">\r\n          <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n          <span class=\"clr-subtext\">Helper Text</span>\r\n        </div>\r\n      </div>\r\n      <div class=\"errors\" *ngIf=\"submitted && f.sesso.errors\">\r\n        <alert-message *ngIf=\"f.sesso.errors.required\" msg=\"Il campo 'Sesso' è obbligatorio\"></alert-message>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Età</label>\r\n      <input type=\"number\" formControlName=\"eta\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.eta.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.eta.errors\">\r\n      <alert-message *ngIf=\"f.eta.errors.required\" msg=\"Il campo 'Età' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Luogo di nascita</label>\r\n      <input type=\"text\" formControlName=\"luogonascita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.luogonascita.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.luogonascita.errors\">\r\n      <alert-message *ngIf=\"f.luogonascita.errors.required\" msg=\"Il campo 'Luogo di nascita' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Professione</label>\r\n      <input type=\"text\" formControlName=\"professione\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.professione.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.professione.errors\">\r\n      <alert-message *ngIf=\"f.professione.errors.required\" msg=\"Il campo 'Professione' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n\r\n\r\n    <h2>Dati Clinici</h2>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Lateralità</label>\r\n      <div class=\"clr-control-container clr-control-inline\">\r\n        <div class=\"clr-radio-wrapper\">\r\n          <input type=\"radio\" id=\"lat-radio1\" formControlName=\"lateralita\" value=\"true\" class=\"clr-radio\" [checked]=\"show_lat\">\r\n          <label for=\"lat-radio1\" class=\"clr-control-label\">DX</label>\r\n        </div>\r\n        <div class=\"clr-radio-wrapper\">\r\n          <input type=\"radio\" id=\"lat-radio2\" formControlName=\"lateralita\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_lat\">\r\n          <label for=\"lat-radio2\" class=\"clr-control-label\">SX</label>\r\n        </div>\r\n        <div class=\"clr-subtext-wrapper\">\r\n          <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n          <span class=\"clr-subtext\">Helper Text</span>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Lingua</label>\r\n      <input type=\"text\" formControlName=\"lingua\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.lingua.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.lingua.errors\">\r\n      <alert-message *ngIf=\"f.lingua.errors.required\" msg=\"Il campo 'Lingua' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Scolarità</label>\r\n      <input type=\"number\" formControlName=\"scolarita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.scolarita.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.scolarita.errors\">\r\n      <alert-message *ngIf=\"f.scolarita.errors.required\" msg=\"Il campo 'Scolarità' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <label>Diagnosi</label>\r\n      <select clrSelect formControlName=\"diagnosi\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.diagnosi.errors }\" >\r\n        <option value=\"Nessun disturbo\" > Nessun disturbo </option>\r\n        <option value=\"Disturbo dello Spettro Autistico\" > Disturbo dello Spettro Autistico </option>\r\n        <option value=\"Malattia di Alzheimer\" > Malattia di Alzheimer </option>\r\n        <option value=\"Malattia di Parkinson\" > Malattia di Parkinson </option>\r\n        <option value=\"Schizofrenia\" > Schizofrenia </option>\r\n        <option value=\"Sclerosi Laterale Amiotrofica\" > Sclerosi Laterale Amiotrofica </option>\r\n        <option value=\"Trauma cranico\" > Trauma cranico </option>\r\n        <option value=\"Non nota\" > Non nota </option>\r\n        <option value=\"Multiple (specificare in &quot;Note&quot;)\"> Multiple (specificare in \"Note\") </option>\r\n        <option value=\"Altro... (da riportare in &quot;Note&quot;)\"> Altro... (da riportare in \"Note\") </option>\r\n      </select>\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.diagnosi.errors\">\r\n      <alert-message *ngIf=\"f.diagnosi.errors.required\" msg=\"Il campo 'Diagnosi' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n\r\n    <h2>Note</h2>\r\n\r\n    <div class=\"form-group\">\r\n      <label for=\"altro\">Altre informazioni</label>\r\n      <div class=\"clr-control-container\">\r\n        <div class=\"clr-textarea-wrapper\">\r\n          <textarea clrTextarea formControlName=\"altro\" id=\"altro\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.altro.errors }\"></textarea>\r\n        </div>\r\n      </div>\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.altro.errors\">\r\n      <alert-message *ngIf=\"f.altro.errors.required\" msg=\"Il campo 'Altre informazioni' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <button type=\"submit\" class=\"btn btn-primary\">Salva dati</button>\r\n</form>\r\n\r\n\r\n<button class=\"btn\" (click)=\"printPat()\">Stampa actual-patient</button>\r\n<button class=\"btn\" (click)=\"printExam()\">Stampa actual-exam</button>\r\n"
+module.exports = "<!--\n<app-interview></app-interview>\n-->\n\n<app-edit-patient></app-edit-patient>"
 
 /***/ }),
 
@@ -1091,7 +1196,7 @@ module.exports = "<form clrForm clrLayout=\"horizontal\" [formGroup]=\"patientFo
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2V4YW0tdmlldy9leGFtLXZpZXcuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLXZpZXcvZXhhbS12aWV3LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -1106,9 +1211,6 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExamViewComponent", function() { return ExamViewComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1119,87 +1221,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
-//import { ClarityModule, ClrFormsNextModule } from '@clr/angular';
-
-
-
 var ExamViewComponent = /** @class */ (function () {
-    function ExamViewComponent(route, patientService, examService, userService, formBuilder) {
-        this.route = route;
-        this.patientService = patientService;
-        this.examService = examService;
-        this.userService = userService;
-        this.formBuilder = formBuilder;
+    function ExamViewComponent() {
     }
     ExamViewComponent.prototype.ngOnInit = function () {
-        this.activeExam = this.examService.getActiveExam();
-        this.activePatient = this.patientService.getActivePatient();
-        this.loggedUser = this.userService.getLoggedUser();
-        this.patientForm = this.formBuilder.group({
-            //email: ['', [Validators.required, Validators.email]],
-            //password: ['', [Validators.required, Validators.minLength(6)]],
-            nome: [this.activePatient.nome],
-            cognome: [this.activePatient.cognome],
-            sesso: [this.activePatient.sesso],
-            eta: [this.activePatient.eta],
-            lateralita: [this.activePatient.lateralita],
-            luogonascita: [this.activePatient.luogonascita],
-            professione: [this.activePatient.professione],
-            scolarita: [this.activePatient.scolarita],
-            lingua: [this.activePatient.lingua],
-            altro: [this.activePatient.altro],
-            diagnosi: [this.activePatient.diagnosi],
-            data: [('' + this.activeExam.date).substring(0, 10)],
-            esaminatore: [this.loggedUser.name + " " + this.loggedUser.surname]
-        });
-        this.show_sex = this.activePatient.sesso; // ((this.activePatient.sesso == "true")||(this.activePatient.sesso == true));
-        this.show_lat = this.activePatient.lateralita; // ((this.activePatient.lateralita == "true")||(this.activePatient.lateralita == true));
-        console.log(this.show_sex, this.show_lat);
-    };
-    Object.defineProperty(ExamViewComponent.prototype, "f", {
-        get: function () { return this.patientForm.controls; },
-        enumerable: true,
-        configurable: true
-    });
-    ExamViewComponent.prototype.onSubmit = function () {
-        if (confirm("Sicuro di voler salvare? L'azione non è reversibile")) {
-            var control = this.patientForm.controls;
-            var new_exam = this.activeExam;
-            new_exam.date = new Date(control.data.value);
-            var new_pat = this.activePatient;
-            new_pat.nome = control.nome.value;
-            new_pat.cognome = control.cognome.value;
-            new_pat.sesso = (control.sesso.value == "true" || control.sesso.value == true);
-            new_pat.eta = control.eta.value;
-            new_pat.lateralita = (control.lateralita.value == "true" || control.lateralita.value == true);
-            new_pat.luogonascita = control.luogonascita.value;
-            new_pat.professione = control.professione.value;
-            new_pat.scolarita = control.scolarita.value;
-            new_pat.lingua = control.lingua.value;
-            new_pat.altro = control.altro.value;
-            new_pat.diagnosi = control.diagnosi.value;
-            this.save(new_exam, new_pat);
-        }
-    };
-    ExamViewComponent.prototype.save = function (e, p) {
-        var _this = this;
-        this.patientService.savePatient(p).subscribe(function (data) {
-            var returnobj = (JSON.parse(data._body));
-            console.log(returnobj);
-            _this.patientService.saveOnLocal(returnobj);
-        }, function (error) { return console.log(error); });
-        this.examService.saveExam(e).subscribe(function (data) {
-            var returnobj = (JSON.parse(data._body));
-            console.log(returnobj);
-            _this.examService.saveOnLocal(returnobj);
-        }, function (error) { return console.log(error); });
-        //console.log(e,p);
-    };
-    ExamViewComponent.prototype.printPat = function () {
-        console.log(this.activePatient);
-    };
-    ExamViewComponent.prototype.printExam = function () {
-        console.log(this.activeExam);
     };
     ExamViewComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1207,13 +1232,371 @@ var ExamViewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./exam-view.component.html */ "./src/app/exam-view/exam-view.component.html"),
             styles: [__webpack_require__(/*! ./exam-view.component.scss */ "./src/app/exam-view/exam-view.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-            _services__WEBPACK_IMPORTED_MODULE_3__["PatientService"],
-            _services__WEBPACK_IMPORTED_MODULE_3__["ExamService"],
-            _services__WEBPACK_IMPORTED_MODULE_3__["UserService"],
-            _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
+        __metadata("design:paramtypes", [])
     ], ExamViewComponent);
     return ExamViewComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/interview-item/interview-item.component.html":
+/*!**************************************************************!*\
+  !*** ./src/app/interview-item/interview-item.component.html ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<li class=\"interview-item\" (click)=\"onClickItem()\">\n  <div class=\"item-top\">\n    <!--\n    <clr-icon class=\"item-icon\" shape=\"{{all_items[cat][item].icona}}\"></clr-icon>\n  -->\n    <clr-icon class=\"item-icon\" shape=\"pencil\"></clr-icon>\n    <span class=\"item-title\">{{all_items[cat][item].nome}}</span>\n  </div>\n  <div class=\"item-bottom\">\n    <div class=\"item-progress\" [hidden]=\"!countable\">\n      <div class=\"back\">\n        <button (click)=\"undo()\">\n          <clr-icon shape=\"undo\"></clr-icon>\n        </button>\n      </div>\n      <div class=\"progress bar\">\n        <div class=\"progress-bar progress-bar-striped\" role=\"progressbar\" [style.width]=\"stile\" attr.aria-valuenow=\"{{progress}}\" attr.aria-valuemin=\"{{min}}\" attr.aria-valuemax=\"{{max}}\">{{progress}} / {{max}}</div>\n      </div>\n    </div>\n    <div class=\"item-slider\" [hidden]=\"countable\">\n      <div class=\"back\">\n        <button (click)=\"undo()\">\n          <clr-icon shape=\"undo\"></clr-icon>\n        </button>\n      </div>\n      <div class=\"bar\">\n        <div>\n          <input type=\"range\" min=\"0\" max=\"2\" value=\"{{frequenza}}\" class=\"slider\" (change)=\"changeVal($event)\">\n        </div>\n        <div class=\"slider-label\">\n          <span class=\"left\">M</span>\n          <span class=\"center\">QV</span>\n          <span class=\"right\">S</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</li>\n"
+
+/***/ }),
+
+/***/ "./src/app/interview-item/interview-item.component.scss":
+/*!**************************************************************!*\
+  !*** ./src/app/interview-item/interview-item.component.scss ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "li.interview-item {\n  list-style-type: none;\n  text-align: center;\n  padding: 0.5em;\n  margin: 0.5em;\n  cursor: pointer; }\n\nli.interview-item:hover {\n  background-color: rgba(0, 0, 0, 0.2); }\n\n.item-top {\n  width: 100%; }\n\n.item-bottom > div {\n  height: 3em; }\n\n.item-icon {\n  vertical-align: middle;\n  display: inline-block;\n  width: 35%;\n  font-size: 300%;\n  margin: 0 auto;\n  text-align: center; }\n\n.item-title {\n  vertical-align: middle;\n  display: inline-block;\n  width: 65%; }\n\n.back {\n  width: 20%;\n  float: left; }\n\n.back button {\n  height: 2em; }\n\n.progress {\n  height: 2em; }\n\n.bar {\n  width: 80%;\n  float: right; }\n\n.progress-bar {\n  height: 2em;\n  color: #333; }\n\n.slider {\n  -webkit-appearance: none;\n  width: 100%;\n  height: 1em;\n  background: #d3d3d3;\n  outline: none;\n  opacity: 0.7;\n  transition: opacity .2s; }\n\n.slider:hover {\n  opacity: 1; }\n\n.slider::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  appearance: none;\n  width: 25px;\n  height: 1em;\n  background: #4CAF50;\n  cursor: pointer; }\n\n.slider::-moz-range-thumb {\n  width: 25px;\n  height: 25px;\n  background: #4CAF50;\n  cursor: pointer; }\n\n.slider-label {\n  display: flex;\n  line-height: 1em;\n  margin-top: -0.4em; }\n\n.slider-label > span {\n  flex: 1; }\n\n.left {\n  text-align: left; }\n\n.center {\n  text-align: center; }\n\n.right {\n  text-align: right; }\n\n:host(.hidden input) {\n  opacity: 0.3;\n  cursor: none; }\n\n:host(.hidden > li) {\n  opacity: 0.3;\n  cursor: default; }\n\n:host(.hidden:hover > li) {\n  background-color: rgba(0, 0, 0, 0); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy1pdGVtL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjXFxhcHAvaW50ZXJ2aWV3LWl0ZW1cXGludGVydmlldy1pdGVtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UscUJBQXFCO0VBQ3JCLGtCQUFrQjtFQUNsQixjQUFjO0VBQ2QsYUFBYTtFQUNiLGVBQWUsRUFBQTs7QUFHakI7RUFDRSxvQ0FBaUMsRUFBQTs7QUFHbkM7RUFDRSxXQUFXLEVBQUE7O0FBR2I7RUFDRSxXQUFXLEVBQUE7O0FBR2I7RUFDRSxzQkFBc0I7RUFDdEIscUJBQXFCO0VBQ3JCLFVBQVU7RUFDVixlQUFlO0VBQ2YsY0FBYztFQUNkLGtCQUFrQixFQUFBOztBQUdwQjtFQUNFLHNCQUFzQjtFQUN0QixxQkFBcUI7RUFDckIsVUFBVSxFQUFBOztBQUdaO0VBQ0UsVUFBVTtFQUNWLFdBQVUsRUFBQTs7QUFHWjtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLFVBQVU7RUFDVixZQUFZLEVBQUE7O0FBR2Q7RUFDRSxXQUFXO0VBQ1gsV0FBVyxFQUFBOztBQUdiO0VBQ0ksd0JBQXdCO0VBQ3hCLFdBQVc7RUFDWCxXQUFXO0VBQ1gsbUJBQW1CO0VBQ25CLGFBQWE7RUFDYixZQUFZO0VBRVosdUJBQXVCLEVBQUE7O0FBRzNCO0VBQ0ksVUFBVSxFQUFBOztBQUdkO0VBQ0ksd0JBQXdCO0VBQ3hCLGdCQUFnQjtFQUNoQixXQUFXO0VBQ1gsV0FBVztFQUNYLG1CQUFtQjtFQUNuQixlQUFlLEVBQUE7O0FBR25CO0VBQ0ksV0FBVztFQUNYLFlBQVk7RUFDWixtQkFBbUI7RUFDbkIsZUFBZSxFQUFBOztBQUduQjtFQUNFLGFBQWE7RUFDYixnQkFBZ0I7RUFDaEIsa0JBQWtCLEVBQUE7O0FBRXBCO0VBQ0UsT0FBTSxFQUFBOztBQUdSO0VBQ0UsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0Usa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsWUFBWTtFQUNaLFlBQVksRUFBQTs7QUFHZDtFQUNFLFlBQVk7RUFDWixlQUFlLEVBQUE7O0FBR2pCO0VBQ0Usa0NBQStCLEVBQUEiLCJmaWxlIjoiaW50ZXJ2aWV3LWl0ZW0vaW50ZXJ2aWV3LWl0ZW0uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJsaS5pbnRlcnZpZXctaXRlbSB7XHJcbiAgbGlzdC1zdHlsZS10eXBlOiBub25lO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICBwYWRkaW5nOiAwLjVlbTtcclxuICBtYXJnaW46IDAuNWVtO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxubGkuaW50ZXJ2aWV3LWl0ZW06aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC4yKTtcclxufVxyXG5cclxuLml0ZW0tdG9wIHtcclxuICB3aWR0aDogMTAwJTtcclxufVxyXG5cclxuLml0ZW0tYm90dG9tPmRpdiB7XHJcbiAgaGVpZ2h0OiAzZW07XHJcbn1cclxuXHJcbi5pdGVtLWljb24ge1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIHdpZHRoOiAzNSU7XHJcbiAgZm9udC1zaXplOiAzMDAlO1xyXG4gIG1hcmdpbjogMCBhdXRvO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLml0ZW0tdGl0bGUge1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIHdpZHRoOiA2NSU7XHJcbn1cclxuXHJcbi5iYWNrIHtcclxuICB3aWR0aDogMjAlO1xyXG4gIGZsb2F0OmxlZnQ7XHJcbn1cclxuXHJcbi5iYWNrIGJ1dHRvbiB7XHJcbiAgaGVpZ2h0OiAyZW07XHJcbn1cclxuXHJcbi5wcm9ncmVzcyB7XHJcbiAgaGVpZ2h0OiAyZW07XHJcbn1cclxuXHJcbi5iYXIge1xyXG4gIHdpZHRoOiA4MCU7XHJcbiAgZmxvYXQ6IHJpZ2h0O1xyXG59XHJcblxyXG4ucHJvZ3Jlc3MtYmFyIHtcclxuICBoZWlnaHQ6IDJlbTtcclxuICBjb2xvcjogIzMzMztcclxufVxyXG5cclxuLnNsaWRlciB7XHJcbiAgICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGhlaWdodDogMWVtO1xyXG4gICAgYmFja2dyb3VuZDogI2QzZDNkMztcclxuICAgIG91dGxpbmU6IG5vbmU7XHJcbiAgICBvcGFjaXR5OiAwLjc7XHJcbiAgICAtd2Via2l0LXRyYW5zaXRpb246IC4ycztcclxuICAgIHRyYW5zaXRpb246IG9wYWNpdHkgLjJzO1xyXG59XHJcblxyXG4uc2xpZGVyOmhvdmVyIHtcclxuICAgIG9wYWNpdHk6IDE7XHJcbn1cclxuXHJcbi5zbGlkZXI6Oi13ZWJraXQtc2xpZGVyLXRodW1iIHtcclxuICAgIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcclxuICAgIGFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgICB3aWR0aDogMjVweDtcclxuICAgIGhlaWdodDogMWVtO1xyXG4gICAgYmFja2dyb3VuZDogIzRDQUY1MDtcclxuICAgIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuLnNsaWRlcjo6LW1vei1yYW5nZS10aHVtYiB7XHJcbiAgICB3aWR0aDogMjVweDtcclxuICAgIGhlaWdodDogMjVweDtcclxuICAgIGJhY2tncm91bmQ6ICM0Q0FGNTA7XHJcbiAgICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuXHJcbi5zbGlkZXItbGFiZWwge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgbGluZS1oZWlnaHQ6IDFlbTtcclxuICBtYXJnaW4tdG9wOiAtMC40ZW07XHJcbn1cclxuLnNsaWRlci1sYWJlbCA+IHNwYW4ge1xyXG4gIGZsZXg6MTtcclxufVxyXG5cclxuLmxlZnQge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuXHJcbi5jZW50ZXIge1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLnJpZ2h0IHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuOmhvc3QoLmhpZGRlbiBpbnB1dCkge1xyXG4gIG9wYWNpdHk6IDAuMztcclxuICBjdXJzb3I6IG5vbmU7XHJcbn1cclxuXHJcbjpob3N0KC5oaWRkZW4+bGkpIHtcclxuICBvcGFjaXR5OiAwLjM7XHJcbiAgY3Vyc29yOiBkZWZhdWx0O1xyXG59XHJcblxyXG46aG9zdCguaGlkZGVuOmhvdmVyPmxpKSB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLDAsMCwwKTtcclxufSJdfQ== */"
+
+/***/ }),
+
+/***/ "./src/app/interview-item/interview-item.component.ts":
+/*!************************************************************!*\
+  !*** ./src/app/interview-item/interview-item.component.ts ***!
+  \************************************************************/
+/*! exports provided: InterviewItemComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InterviewItemComponent", function() { return InterviewItemComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+//import { ITEMS } from '../mock-items';
+var InterviewItemComponent = /** @class */ (function () {
+    function InterviewItemComponent() {
+        this.active = true;
+        this.progress = 0;
+        this.min = 0;
+        this.max = 20;
+        this.all_items_default = [
+            [
+                { id: 0, i: 0, j: 0, nome: 'Errore - Questo componente non esiste', icona: 'exclamation-triangle', m: true, qv: false, s: false, progress: 0, punteggio: 0, countable: true },
+            ],
+            [
+                { id: 11, i: 1, j: 1, nome: "Anomie", icona: 'commenting', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 12, i: 1, j: 2, nome: "Agrammatismo", icona: 'comment-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 13, i: 1, j: 3, nome: "Parafasie fonemiche", icona: 'forumbee', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 14, i: 1, j: 4, nome: "Parafasie semantiche", icona: 'indent', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 15, i: 1, j: 5, nome: "Circonlocuzioni", icona: 'repeat', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 21, i: 2, j: 1, nome: "Ripetizioni ", icona: 'copy', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 22, i: 2, j: 2, nome: "Frasi incomplete", icona: 'times-rectangle', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 23, i: 2, j: 3, nome: "Ecolalia", icona: 'feed', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 24, i: 2, j: 4, nome: "Coprolalia", icona: 'warning', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 31, i: 3, j: 1, nome: "Difficoltà nelle risposte sì/no", icona: 'map-signs', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 32, i: 3, j: 2, nome: "Tendenza ad essere sotto-informativo", icona: 'sort-amount-desc', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 33, i: 3, j: 3, nome: "Tendenza ad essere sovra-informativo", icona: 'line-chart', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 34, i: 3, j: 4, nome: "Mancanza di iniziativa verbale", icona: 'user-times', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+            ],
+            [
+                { id: 41, i: 4, j: 1, nome: "Assenza o uso errato di legami coesivi", icona: 'handshake-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 42, i: 4, j: 2, nome: "Assenza di referenti", icona: 'crosshairs', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 43, i: 4, j: 3, nome: "Ordine errato degli elementi", icona: 'list-ul', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 44, i: 4, j: 4, nome: "Cambio di argomento ingiustificolo", icona: 'exclamation', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 51, i: 5, j: 1, nome: "Velocità di eloquio alterata", icona: 'fast-forward', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 52, i: 5, j: 2, nome: "Intonazione alterata", icona: 'volume-up', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 53, i: 5, j: 3, nome: "Mancanza contatto visivo", icona: 'eye-slash', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 54, i: 5, j: 4, nome: "Espressione facciale fissa", icona: 'meh-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 55, i: 5, j: 5, nome: "Abuso gesti compensativi", icona: 'signing', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+            ]
+        ];
+    }
+    InterviewItemComponent.prototype.ngOnInit = function () {
+        // ADJUST item index
+        this.item = this.item - 1;
+        // Control CAT and ITEM indexes
+        if ((this.col < 1) || (this.col > 5)) {
+            this.col = 0;
+            this.item = 0;
+        }
+        if ((this.item < 0) || (this.item > 4)) {
+            this.col = 0;
+            this.item = 0;
+        }
+        if (!((this.col == 1) || (this.col == 5)) && (this.item == 4)) {
+            this.col = 0;
+            this.item = 0;
+        }
+        this.id = this.col + "" + (this.item + 1);
+        // LOAD DATA
+        var load = localStorage.getItem('exam' + this.id);
+        this.all_items = this.all_items_default;
+        if (load != null) {
+            this.all_items[this.col][this.item] = JSON.parse(load);
+            //console.log("Saved data loaded ");
+        }
+        else {
+            //console.log("default data loaded");
+        }
+        // Update actual item to saved values
+        this.m = this.all_items[this.col][this.item].m;
+        this.qv = this.all_items[this.col][this.item].qv;
+        this.s = this.all_items[this.col][this.item].s;
+        this.nome = this.all_items[this.col][this.item].nome;
+        this.punteggio = this.all_items[this.col][this.item].punteggio;
+        this.frequenza = 2 - this.punteggio;
+        this.progress = this.all_items[this.col][this.item].progress;
+        this.countable = this.all_items[this.col][this.item].countable;
+        this.stile = (this.progress) / (this.max) * 100 + "%";
+        //console.log(this.all_items[this.col][this.item].punteggio);
+    };
+    InterviewItemComponent.prototype.onClickItem = function () {
+        if (this.active) {
+            if (this.countable) {
+                this.editProgress(+1);
+            }
+            else {
+                this.increaseSlider();
+            }
+        }
+        this.clear();
+    };
+    InterviewItemComponent.prototype.undo = function () {
+        if (this.active) {
+            if (this.countable) {
+                this.editProgress(-2);
+            }
+            else {
+                this.decreaseSlider();
+                this.decreaseSlider();
+            }
+        }
+        //this.clear();
+    };
+    InterviewItemComponent.prototype.editProgress = function (n) {
+        this.progress += n;
+        this.stile = (this.progress) / (this.max) * 100 + "%";
+    };
+    InterviewItemComponent.prototype.changeVal = function (e) {
+        if (this.active && !this.countable) {
+            this.frequenza = e.target.value;
+            this.decreaseSlider();
+        }
+        else if (!this.active) {
+            e.target.value = this.frequenza;
+        }
+    };
+    InterviewItemComponent.prototype.increaseSlider = function () {
+        this.frequenza++;
+        this.punteggio--;
+    };
+    InterviewItemComponent.prototype.decreaseSlider = function () {
+        this.frequenza--;
+        this.punteggio++;
+    };
+    InterviewItemComponent.prototype.clear = function () {
+        if (this.countable) {
+            if (this.progress < this.min)
+                this.progress = this.min;
+            if (this.progress > this.max)
+                this.progress = this.max;
+            if (this.progress > 5) {
+                this.punteggio = 0;
+                this.frequenza = 2;
+                this.s = true, this.m = false, this.qv = false;
+            }
+            else if (this.progress > 0) {
+                this.punteggio = 1;
+                this.frequenza = 1;
+                this.s = false, this.m = false, this.qv = true;
+            }
+            else if (this.progress <= 0) {
+                this.punteggio = 2;
+                this.frequenza = 0;
+                this.s = false, this.m = true, this.qv = false;
+            }
+        }
+        else {
+            if (this.frequenza > 2) {
+                this.frequenza = 2;
+                this.punteggio = 0;
+            }
+            else if (this.frequenza < 0) {
+                this.frequenza = 0;
+                this.punteggio = 2;
+            }
+            if (this.frequenza == 2)
+                this.s = true, this.m = false, this.qv = false, this.punteggio = 0;
+            if (this.frequenza == 1)
+                this.s = false, this.m = false, this.qv = true, this.punteggio = 1;
+            if (this.frequenza == 0)
+                this.s = false, this.m = true, this.qv = false, this.punteggio = 2;
+        }
+    };
+    InterviewItemComponent.prototype.save = function () {
+        this.all_items[this.col][this.item].m = this.m;
+        this.all_items[this.col][this.item].qv = this.qv;
+        this.all_items[this.col][this.item].s = this.s;
+        this.all_items[this.col][this.item].punteggio = this.punteggio;
+        this.all_items[this.col][this.item].progress = this.progress;
+        localStorage.setItem('exam' + this.id, JSON.stringify(this.all_items[this.col][this.item]));
+    };
+    InterviewItemComponent.prototype.enable = function () {
+        this.active = true;
+    };
+    InterviewItemComponent.prototype.disable = function () {
+        this.active = false;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], InterviewItemComponent.prototype, "col", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Number)
+    ], InterviewItemComponent.prototype, "item", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Boolean)
+    ], InterviewItemComponent.prototype, "active", void 0);
+    InterviewItemComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-interview-item',
+            template: __webpack_require__(/*! ./interview-item.component.html */ "./src/app/interview-item/interview-item.component.html"),
+            styles: [__webpack_require__(/*! ./interview-item.component.scss */ "./src/app/interview-item/interview-item.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], InterviewItemComponent);
+    return InterviewItemComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/interview/interview.component.html":
+/*!****************************************************!*\
+  !*** ./src/app/interview/interview.component.html ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  interview works!\n</p>\n\n<div>\n  <div class=\"audio-bar\">\n    <button class=\"btn btn-success\" (click)=\"startRegistration()\" [disabled]=\"registration_on\">Avvia registrazione</button>\n    <button class=\"btn btn-warning\" (click)=\"stopRegistration()\" [disabled]=\"!registration_on\">Ferma registrazione</button>\n  </div>\n  <div class=\"saving-bar\">\n    <button class=\"btn btn-success\" (click)=\"onSubmit()\" title=\"Salva i dati\"><clr-icon size=\"16\" shape=\"save\"></clr-icon></button>\n    <button class=\"btn btn-warning\" (click)=\"clearData()\" title=\"Elimina i dati\"><clr-icon size=\"16\" shape=\"times-rectangle-o\"></clr-icon></button>\n  </div>\n</div>\n<div *ngIf=\"registration_on\" class=\"microphone-control\" (click)=\"toggleRegistration()\">\n  <div class=\"registration on\">\n    <clr-icon size=\"36\" shape=\"microphone\"></clr-icon>\n  </div>\n  <div class=\"registration\">\n    <clr-icon size=\"36\" shape=\"pause\"></clr-icon>\n  </div>\n</div>\n<div *ngIf=\"!registration_on\" class=\"microphone-control\" (click)=\"toggleRegistration()\">\n  <div class=\"registration off\">\n    <clr-icon size=\"36\" shape=\"microphone\"></clr-icon>\n  </div>\n  <div class=\"registration\">\n    <clr-icon size=\"36\" shape=\"play\"></clr-icon>\n  </div>\n</div>\n\n<div class=\"grid\">\n\n  <ul class=\"col blue-bg\">\n    <li *ngFor=\"let item of all_items[1]; index as i\">\n      <app-interview-item [col]=1 [item]=i+1 [active]=\"false\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n\n  <ul class=\"col yellow-bg\">\n    <li *ngFor=\"let item of all_items[2]; index as i\">\n      <app-interview-item [col]=2 [item]=i+1 [active]=\"false\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n\n  <ul class=\"col red-bg\">\n    <li *ngFor=\"let item of all_items[3]; index as i\">\n      <app-interview-item [col]=3 [item]=i+1 [active]=\"false\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n\n  <ul class=\"col green-bg\">\n    <li *ngFor=\"let item of all_items[4]; index as i\">\n      <app-interview-item [col]=4 [item]=i+1 [active]=\"false\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n\n  <ul class=\"col grey-bg\">\n    <li *ngFor=\"let item of all_items[5]; index as i\">\n      <app-interview-item [col]=5 [item]=i+1 [active]=\"false\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n\n</div>\n"
+
+/***/ }),
+
+/***/ "./src/app/interview/interview.component.scss":
+/*!****************************************************!*\
+  !*** ./src/app/interview/interview.component.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".blue-bg {\n  background-color: #7da8ed; }\n\n.green-bg {\n  background-color: #68e284; }\n\n.red-bg {\n  background-color: #ff7272; }\n\n.yellow-bg {\n  background-color: #ffeb54; }\n\n.grey-bg {\n  background-color: #d8d8d8; }\n\ndiv.grid {\n  display: flex;\n  width: 100%; }\n\nul.col {\n  flex: 1;\n  margin: 0;\n  padding: 0; }\n\nli {\n  list-style-type: none; }\n\n.audio-bar, .saving-bar {\n  width: 50%;\n  margin: 0;\n  float: left; }\n\n.saving-bar {\n  text-align: right; }\n\n.saving-bar button {\n  display: inline-block; }\n\ndiv.registration {\n  width: 60px;\n  height: 60px;\n  padding: 6px;\n  text-align: center;\n  border-radius: 50%;\n  float: left; }\n\n.registration.on {\n  background-color: red; }\n\n.registration.off {\n  background-color: grey; }\n\ndiv.microphone-control {\n  clear: both; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyY1xcYXBwL2ludGVydmlld1xcaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRTNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UsYUFBYTtFQUNiLFdBQ0YsRUFBQTs7QUFFQTtFQUNFLE9BQU87RUFDUCxTQUFTO0VBQ1QsVUFBVSxFQUFBOztBQUdaO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0UsVUFBVTtFQUNWLFNBQVM7RUFDVCxXQUFXLEVBQUE7O0FBR2I7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxxQkFBcUIsRUFBQTs7QUFHdkI7RUFDRSxXQUFXO0VBQ1gsWUFBWTtFQUNaLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsa0JBQWtCO0VBQ2xCLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJpbnRlcnZpZXcvaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJsdWUtYmcge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICM3ZGE4ZWQ7XHJcbn1cclxuLmdyZWVuLWJnIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjNjhlMjg0O1xyXG59XHJcbi5yZWQtYmcge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNmZjcyNzI7XHJcbn1cclxuLnllbGxvdy1iZyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2ZmZWI1NDtcclxufVxyXG4uZ3JleS1iZyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2Q4ZDhkODtcclxufVxyXG5cclxuZGl2LmdyaWQge1xyXG4gIGRpc3BsYXk6IGZsZXg7XHJcbiAgd2lkdGg6IDEwMCVcclxufVxyXG5cclxudWwuY29sIHtcclxuICBmbGV4OiAxO1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG59XHJcblxyXG5saSB7XHJcbiAgbGlzdC1zdHlsZS10eXBlOiBub25lO1xyXG59XHJcblxyXG4uYXVkaW8tYmFyLCAuc2F2aW5nLWJhciB7XHJcbiAgd2lkdGg6IDUwJTtcclxuICBtYXJnaW46IDA7XHJcbiAgZmxvYXQ6IGxlZnQ7XHJcbn1cclxuXHJcbi5zYXZpbmctYmFyIHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufVxyXG5cclxuLnNhdmluZy1iYXIgYnV0dG9uIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbn1cclxuXHJcbmRpdi5yZWdpc3RyYXRpb24ge1xyXG4gIHdpZHRoOiA2MHB4O1xyXG4gIGhlaWdodDogNjBweDtcclxuICBwYWRkaW5nOiA2cHg7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLnJlZ2lzdHJhdGlvbi5vbiB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkO1xyXG59XHJcblxyXG4ucmVnaXN0cmF0aW9uLm9mZiB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JleTtcclxufVxyXG5cclxuZGl2Lm1pY3JvcGhvbmUtY29udHJvbCB7XHJcbiAgY2xlYXI6IGJvdGg7XHJcbn0iXX0= */"
+
+/***/ }),
+
+/***/ "./src/app/interview/interview.component.ts":
+/*!**************************************************!*\
+  !*** ./src/app/interview/interview.component.ts ***!
+  \**************************************************/
+/*! exports provided: InterviewComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "InterviewComponent", function() { return InterviewComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+//import { APIService } from  '../api.service';
+var InterviewComponent = /** @class */ (function () {
+    //constructor(private  apiService:  APIService) { }
+    function InterviewComponent() {
+        this.registration_on = false;
+        this.all_items = [
+            [
+                { id: 0, i: 0, j: 0, nome: 'Errore - Questo componente non esiste', icona: 'exclamation-triangle', m: true, qv: false, s: false, progress: 0, punteggio: 0, countable: true },
+            ],
+            [
+                { id: 11, i: 1, j: 1, nome: "Anomie", icona: 'commenting', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 12, i: 1, j: 2, nome: "Agrammatismo", icona: 'comment-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 13, i: 1, j: 3, nome: "Parafasie fonemiche", icona: 'forumbee', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 14, i: 1, j: 4, nome: "Parafasie semantiche", icona: 'indent', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 15, i: 1, j: 5, nome: "Circonlocuzioni", icona: 'repeat', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 21, i: 2, j: 1, nome: "Ripetizioni ", icona: 'copy', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 22, i: 2, j: 2, nome: "Frasi incomplete", icona: 'times-rectangle', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 23, i: 2, j: 3, nome: "Ecolalia", icona: 'feed', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 24, i: 2, j: 4, nome: "Coprolalia", icona: 'warning', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 31, i: 3, j: 1, nome: "Difficoltà nelle risposte sì/no", icona: 'map-signs', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 32, i: 3, j: 2, nome: "Tendenza ad essere sotto-informativo", icona: 'sort-amount-desc', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 33, i: 3, j: 3, nome: "Tendenza ad essere sovra-informativo", icona: 'line-chart', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 34, i: 3, j: 4, nome: "Mancanza di iniziativa verbale", icona: 'user-times', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+            ],
+            [
+                { id: 41, i: 4, j: 1, nome: "Assenza o uso errato di legami coesivi", icona: 'handshake-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 42, i: 4, j: 2, nome: "Assenza di referenti", icona: 'crosshairs', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 43, i: 4, j: 3, nome: "Ordine errato degli elementi", icona: 'list-ul', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+                { id: 44, i: 4, j: 4, nome: "Cambio di argomento ingiustificato", icona: 'exclamation', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: true },
+            ],
+            [
+                { id: 51, i: 5, j: 1, nome: "Velocità di eloquio alterata", icona: 'fast-forward', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 52, i: 5, j: 2, nome: "Intonazione alterata", icona: 'volume-up', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 53, i: 5, j: 3, nome: "Mancanza contatto visivo", icona: 'eye-slash', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 54, i: 5, j: 4, nome: "Espressione facciale fissa", icona: 'meh-o', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+                { id: 55, i: 5, j: 5, nome: "Abuso gesti compensativi", icona: 'signing', m: true, qv: false, s: false, progress: 0, punteggio: 2, countable: false },
+            ]
+        ];
+    }
+    InterviewComponent.prototype.ngOnInit = function () {
+        //this.loadData();
+        //this.loadPalette();
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChildren"])(_interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_1__["InterviewItemComponent"]),
+        __metadata("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_0__["QueryList"])
+    ], InterviewComponent.prototype, "children", void 0);
+    InterviewComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-interview',
+            template: __webpack_require__(/*! ./interview.component.html */ "./src/app/interview/interview.component.html"),
+            styles: [__webpack_require__(/*! ./interview.component.scss */ "./src/app/interview/interview.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], InterviewComponent);
+    return InterviewComponent;
 }());
 
 
@@ -1227,7 +1610,7 @@ var ExamViewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-container\">\r\n    <div class=\"alert alert-app-level\">\r\n        [Spazio per gli alert!]\r\n    </div>\r\n    <header class=\"header header-6\">\r\n          <div class=\"branding\">\r\n            <a href=\"...\" class=\"nav-link\">\r\n                <clr-icon shape=\"bug\"></clr-icon>\r\n                <span class=\"title\">APACS</span>\r\n            </a>\r\n          </div>\r\n          <div class=\"header-nav\">\r\n            <a [routerLink]=\"[{ outlets: { logged: ['dashboard'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Dashboard</a>\r\n            <a [routerLink]=\"[{ outlets: { logged: ['exams'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Esami</a>\r\n          </div>\r\n          <div class=\"header-actions\">\r\n            <clr-dropdown>\r\n                <button class=\"nav-icon\" clrDropdownTrigger>\r\n                    <clr-icon shape=\"user\"></clr-icon>\r\n                    <clr-icon shape=\"caret down\"></clr-icon>\r\n                </button>\r\n                <clr-dropdown-menu *clrIfOpen clrPosition=\"bottom-right\">\r\n                    <a (click)=\"basic = true\" clrDropdownItem>Log out</a>\r\n                </clr-dropdown-menu>\r\n            </clr-dropdown>\r\n          </div>\r\n\r\n    </header>\r\n    <nav class=\"subnav\">\r\n        [subnav]\r\n    </nav>\r\n    <div class=\"content-container\">\r\n        <div class=\"content-area\">\r\n          <router-outlet name=\"logged\"></router-outlet>\r\n        </div>\r\n    </div>\r\n</div>\r\n\r\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per effettuare il Logout. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"logout()\">Ok</button>\r\n    </div>\r\n</clr-modal>\r\n"
+module.exports = "<div class=\"main-container\">\n    <div class=\"alert alert-app-level\">\n        [Spazio per gli alert!]\n    </div>\n    <header class=\"header header-6\">\n          <div class=\"branding\">\n            <a href=\"...\" class=\"nav-link\">\n                <clr-icon shape=\"bug\"></clr-icon>\n                <span class=\"title\">APACS</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { logged: ['dashboard'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Dashboard</a>\n            <a [routerLink]=\"[{ outlets: { logged: ['exams'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Esami</a>\n          </div>\n          <div class=\"header-actions\">\n            <clr-dropdown>\n                <button class=\"nav-icon\" clrDropdownTrigger>\n                    <clr-icon shape=\"user\"></clr-icon>\n                    <clr-icon shape=\"caret down\"></clr-icon>\n                </button>\n                <clr-dropdown-menu *clrIfOpen clrPosition=\"bottom-right\">\n                    <a (click)=\"basic = true\" clrDropdownItem>Log out</a>\n                </clr-dropdown-menu>\n            </clr-dropdown>\n          </div>\n\n    </header>\n    <nav class=\"subnav\">\n        [subnav]\n    </nav>\n    <div class=\"content-container\">\n        <div class=\"content-area\">\n          <router-outlet name=\"logged\"></router-outlet>\n        </div>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per effettuare il Logout. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"logout()\">Ok</button>\n    </div>\n</clr-modal>\n"
 
 /***/ }),
 
@@ -1238,7 +1621,7 @@ module.exports = "<div class=\"main-container\">\r\n    <div class=\"alert alert
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ2dlZC11c2VyLXdyYXBwZXIvbG9nZ2VkLXVzZXItd3JhcHBlci5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dnZWQtdXNlci13cmFwcGVyL2xvZ2dlZC11c2VyLXdyYXBwZXIuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -1308,7 +1691,7 @@ var LoggedUserWrapperComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-wrapper\">\r\n    <form class=\"login\">\r\n        <label class=\"title\">\r\n            <h3 class=\"welcome\">Benvenuti in</h3>\r\n            APACS\r\n            <h5 class=\"hint\">Utilizza le tue credenziali per accedere agli esami che hai effettuato, oppure registrati per ottenere un account.</h5>\r\n        </label>\r\n        <div class=\"login-group\">\r\n            <input class=\"username\" name=\"username\" type=\"text\" id=\"login_username\" placeholder=\"Username\" [(ngModel)]=\"this.username\">\r\n            <input class=\"password\" name=\"password\" type=\"password\" id=\"login_password\" placeholder=\"Password\" [(ngModel)]=\"this.password\">\r\n            <div class=\"checkbox\">\r\n                <input type=\"checkbox\" id=\"rememberme\">\r\n                <label for=\"rememberme\">\r\n                    Ricordami\r\n                </label>\r\n            </div>\r\n            <div class=\"error active\" [hidden]=\"!this.wrongCredential\">\r\n              Username o password non validi\r\n            </div>\r\n            <div class=\"error active\" [hidden]=\"!this.missingCredential\">\r\n              Username o password mancanti\r\n            </div>\r\n            <div class=\"error active\" [hidden]=\"!this.otherError\">\r\n              {{this.error}}\r\n            </div>\r\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onSubmit()\">LOG IN</button>\r\n            <a class=\"signup link-pointer\" (click)=\"newUserModal = true\">Registrati</a>\r\n        </div>\r\n    </form>\r\n</div>\r\n\r\n<clr-modal [(clrModalOpen)]=\"newUserModal\" class=\"modal-dialog modal-xl\">\r\n  <h3 class=\"modal-title\">Registrazione nuovo utente</h3>\r\n  <div class=\"modal-body\">\r\n    <app-register-form></app-register-form>\r\n  </div>\r\n</clr-modal>"
+module.exports = "<div class=\"login-wrapper\">\n    <form class=\"login\">\n        <label class=\"title\">\n            <h3 class=\"welcome\">Benvenuti in</h3>\n            APACS\n            <h5 class=\"hint\">Utilizza le tue credenziali per accedere agli esami che hai effettuato, oppure registrati per ottenere un account.</h5>\n        </label>\n        <div class=\"login-group\">\n            <input class=\"username\" name=\"username\" type=\"text\" id=\"login_username\" placeholder=\"Username\" [(ngModel)]=\"this.username\">\n            <input class=\"password\" name=\"password\" type=\"password\" id=\"login_password\" placeholder=\"Password\" [(ngModel)]=\"this.password\">\n            <div class=\"checkbox\">\n                <input type=\"checkbox\" id=\"rememberme\">\n                <label for=\"rememberme\">\n                    Ricordami\n                </label>\n            </div>\n            <div class=\"error active\" [hidden]=\"!this.wrongCredential\">\n              Username o password non validi\n            </div>\n            <div class=\"error active\" [hidden]=\"!this.missingCredential\">\n              Username o password mancanti\n            </div>\n            <div class=\"error active\" [hidden]=\"!this.otherError\">\n              {{this.error}}\n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onSubmit()\">LOG IN</button>\n            <a class=\"signup link-pointer\" (click)=\"newUserModal = true\">Registrati</a>\n        </div>\n    </form>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"newUserModal\" class=\"modal-dialog modal-xl\">\n  <h3 class=\"modal-title\">Registrazione nuovo utente</h3>\n  <div class=\"modal-body\">\n    <app-register-form></app-register-form>\n  </div>\n</clr-modal>"
 
 /***/ }),
 
@@ -1319,7 +1702,7 @@ module.exports = "<div class=\"login-wrapper\">\r\n    <form class=\"login\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ2luL2xvZ2luLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi9sb2dpbi5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1431,7 +1814,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form clrForm clrLayout=\"vertical\" [formGroup]=\"registerForm\" (ngSubmit)=\"onSubmit()\">\r\n    <div class=\"form-group\">\r\n        <label>Username</label>\r\n        <input type=\"text\" formControlName=\"username\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.username.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"submitted && f.username.errors\">\r\n      <alert-message *ngIf=\"f.username.errors.required\" msg=\"Il campo 'Username' è obbligatorio\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n        <label>Email</label>\r\n        <input type=\"text\" formControlName=\"email\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.email.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"f.email.errors\">\r\n      <alert-message *ngIf=\"submitted && f.email.errors.required\" msg=\"Il campo 'Email' è obbligatorio\"></alert-message>\r\n      <alert-message *ngIf=\"f.email.errors.email\" msg=\"Indirizzo email non valido\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n        <label>Password</label>\r\n        <input type=\"password\" formControlName=\"password\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.password.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"f.password.errors\">\r\n      <alert-message *ngIf=\"submitted && f.password.errors.required\" msg=\"Il campo 'Password' è obbligatorio\"></alert-message>\r\n      <alert-message *ngIf=\"f.password.errors.minlength\" msg=\"La password dev'essere lunga almeno 6 caratteri\"></alert-message>\r\n    </div>\r\n\r\n\r\n    <div class=\"form-group\">\r\n        <label>Conferma Password</label>\r\n        <input type=\"password\" formControlName=\"confirmPassword\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.confirmPassword.errors }\" />\r\n    </div>\r\n    <div class=\"errors\" *ngIf=\"f.confirmPassword.errors\">\r\n      <alert-message *ngIf=\"submitted && f.confirmPassword.errors.required\" msg=\"Il campo 'Conferma password' è obbligatorio\"></alert-message>\r\n      <alert-message *ngIf=\"f.confirmPassword.errors.mustMatch\" msg=\"Le due password devono essere uguali\"></alert-message>\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n        <label>Nome</label>\r\n        <input type=\"text\" formControlName=\"name\" class=\"form-control\" />\r\n    </div>\r\n    <div class=\"form-group\">\r\n        <label>Cognome</label>\r\n        <input type=\"text\" formControlName=\"surname\" class=\"form-control\" />\r\n    </div>\r\n\r\n    <div class=\"form-group\">\r\n      <button type=\"submit\" class=\"btn btn-primary\">Registrati</button>\r\n    </div>\r\n</form>"
+module.exports = "<form clrForm clrLayout=\"vertical\" [formGroup]=\"registerForm\" (ngSubmit)=\"onSubmit()\">\n    <div class=\"form-group\">\n        <label>Username</label>\n        <input type=\"text\" formControlName=\"username\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.username.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"submitted && f.username.errors\">\n      <alert-message *ngIf=\"f.username.errors.required\" msg=\"Il campo 'Username' è obbligatorio\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n        <label>Email</label>\n        <input type=\"text\" formControlName=\"email\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.email.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"f.email.errors\">\n      <alert-message *ngIf=\"submitted && f.email.errors.required\" msg=\"Il campo 'Email' è obbligatorio\"></alert-message>\n      <alert-message *ngIf=\"f.email.errors.email\" msg=\"Indirizzo email non valido\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n        <label>Password</label>\n        <input type=\"password\" formControlName=\"password\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.password.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"f.password.errors\">\n      <alert-message *ngIf=\"submitted && f.password.errors.required\" msg=\"Il campo 'Password' è obbligatorio\"></alert-message>\n      <alert-message *ngIf=\"f.password.errors.minlength\" msg=\"La password dev'essere lunga almeno 6 caratteri\"></alert-message>\n    </div>\n\n\n    <div class=\"form-group\">\n        <label>Conferma Password</label>\n        <input type=\"password\" formControlName=\"confirmPassword\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.confirmPassword.errors }\" />\n    </div>\n    <div class=\"errors\" *ngIf=\"f.confirmPassword.errors\">\n      <alert-message *ngIf=\"submitted && f.confirmPassword.errors.required\" msg=\"Il campo 'Conferma password' è obbligatorio\"></alert-message>\n      <alert-message *ngIf=\"f.confirmPassword.errors.mustMatch\" msg=\"Le due password devono essere uguali\"></alert-message>\n    </div>\n\n    <div class=\"form-group\">\n        <label>Nome</label>\n        <input type=\"text\" formControlName=\"name\" class=\"form-control\" />\n    </div>\n    <div class=\"form-group\">\n        <label>Cognome</label>\n        <input type=\"text\" formControlName=\"surname\" class=\"form-control\" />\n    </div>\n\n    <div class=\"form-group\">\n      <button type=\"submit\" class=\"btn btn-primary\">Registrati</button>\n    </div>\n</form>"
 
 /***/ }),
 
@@ -1442,7 +1825,7 @@ module.exports = "<form clrForm clrLayout=\"vertical\" [formGroup]=\"registerFor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvcmVnaXN0ZXItZm9ybS9DOlxcVXNlcnNcXE1hcmNvXFxEZXNrdG9wXFxhcGFjcy1jbGllbnQvc3JjXFxhcHBcXHJlZ2lzdGVyLWZvcm1cXHJlZ2lzdGVyLWZvcm0uY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSxXQUFXLEVBQUEiLCJmaWxlIjoic3JjL2FwcC9yZWdpc3Rlci1mb3JtL3JlZ2lzdGVyLWZvcm0uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubm9GbG9hdCB7XHJcbiAgZmxvYXQ6IG5vbmU7XHJcbn0iXX0= */"
+module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlZ2lzdGVyLWZvcm0vQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9yZWdpc3Rlci1mb3JtXFxyZWdpc3Rlci1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6InJlZ2lzdGVyLWZvcm0vcmVnaXN0ZXItZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ub0Zsb2F0IHtcclxuICBmbG9hdDogbm9uZTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1560,7 +1943,7 @@ var RegisterFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      <h4 class=\"card-title\">I tuoi ultimi esami</h4>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <ul>\r\n      <li *ngFor=\"let exam of lastExams\">\r\n        {{ exam.id }} - {{exam.date}}\r\n      </li>\r\n    </ul>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getMyExam()\">\r\n        GET ALL MY EXAMS\r\n    </button>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\r\n        CREATE NEW EXAM AS CURRENT USER\r\n    </button>\r\n  </div>\r\n  \r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getActualExamId()\">\r\n        GET ACTUAL EXAM ID\r\n    </button>\r\n  </div>\r\n\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"test(5)\">\r\n        Last 5 exams\r\n    </button>\r\n  </div>\r\n</div>"
+module.exports = "<div class=\"card\">\n  <div class=\"card-block\">\n      <h4 class=\"card-title\">I tuoi ultimi esami</h4>\n  </div>\n  <div class=\"card-block\">\n    <ul>\n      <li *ngFor=\"let exam of lastExams\">\n        {{ exam.id }} - {{exam.date}}\n      </li>\n    </ul>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getMyExam()\">\n        GET ALL MY EXAMS\n    </button>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n        CREATE NEW EXAM AS CURRENT USER\n    </button>\n  </div>\n  \n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getActualExamId()\">\n        GET ACTUAL EXAM ID\n    </button>\n  </div>\n\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"test(5)\">\n        Last 5 exams\n    </button>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -1571,7 +1954,7 @@ module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3Rlc3QvdGVzdC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0ZXN0L3Rlc3QuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -1656,7 +2039,7 @@ var TestComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<clr-modal [(clrModalOpen)]=\"editUserModal\">\r\n  <h3 class=\"modal-title\">Modifica i tuoi dati</h3>\r\n  <div class=\"modal-body\">\r\n    <form clrForm clrLayout=\"vertical\" [formGroup]=\"editUserForm\" class=\"clr-form clr-form-horizontal\">\r\n      <clr-input-container class=\"form-group\">\r\n        <label for=\"user-username\">Username:</label>\r\n        <input clrInput type=\"text\" [value]=\"this.logged_user.username\" placeholder=\"{{this.logged_user.username}}\" formControlName=\"username\" name=\"user-username\" [ngClass]=\"{ 'is-invalid': f.username.errors }\">\r\n      </clr-input-container>\r\n      <div class=\"errors\" *ngIf=\"submitted && f.username.errors\">\r\n        <alert-message *ngIf=\"f.username.errors.required\" msg=\"Il campo 'Username' è obbligatorio\"></alert-message>\r\n      </div>\r\n\r\n      <clr-password-container class=\"form-group\">\r\n        <label for=\"user-password\">Password:</label>\r\n        <input clrPassword placeholder=\"password\" formControlName=\"password\" name=\"user-password\" [ngClass]=\"{ 'is-invalid': (f.password.touched && f.password.errors) }\">\r\n      </clr-password-container>\r\n      <div class=\"errors\" *ngIf=\"f.password.touched && f.password.errors\">\r\n        <alert-message *ngIf=\"f.password.errors.required\" msg=\"Il campo 'Password' è obbligatorio\"></alert-message>\r\n        <alert-message *ngIf=\"f.password.errors.minlength\" msg=\"La password dev'essere lunga almeno 6 caratteri\"></alert-message>\r\n      </div>\r\n\r\n      <clr-password-container class=\"form-group\">\r\n        <label for=\"confirm-password\">Conferma password:</label>\r\n        <input clrPassword placeholder=\"conferma password\" formControlName=\"confirmPassword\" name=\"confirm-password\" [ngClass]=\"{ 'is-invalid':(f.confirmPassword.touched && f.confirmPassword.errors)}\">\r\n      </clr-password-container>\r\n      <div class=\"errors\" *ngIf=\"f.confirmPassword.touched && f.confirmPassword.errors\">\r\n        <alert-message *ngIf=\"f.confirmPassword.errors.required\" msg=\"Il campo 'Conferma password' è obbligatorio\"></alert-message>\r\n        <alert-message *ngIf=\"f.confirmPassword.errors.mustMatch\" msg=\"Le due password devono essere uguali\"></alert-message>\r\n      </div>\r\n\r\n      <clr-input-container class=\"form-group\">\r\n        <label for=\"user-mail\">eMail:</label>\r\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.email}}\" formControlName=\"email\" name=\"user-email\" [ngClass]=\"{ 'is-invalid': f.email.errors }\">\r\n      </clr-input-container>\r\n      <div class=\"errors\" *ngIf=\"f.email.errors\">\r\n        <alert-message *ngIf=\"submitted && f.email.errors.required\" msg=\"Il campo 'Email' è obbligatorio\"></alert-message>\r\n        <alert-message *ngIf=\"f.email.errors.email\" msg=\"Indirizzo email non valido\"></alert-message>\r\n      </div>\r\n\r\n      <clr-input-container class=\"form-group\">\r\n        <label for=\"user-name\">Nome:</label>\r\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.name}}\" formControlName=\"name\" name=\"user-name\">\r\n      </clr-input-container>\r\n\r\n      <clr-input-container class=\"form-group\">\r\n        <label for=\"user-surname\">Cognome:</label>\r\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.surname}}\" formControlName=\"surname\" name=\"user-surname\">\r\n      </clr-input-container>\r\n  \r\n      <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"editUserModal = false; onAbort();\">Annulla</button>\r\n        <button [disabled]=\"!this.editUserForm.valid\" type=\"button\" class=\"btn btn-primary\" (click)=\"editUserModal = false; onSave();\">Salva</button>\r\n      </div>\r\n    </form> \r\n  </div>\r\n</clr-modal>\r\n\r\n\r\n\r\n<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      <h4 class=\"card-title\">Benvenuto <em>{{this.presentation_name}}</em></h4>\r\n      <p class=\"card-text\">\r\n      Questi sono i dati del tuo profilo\r\n      </p>\r\n  </div>\r\n\r\n  <ul class=\"list-group list-group-flush card-block\">\r\n    <li class=\"clr-row\">\r\n      <div class=\"clr-col-4\">\r\n        ID:\r\n      </div>\r\n      <div class=\"clr-col-8\">{{this.logged_user.id}}</div>\r\n    </li>\r\n    <li class=\"clr-row\">\r\n      <div class=\"clr-col-4\">\r\n        Username:\r\n      </div>\r\n      <div class=\"clr-col-8\">{{this.logged_user.username}}</div>\r\n    </li>\r\n    <li class=\"clr-row\">\r\n      <div class=\"clr-col-4\">\r\n        eMail:\r\n      </div>\r\n      <div class=\"clr-col-8\">{{this.logged_user.email}}</div>\r\n    </li>\r\n    <li class=\"clr-row\">\r\n      <div class=\"clr-col-4\">\r\n        Nome:\r\n      </div>\r\n      <div class=\"clr-col-8\">{{this.logged_user.name}}</div>\r\n    </li>\r\n    <li class=\"clr-row\">\r\n      <div class=\"clr-col-4\">\r\n        Cognome:\r\n      </div>\r\n      <div class=\"clr-col-8\">{{this.logged_user.surname}}</div>\r\n    </li>\r\n  </ul>\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"editUserModal = true\">\r\n        <clr-icon shape=\"pencil\"></clr-icon> Modifica profilo\r\n    </button>\r\n  </div>\r\n</div>\r\n\r\n"
+module.exports = "\n<clr-modal [(clrModalOpen)]=\"editUserModal\">\n  <h3 class=\"modal-title\">Modifica i tuoi dati</h3>\n  <div class=\"modal-body\">\n    <form clrForm clrLayout=\"vertical\" [formGroup]=\"editUserForm\" class=\"clr-form clr-form-horizontal\">\n      <clr-input-container class=\"form-group\">\n        <label for=\"user-username\">Username:</label>\n        <input clrInput type=\"text\" [value]=\"this.logged_user.username\" placeholder=\"{{this.logged_user.username}}\" formControlName=\"username\" name=\"user-username\" [ngClass]=\"{ 'is-invalid': f.username.errors }\">\n      </clr-input-container>\n      <div class=\"errors\" *ngIf=\"submitted && f.username.errors\">\n        <alert-message *ngIf=\"f.username.errors.required\" msg=\"Il campo 'Username' è obbligatorio\"></alert-message>\n      </div>\n\n      <clr-password-container class=\"form-group\">\n        <label for=\"user-password\">Password:</label>\n        <input clrPassword placeholder=\"password\" formControlName=\"password\" name=\"user-password\" [ngClass]=\"{ 'is-invalid': (f.password.touched && f.password.errors) }\">\n      </clr-password-container>\n      <div class=\"errors\" *ngIf=\"f.password.touched && f.password.errors\">\n        <alert-message *ngIf=\"f.password.errors.required\" msg=\"Il campo 'Password' è obbligatorio\"></alert-message>\n        <alert-message *ngIf=\"f.password.errors.minlength\" msg=\"La password dev'essere lunga almeno 6 caratteri\"></alert-message>\n      </div>\n\n      <clr-password-container class=\"form-group\">\n        <label for=\"confirm-password\">Conferma password:</label>\n        <input clrPassword placeholder=\"conferma password\" formControlName=\"confirmPassword\" name=\"confirm-password\" [ngClass]=\"{ 'is-invalid':(f.confirmPassword.touched && f.confirmPassword.errors)}\">\n      </clr-password-container>\n      <div class=\"errors\" *ngIf=\"f.confirmPassword.touched && f.confirmPassword.errors\">\n        <alert-message *ngIf=\"f.confirmPassword.errors.required\" msg=\"Il campo 'Conferma password' è obbligatorio\"></alert-message>\n        <alert-message *ngIf=\"f.confirmPassword.errors.mustMatch\" msg=\"Le due password devono essere uguali\"></alert-message>\n      </div>\n\n      <clr-input-container class=\"form-group\">\n        <label for=\"user-mail\">eMail:</label>\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.email}}\" formControlName=\"email\" name=\"user-email\" [ngClass]=\"{ 'is-invalid': f.email.errors }\">\n      </clr-input-container>\n      <div class=\"errors\" *ngIf=\"f.email.errors\">\n        <alert-message *ngIf=\"submitted && f.email.errors.required\" msg=\"Il campo 'Email' è obbligatorio\"></alert-message>\n        <alert-message *ngIf=\"f.email.errors.email\" msg=\"Indirizzo email non valido\"></alert-message>\n      </div>\n\n      <clr-input-container class=\"form-group\">\n        <label for=\"user-name\">Nome:</label>\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.name}}\" formControlName=\"name\" name=\"user-name\">\n      </clr-input-container>\n\n      <clr-input-container class=\"form-group\">\n        <label for=\"user-surname\">Cognome:</label>\n        <input clrInput type=\"text\" placeholder=\"{{this.logged_user.surname}}\" formControlName=\"surname\" name=\"user-surname\">\n      </clr-input-container>\n  \n      <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"editUserModal = false; onAbort();\">Annulla</button>\n        <button [disabled]=\"!this.editUserForm.valid\" type=\"button\" class=\"btn btn-primary\" (click)=\"editUserModal = false; onSave();\">Salva</button>\n      </div>\n    </form> \n  </div>\n</clr-modal>\n\n\n\n<div class=\"card\">\n  <div class=\"card-block\">\n      <h4 class=\"card-title\">Benvenuto <em>{{this.presentation_name}}</em></h4>\n      <p class=\"card-text\">\n      Questi sono i dati del tuo profilo\n      </p>\n  </div>\n\n  <ul class=\"list-group list-group-flush card-block\">\n    <li class=\"clr-row\">\n      <div class=\"clr-col-4\">\n        ID:\n      </div>\n      <div class=\"clr-col-8\">{{this.logged_user.id}}</div>\n    </li>\n    <li class=\"clr-row\">\n      <div class=\"clr-col-4\">\n        Username:\n      </div>\n      <div class=\"clr-col-8\">{{this.logged_user.username}}</div>\n    </li>\n    <li class=\"clr-row\">\n      <div class=\"clr-col-4\">\n        eMail:\n      </div>\n      <div class=\"clr-col-8\">{{this.logged_user.email}}</div>\n    </li>\n    <li class=\"clr-row\">\n      <div class=\"clr-col-4\">\n        Nome:\n      </div>\n      <div class=\"clr-col-8\">{{this.logged_user.name}}</div>\n    </li>\n    <li class=\"clr-row\">\n      <div class=\"clr-col-4\">\n        Cognome:\n      </div>\n      <div class=\"clr-col-8\">{{this.logged_user.surname}}</div>\n    </li>\n  </ul>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"editUserModal = true\">\n        <clr-icon shape=\"pencil\"></clr-icon> Modifica profilo\n    </button>\n  </div>\n</div>\n\n"
 
 /***/ }),
 
@@ -1667,7 +2050,7 @@ module.exports = "\r\n<clr-modal [(clrModalOpen)]=\"editUserModal\">\r\n  <h3 cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3VzZXItY29tcG9uZW50L3VzZXItY29tcG9uZW50LmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyLWNvbXBvbmVudC91c2VyLWNvbXBvbmVudC5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1840,7 +2223,7 @@ __webpack_require__.r(__webpack_exports__);
 var environment = {
     production: false,
     // URL of development API
-    apiUrl: 'https://web.math.unipd.it/apacs'
+    apiUrl: 'http://localhost:2403'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -1887,7 +2270,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Marco\Desktop\apacs-client\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\workspace\apacs-client\src\main.ts */"./src/main.ts");
 
 
 /***/ })
