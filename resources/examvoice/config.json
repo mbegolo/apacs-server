@@ -1,77 +1,37 @@
 {
 	"type": "Collection",
 	"properties": {
-		"r": {
-			"name": "r",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "r",
-			"order": 0
-		},
-		"c": {
-			"name": "c",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "c",
-			"order": 1
-		},
 		"nome": {
 			"name": "nome",
 			"type": "string",
 			"typeLabel": "string",
-			"required": true,
+			"required": false,
 			"id": "nome",
-			"order": 2
+			"order": 0
 		},
 		"icona": {
 			"name": "icona",
 			"type": "string",
 			"typeLabel": "string",
-			"required": true,
+			"required": false,
 			"id": "icona",
+			"order": 1
+		},
+		"gruppo": {
+			"name": "gruppo",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "gruppo",
+			"order": 2
+		},
+		"riga": {
+			"name": "riga",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "riga",
 			"order": 3
-		},
-		"m": {
-			"name": "m",
-			"type": "boolean",
-			"typeLabel": "boolean",
-			"required": false,
-			"id": "m",
-			"order": 4
-		},
-		"qv": {
-			"name": "qv",
-			"type": "boolean",
-			"typeLabel": "boolean",
-			"required": false,
-			"id": "qv",
-			"order": 5
-		},
-		"s": {
-			"name": "s",
-			"type": "boolean",
-			"typeLabel": "boolean",
-			"required": false,
-			"id": "s",
-			"order": 6
-		},
-		"progress": {
-			"name": "progress",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "progress",
-			"order": 7
-		},
-		"punteggio": {
-			"name": "punteggio",
-			"type": "number",
-			"typeLabel": "number",
-			"required": false,
-			"id": "punteggio",
-			"order": 8
 		},
 		"countable": {
 			"name": "countable",
@@ -79,7 +39,23 @@
 			"typeLabel": "boolean",
 			"required": false,
 			"id": "countable",
-			"order": 9
+			"order": 4
+		},
+		"treshold1": {
+			"name": "treshold1",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "treshold1",
+			"order": 5
+		},
+		"treshold2": {
+			"name": "treshold2",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "treshold2",
+			"order": 6
 		}
 	}
 }

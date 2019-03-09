@@ -1,0 +1,29 @@
+{
+	"type": "Collection",
+	"properties": {
+		"nome": {
+			"name": "nome",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "nome",
+			"order": 0
+		},
+		"ordine": {
+			"name": "ordine",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "ordine",
+			"order": 1
+		},
+		"colore": {
+			"name": "colore",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "colore",
+			"order": 2
+		}
+	}
+}

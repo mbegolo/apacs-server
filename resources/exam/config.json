@@ -25,12 +25,12 @@
 			"id": "patient",
 			"order": 2
 		},
-		"voices": {
-			"name": "voices",
+		"data": {
+			"name": "data",
 			"type": "array",
 			"typeLabel": "array",
 			"required": false,
-			"id": "voices",
+			"id": "data",
 			"order": 3
 		},
 		"recordings": {

@@ -1,0 +1,61 @@
+{
+	"type": "Collection",
+	"properties": {
+		"m": {
+			"name": "m",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "m",
+			"order": 0
+		},
+		"qv": {
+			"name": "qv",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "qv",
+			"order": 1
+		},
+		"s": {
+			"name": "s",
+			"type": "boolean",
+			"typeLabel": "boolean",
+			"required": false,
+			"id": "s",
+			"order": 2
+		},
+		"punteggio": {
+			"name": "punteggio",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "punteggio",
+			"order": 3
+		},
+		"progress": {
+			"name": "progress",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "progress",
+			"order": 4
+		},
+		"voiceid": {
+			"name": "voiceid",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "voiceid",
+			"order": 5
+		},
+		"examid": {
+			"name": "examid",
+			"type": "string",
+			"typeLabel": "string",
+			"required": false,
+			"id": "examid",
+			"order": 6
+		}
+	}
+}
