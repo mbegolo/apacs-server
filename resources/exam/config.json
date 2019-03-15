@@ -25,13 +25,21 @@
 			"id": "patient",
 			"order": 2
 		},
+		"score": {
+			"name": "score",
+			"type": "number",
+			"typeLabel": "number",
+			"required": false,
+			"id": "score",
+			"order": 3
+		},
 		"data": {
 			"name": "data",
 			"type": "array",
 			"typeLabel": "array",
 			"required": false,
 			"id": "data",
-			"order": 3
+			"order": 4
 		},
 		"recordings": {
 			"name": "recordings",
@@ -39,7 +47,7 @@
 			"typeLabel": "array",
 			"required": false,
 			"id": "recordings",
-			"order": 4
+			"order": 5
 		}
 	}
 }

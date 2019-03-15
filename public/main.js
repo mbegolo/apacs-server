@@ -70,6 +70,7 @@ var Exam = /** @class */ (function () {
         this.date = d;
         this.user = [uid];
         this.patient = { "id": pid };
+        this.score = 44;
     }
     return Exam;
 }());
@@ -266,18 +267,6 @@ var ExamService = /** @class */ (function () {
     };
     ExamService.prototype.getExamVoiceData = function (id) {
         return this.http.get(API_URL + '/examdata/' + id);
-        /*
-        console.log((this.activeExamVoices).length);
-        if ( (this.activeExamVoices).length == 0) {
-          this.getAllVoicesData(this.activeExam.id).subscribe(data => {
-            console.log(JSON.parse((<any>data)._body));
-          })
-        }
-        for (let v of this.activeExamVoices) {
-          if (v.id == id) return v;
-        }
-        return false;
-        */
     };
     // Carica la lista dei miei esami su una variabile locale
     ExamService.prototype.loadAllMyExams = function () {
@@ -331,6 +320,8 @@ var ExamService = /** @class */ (function () {
                     var d = JSON.parse(_data._body);
                     var v = JSON.parse(_voices._body);
                     _this.activeExamVoices = _this.merge(d, v);
+                    console.log(_this.activeExamVoices);
+                    _this.calculateExamScore();
                 });
             });
             //console.log("EXA service: ",this.activeExam);
@@ -398,10 +389,47 @@ var ExamService = /** @class */ (function () {
         else {
             //console.log("ok, array uguali");
             for (var i = 0; i < data.length; i++) {
-                examData.push(new _models___WEBPACK_IMPORTED_MODULE_3__["ExamVoice"](data[i], voices[i]));
+                for (var j = 0; j < voices.length; j++) {
+                    if (data[i].voiceid === voices[j].id)
+                        examData.push(new _models___WEBPACK_IMPORTED_MODULE_3__["ExamVoice"](data[i], voices[j]));
+                }
             }
             return examData;
         }
+    };
+    ExamService.prototype.splitInColumns = function (data) {
+        var new_data;
+        new_data = new Array();
+        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+            var d = data_1[_i];
+            //console.log(d);
+            if (typeof (new_data[d.gruppo - 1]) != 'undefined')
+                new_data[d.gruppo - 1][d.riga - 1] = d;
+            else {
+                new_data[d.gruppo - 1] = new Array();
+                new_data[d.gruppo - 1][d.riga - 1] = d;
+            }
+        }
+        return (new_data);
+    };
+    ExamService.prototype.calculateExamScore = function () {
+        var _this = this;
+        console.log(typeof this.activeExamVoices);
+        var tot = 0;
+        for (var _i = 0, _a = this.activeExamVoices; _i < _a.length; _i++) {
+            var v = _a[_i];
+            tot += v.punteggio;
+            console.log(v.punteggio);
+        }
+        this.activeExam.score = tot;
+        console.log(tot);
+        this.saveExam(this.activeExam).subscribe(function (exam) {
+            _this.activeExam = JSON.parse(exam._body);
+            //console.log(this.activeExam.score);
+        });
+    };
+    ExamService.prototype.loadGroups = function () {
+        return this.http.get(API_URL + '/examgroup/');
     };
     ExamService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
@@ -732,12 +760,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _exam_view_exam_view_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./exam-view/exam-view.component */ "./src/app/exam-view/exam-view.component.ts");
 /* harmony import */ var _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./edit-patient/edit-patient.component */ "./src/app/edit-patient/edit-patient.component.ts");
 /* harmony import */ var _interview_interview_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./interview/interview.component */ "./src/app/interview/interview.component.ts");
+/* harmony import */ var _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./exam-resume/exam-resume.component */ "./src/app/exam-resume/exam-resume.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -758,6 +788,7 @@ var routes = [
     { path: 'exam', component: _exam_view_exam_view_component__WEBPACK_IMPORTED_MODULE_6__["ExamViewComponent"], children: [
             { path: 'editpatient', component: _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_7__["EditPatientComponent"], outlet: 'exam' },
             { path: 'interview', component: _interview_interview_component__WEBPACK_IMPORTED_MODULE_8__["InterviewComponent"], outlet: 'exam' },
+            { path: 'resume', component: _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_9__["ExamResumeComponent"], outlet: 'exam' },
             { path: '', redirectTo: 'component', pathMatch: 'full' }
         ] }
 ];
@@ -865,12 +896,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./edit-patient/edit-patient.component */ "./src/app/edit-patient/edit-patient.component.ts");
 /* harmony import */ var _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./interview/interview.component */ "./src/app/interview/interview.component.ts");
 /* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
+/* harmony import */ var _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./exam-resume/exam-resume.component */ "./src/app/exam-resume/exam-resume.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -909,7 +942,8 @@ var AppModule = /** @class */ (function () {
                 _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_16__["ExamListViewComponent"],
                 _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__["EditPatientComponent"],
                 _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__["InterviewComponent"],
-                _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__["InterviewItemComponent"]
+                _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__["InterviewItemComponent"],
+                _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__["ExamResumeComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1156,7 +1190,7 @@ var EditPatientComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n    <clr-icon shape=\"plus\"></clr-icon> Crea un nuovo esame\n</button>\n<clr-datagrid [clrDgLoading]=\"loading\">\n    <clr-dg-column>ID esame</clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'date'\" [clrDgSortOrder]=\"defaultSort\">Data\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column>Azioni</clr-dg-column>\n\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\n        <clr-dg-cell>\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\">\n            <clr-icon shape=\"pencil\"></clr-icon> edit\n          </button>\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"delete_exam = true; new_id = exam.id\">\n          <!--<button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">-->\n            <clr-icon shape=\"trash\"></clr-icon> delete\n          </button>\n          \n        </clr-dg-cell>\n    </clr-dg-row>\n\n    <clr-dg-footer>\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\n            <clr-dg-page-size [clrPageSizeOptions]=\"[10,20,50,100]\">Users per page</clr-dg-page-size>\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\n            of {{pagination.totalItems}} exams\n        </clr-dg-pagination>\n    </clr-dg-footer>\n</clr-datagrid>\n\n<clr-modal [(clrModalOpen)]=\"delete_exam\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per eliminare questo esame, l'azione non è reversibile. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"delete_exam = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteExam(new_id); delete_exam = false\">Ok</button>\n    </div>\n</clr-modal>"
+module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n    <clr-icon shape=\"plus\"></clr-icon> Crea un nuovo esame\n</button>\n<clr-datagrid [clrDgLoading]=\"loading\">\n    <clr-dg-column>ID esame</clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'date'\" [clrDgSortOrder]=\"defaultSort\">Data\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\n    </clr-dg-column>\n    <clr-dg-column [clrDgField]=\"'score'\">Punteggio</clr-dg-column>\n    <clr-dg-column>Azioni</clr-dg-column>\n\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\n        <clr-dg-cell>{{exam.score}}</clr-dg-cell>\n        <clr-dg-cell>\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\">\n            <clr-icon shape=\"pencil\"></clr-icon> edit\n          </button>\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"delete_exam = true; new_id = exam.id\">\n          <!--<button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">-->\n            <clr-icon shape=\"trash\"></clr-icon> delete\n          </button>\n          \n        </clr-dg-cell>\n    </clr-dg-row>\n\n    <clr-dg-footer>\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\n            <clr-dg-page-size [clrPageSizeOptions]=\"[10,20,50,100]\">Users per page</clr-dg-page-size>\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\n            of {{pagination.totalItems}} exams\n        </clr-dg-pagination>\n    </clr-dg-footer>\n</clr-datagrid>\n\n<clr-modal [(clrModalOpen)]=\"delete_exam\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per eliminare questo esame, l'azione non è reversibile. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"delete_exam = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteExam(new_id); delete_exam = false\">Ok</button>\n    </div>\n</clr-modal>"
 
 /***/ }),
 
@@ -1330,6 +1364,124 @@ var ExamListViewComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/exam-resume/exam-resume.component.html":
+/*!********************************************************!*\
+  !*** ./src/app/exam-resume/exam-resume.component.html ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<clr-stack-view *ngIf=\"loaded\">\n    <clr-stack-header>Riepilogo esame di <strong>{{patient.nome+\" \"+patient.cognome}}</strong> del <strong>{{exam.date | date:\"dd/MM/yyyy\"}}</strong></clr-stack-header>\n    <!-- heading -->\n    <clr-stack-block>\n        <clr-stack-label><strong>Nome</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\">\n                  <span><strong>Mai</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Qualche Volta</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Spesso</strong></span>\n              </div>\n              <div class=\"clr-col-4\">\n                  <span><strong>Punteggio</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n\n    <!-- Groups -->\n    <clr-stack-block *ngFor=\"let g of examData\">\n        <clr-stack-label>{{groups[g[0].gruppo-1].nome}}</clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{partialGroupScore(g)}}/{{(g.length)*2}}</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n        <clr-stack-block *ngFor=\"let voice of g\">\n          <clr-stack-label>{{voice.nome}}</clr-stack-label>\n          <clr-stack-content>\n            <div class=\"clr-row\">\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.m\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.qv\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.s\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col-4\">\n                    <span><strong>{{voice.punteggio}}/2</strong></span>\n                </div>\n            </div>\n          </clr-stack-content>\n        </clr-stack-block>\n    </clr-stack-block>\n\n  <clr-stack-block>\n        <clr-stack-label><strong>Totale</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{totalScore()}}/44</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n</clr-stack-view>\n\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\n  <span class=\"spinner spinner-inline\">\n      Loading...\n  </span>\n  <span>\n      Sto caricando i dati...\n  </span>\n</div>"
+
+/***/ }),
+
+/***/ "./src/app/exam-resume/exam-resume.component.scss":
+/*!********************************************************!*\
+  !*** ./src/app/exam-resume/exam-resume.component.scss ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLXJlc3VtZS9leGFtLXJlc3VtZS5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/exam-resume/exam-resume.component.ts":
+/*!******************************************************!*\
+  !*** ./src/app/exam-resume/exam-resume.component.ts ***!
+  \******************************************************/
+/*! exports provided: ExamResumeComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExamResumeComponent", function() { return ExamResumeComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ExamResumeComponent = /** @class */ (function () {
+    function ExamResumeComponent(examService, patientService) {
+        this.examService = examService;
+        this.patientService = patientService;
+        this.loaded = false;
+    }
+    ExamResumeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.examService.loadGroups().subscribe(function (data) {
+            _this.groups = JSON.parse(data._body);
+            _this.loadData();
+            _this.exam = _this.examService.getActiveExam();
+            _this.patient = _this.patientService.getActivePatient();
+        });
+    };
+    ExamResumeComponent.prototype.test = function () {
+        console.log(this.examService.activeExam.score);
+    };
+    ExamResumeComponent.prototype.partialGroupScore = function (group) {
+        var tot = 0;
+        for (var _i = 0, group_1 = group; _i < group_1.length; _i++) {
+            var it = group_1[_i];
+            tot += it.punteggio;
+        }
+        return tot;
+    };
+    ExamResumeComponent.prototype.totalScore = function () {
+        var tot = 0;
+        for (var _i = 0, _a = this.examData; _i < _a.length; _i++) {
+            var group = _a[_i];
+            for (var _b = 0, group_2 = group; _b < group_2.length; _b++) {
+                var it = group_2[_b];
+                tot += it.punteggio;
+            }
+        }
+        return tot;
+    };
+    ExamResumeComponent.prototype.setLoaded = function () {
+        this.loaded = true;
+    };
+    ExamResumeComponent.prototype.loadData = function () {
+        var _this = this;
+        this.examService.loadActiveExam().subscribe(function (data) {
+            _this.exam = _this.examService.getActiveExam();
+            var my_data = JSON.parse(data._body);
+            _this.examService.loadAllVoices().subscribe(function (_voices) {
+                var my_voices = JSON.parse(_voices._body);
+                var ex_data = _this.examService.merge(my_data, my_voices);
+                _this.examData = _this.examService.splitInColumns(ex_data);
+                _this.examService.activeExamVoices = _this.examData;
+                _this.examService.calculateExamScore();
+                var delay = setTimeout(_this.setLoaded(), 5000);
+            });
+        }, function (errors) {
+            console.log(errors);
+        });
+    };
+    ExamResumeComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-exam-resume',
+            template: __webpack_require__(/*! ./exam-resume.component.html */ "./src/app/exam-resume/exam-resume.component.html"),
+            styles: [__webpack_require__(/*! ./exam-resume.component.scss */ "./src/app/exam-resume/exam-resume.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_1__["ExamService"], _services__WEBPACK_IMPORTED_MODULE_1__["PatientService"]])
+    ], ExamResumeComponent);
+    return ExamResumeComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/exam-view/exam-view.component.html":
 /*!****************************************************!*\
   !*** ./src/app/exam-view/exam-view.component.html ***!
@@ -1337,7 +1489,7 @@ var ExamListViewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-container\">\n    <header class=\"header header-4\">\n          <div class=\"branding\">\n            <a href=\"...\" class=\"nav-link\">\n                <clr-icon shape=\"cursor-hand-click\"></clr-icon>\n                <span class=\"title\">Modalità intervista</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { exam: ['editpatient'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['interview'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\n          </div>\n          <div class=\"header-actions\">\n            <a (click)=\"basic = true\" class=\"nav-link nav-text\"><clr-icon shape=\"times\"></clr-icon>esci dalla modalità intervista</a>\n          </div>\n\n    </header>\n    <div>\n      <router-outlet name=\"exam\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per uscire dalla modalità intervista, i dati non salvati andranno persi. Vuoi procedere?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">No, annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Si, esci</button>\n    </div>\n</clr-modal>\n"
+module.exports = "<div class=\"main-container\">\n    <header class=\"header header-4\">\n          <div class=\"branding\">\n            <a href=\"...\" class=\"nav-link\">\n                <clr-icon shape=\"cursor-hand-click\"></clr-icon>\n                <span class=\"title\">Modalità intervista</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { exam: ['editpatient'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['interview'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['resume'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\n          </div>\n          <div class=\"header-actions\">\n            <a (click)=\"basic = true\" class=\"nav-link nav-text\"><clr-icon shape=\"times\"></clr-icon>esci dalla modalità intervista</a>\n          </div>\n\n    </header>\n    <div>\n      <router-outlet name=\"exam\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per uscire dalla modalità intervista, i dati non salvati andranno persi. Vuoi procedere?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">No, annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Si, esci</button>\n    </div>\n</clr-modal>\n"
 
 /***/ }),
 
@@ -1364,6 +1516,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExamViewComponent", function() { return ExamViewComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1375,13 +1528,16 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var ExamViewComponent = /** @class */ (function () {
-    function ExamViewComponent(router) {
+    function ExamViewComponent(examService, router) {
+        this.examService = examService;
         this.router = router;
     }
     ExamViewComponent.prototype.ngOnInit = function () {
     };
     ExamViewComponent.prototype.exit = function () {
+        this.examService.setActive(this.examService.activeExam.id);
         this.router.navigate(['main', { outlets: { logged: ['dashboard'] } }]);
     };
     ExamViewComponent = __decorate([
@@ -1390,7 +1546,7 @@ var ExamViewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./exam-view.component.html */ "./src/app/exam-view/exam-view.component.html"),
             styles: [__webpack_require__(/*! ./exam-view.component.scss */ "./src/app/exam-view/exam-view.component.scss")]
         }),
-        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["ExamService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], ExamViewComponent);
     return ExamViewComponent;
 }());
@@ -1725,7 +1881,7 @@ var InterviewItemComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!--\n<button (click)=\"printExam()\">stampa esame</button>\n<button (click)=\"printData()\">stampa dati</button>\n-->\n<div>\n  <button (click)=\"saveData()\" class=\"btn btn-primary\"><clr-icon shape=\"floppy\"></clr-icon>Salva dati</button>\n</div>\n\n<div *ngIf=\"loaded\" class=\"grid\">\n  <ul *ngFor=\"let c of examData; index as i\" class=\"col\" [ngStyle]=\"{'background-color': palette[i]}\">\n    <li *ngFor=\"let item of c\">\n      <app-interview-item [itemid]=\"item.id\" [active]=\"true\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n</div>\n"
+module.exports = "<!--\n<button (click)=\"printExam()\">stampa esame</button>\n<button (click)=\"printData()\">stampa dati</button>\n-->\n<div>\n  <button (click)=\"saveData()\" class=\"btn btn-primary\"><clr-icon shape=\"floppy\"></clr-icon>Salva dati</button>\n</div>\n\n<div *ngIf=\"loaded\" class=\"grid\">\n  <ul *ngFor=\"let c of examData; index as i\" class=\"col\" [ngStyle]=\"{'background-color': palette[i]}\">\n    <li *ngFor=\"let item of c\">\n      <app-interview-item [itemid]=\"item.id\" [active]=\"true\" [ngClass]=\"{'hidden': !registration_on}\"></app-interview-item>\n    </li>\n  </ul>\n</div>\n\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\n  <span class=\"spinner spinner-inline\">\n      Loading...\n  </span>\n  <span>\n      Sto caricando i dati...\n  </span>\n</div>"
 
 /***/ }),
 
@@ -1790,28 +1946,17 @@ var InterviewComponent = /** @class */ (function () {
             _this.examService.loadAllVoices().subscribe(function (_voices) {
                 var my_voices = JSON.parse(_voices._body);
                 var ex_data = _this.examService.merge(my_data, my_voices);
-                _this.examData = _this.splitInColumns(ex_data);
-                console.log(_this.examData);
-                _this.loaded = true;
+                _this.examData = _this.examService.splitInColumns(ex_data);
+                _this.examService.activeExamVoices = _this.examData;
+                _this.examService.calculateExamScore();
+                var delay = setTimeout(_this.setLoaded(), 1000);
             });
         }, function (errors) {
             console.log(errors);
         });
     };
-    InterviewComponent.prototype.splitInColumns = function (data) {
-        var new_data;
-        new_data = new Array();
-        for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
-            var d = data_1[_i];
-            //console.log(d);
-            if (typeof (new_data[d.gruppo - 1]) != 'undefined')
-                new_data[d.gruppo - 1][d.riga - 1] = d;
-            else {
-                new_data[d.gruppo - 1] = new Array();
-                new_data[d.gruppo - 1][d.riga - 1] = d;
-            }
-        }
-        return (new_data);
+    InterviewComponent.prototype.setLoaded = function () {
+        this.loaded = true;
     };
     InterviewComponent.prototype.printExam = function () {
         console.log(this.exam);
@@ -1831,12 +1976,14 @@ var InterviewComponent = /** @class */ (function () {
         });
     };
     InterviewComponent.prototype.saveData = function () {
-        //for (var i=0; i<this.children.length; i++) {
         this.children.forEach(function (it) {
-            //console.log(it.progress);
             it.save();
         });
-        //}
+        this.loadData();
+    };
+    InterviewComponent.prototype.test = function () {
+        //this.examService.calculateExamScore();
+        console.log(this.examService.activeExam.score);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChildren"])(_interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_1__["InterviewItemComponent"]),
