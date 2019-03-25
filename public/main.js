@@ -898,12 +898,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
 /* harmony import */ var _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./exam-resume/exam-resume.component */ "./src/app/exam-resume/exam-resume.component.ts");
 /* harmony import */ var _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pdf-resume/pdf-resume.component */ "./src/app/pdf-resume/pdf-resume.component.ts");
+/* harmony import */ var _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pdf-export/pdf-export.component */ "./src/app/pdf-export/pdf-export.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -946,7 +948,8 @@ var AppModule = /** @class */ (function () {
                 _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__["InterviewComponent"],
                 _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__["InterviewItemComponent"],
                 _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__["ExamResumeComponent"],
-                _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_21__["PdfResumeComponent"]
+                _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_21__["PdfResumeComponent"],
+                _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_22__["PdfExportComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1395,7 +1398,7 @@ var ExamListViewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<clr-stack-view *ngIf=\"loaded\">\n    <clr-stack-header>Riepilogo esame di <strong>{{patient.nome+\" \"+patient.cognome}}</strong> del <strong>{{exam.date | date:\"dd/MM/yyyy\"}}</strong></clr-stack-header>\n    <!-- heading -->\n    <clr-stack-block>\n        <clr-stack-label><strong>Nome</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\">\n                  <span><strong>Mai</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Qualche Volta</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Spesso</strong></span>\n              </div>\n              <div class=\"clr-col-4\">\n                  <span><strong>Punteggio</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n\n    <!-- Groups -->\n    <clr-stack-block *ngFor=\"let g of examData\">\n        <clr-stack-label>{{groups[g[0].gruppo-1].nome}}</clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{partialGroupScore(g)}}/{{(g.length)*2}}</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n        <clr-stack-block *ngFor=\"let voice of g\">\n          <clr-stack-label>{{voice.nome}}</clr-stack-label>\n          <clr-stack-content>\n            <div class=\"clr-row\">\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.m\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.qv\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.s\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col-4\">\n                    <span><strong>{{voice.punteggio}}/2</strong></span>\n                </div>\n            </div>\n          </clr-stack-content>\n        </clr-stack-block>\n    </clr-stack-block>\n\n  <clr-stack-block>\n        <clr-stack-label><strong>Totale</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{totalScore()}}/44</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n</clr-stack-view>\n\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\n  <span class=\"spinner spinner-inline\">\n      Loading...\n  </span>\n  <span>\n      Sto caricando i dati...\n  </span>\n</div>\n\n<app-pdf-resume></app-pdf-resume>"
+module.exports = "<clr-stack-view *ngIf=\"loaded\">\n    <clr-stack-header>Riepilogo esame di <strong>{{patient.nome+\" \"+patient.cognome}}</strong> del <strong>{{exam.date | date:\"dd/MM/yyyy\"}}</strong></clr-stack-header>\n    <!-- heading -->\n    <clr-stack-block>\n        <clr-stack-label><strong>Nome</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\">\n                  <span><strong>Spesso o Sempre</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Qualche Volta</strong></span>\n              </div>\n              <div class=\"clr-col\">\n                  <span><strong>Mai</strong></span>\n              </div>\n              <div class=\"clr-col-4\">\n                  <span><strong>Punteggio</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n\n    <!-- Groups -->\n    <clr-stack-block *ngFor=\"let g of examData\">\n        <clr-stack-label>{{groups[g[0].gruppo-1].nome}}</clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{partialGroupScore(g)}}/{{(g.length)*2}}</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n        <clr-stack-block *ngFor=\"let voice of g\">\n          <clr-stack-label>{{voice.nome}}</clr-stack-label>\n          <clr-stack-content>\n            <div class=\"clr-row\">\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.s\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.qv\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.m\" shape=\"check\"></clr-icon></div>\n                <div class=\"clr-col-4\">\n                    <span><strong>{{voice.punteggio}}/2</strong></span>\n                </div>\n            </div>\n          </clr-stack-content>\n        </clr-stack-block>\n    </clr-stack-block>\n\n  <clr-stack-block>\n        <clr-stack-label><strong>Totale</strong></clr-stack-label>\n        <clr-stack-content>\n          <div class=\"clr-row\">\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col\"></div>\n              <div class=\"clr-col-4\">\n                  <span><strong>{{totalScore()}}/44</strong></span>\n              </div>\n          </div>\n        </clr-stack-content>\n    </clr-stack-block>\n</clr-stack-view>\n\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\n  <span class=\"spinner spinner-inline\">\n      Loading...\n  </span>\n  <span>\n      Sto caricando i dati...\n  </span>\n</div>\n\n<app-pdf-resume [examData]=\"examData\" [groups]=\"groups\"></app-pdf-resume>"
 
 /***/ }),
 
@@ -1513,7 +1516,7 @@ var ExamResumeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-container\">\n    <header class=\"header header-4\">\n          <div class=\"branding\">\n            <a href=\"...\" class=\"nav-link\">\n                <clr-icon shape=\"cursor-hand-click\"></clr-icon>\n                <span class=\"title\">Modalità intervista</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { exam: ['editpatient'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['interview'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['resume'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\n          </div>\n          <div class=\"header-actions\">\n            <a (click)=\"basic = true\" class=\"nav-link nav-text\"><clr-icon shape=\"times\"></clr-icon>esci dalla modalità intervista</a>\n          </div>\n\n    </header>\n    <div>\n      <router-outlet name=\"exam\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per uscire dalla modalità intervista, i dati non salvati andranno persi. Vuoi procedere?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">No, annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Si, esci</button>\n    </div>\n</clr-modal>\n"
+module.exports = "<div class=\"main-container\">\n    <header class=\"header header-4\">\n          <div class=\"branding\">\n            <a class=\"nav-link\">\n                <clr-icon shape=\"cursor-hand-click\"></clr-icon>\n                <span class=\"title\">Modalità intervista</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { exam: ['editpatient'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['interview'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\n            <a [routerLink]=\"[{ outlets: { exam: ['resume'] } }]\" outletName=[exam] routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\n          </div>\n          <div class=\"header-actions\">\n            <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"basic = true\" >\n              <span>esci dalla modalità intervista</span>\n            </a>\n            <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"basic = true\" >\n              <clr-icon shape=\"times\"></clr-icon> \n            </a>\n          </div>\n\n    </header>\n    <div>\n      <router-outlet name=\"exam\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per uscire dalla modalità intervista, i dati non salvati andranno persi. Vuoi procedere?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">No, annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Si, esci</button>\n    </div>\n</clr-modal>\n"
 
 /***/ }),
 
@@ -1960,7 +1963,7 @@ var InterviewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"main-container\">\n    <div class=\"alert alert-app-level\">\n        [Spazio per gli alert!]\n    </div>\n    <header class=\"header header-6\">\n          <div class=\"branding\">\n            <a href=\"...\" class=\"nav-link\">\n                <clr-icon shape=\"bug\"></clr-icon>\n                <span class=\"title\">APACS</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { logged: ['dashboard'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Dashboard</a>\n            <a [routerLink]=\"[{ outlets: { logged: ['exams'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Esami</a>\n          </div>\n          <div class=\"header-actions\">\n            <clr-dropdown>\n                <button class=\"nav-icon\" clrDropdownTrigger>\n                    <clr-icon shape=\"user\"></clr-icon>\n                    <clr-icon shape=\"caret down\"></clr-icon>\n                </button>\n                <clr-dropdown-menu *clrIfOpen clrPosition=\"bottom-right\">\n                    <a (click)=\"basic = true\" clrDropdownItem>Log out</a>\n                </clr-dropdown-menu>\n            </clr-dropdown>\n          </div>\n\n    </header>\n    <!--\n    <nav class=\"subnav\">\n        [subnav]\n    </nav>\n    -->\n    <div>\n      <router-outlet name=\"logged\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per effettuare il Logout. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"logout()\">Ok</button>\n    </div>\n</clr-modal>"
+module.exports = "<div class=\"main-container\">\n    <div class=\"alert alert-app-level\">\n        [Spazio per gli alert!]\n    </div>\n    <header class=\"header header-6\">\n          <div class=\"branding\">\n            <a class=\"nav-link\">\n                <clr-icon shape=\"bug\"></clr-icon>\n                <span class=\"title\">APACS</span>\n            </a>\n          </div>\n          <div class=\"header-nav\">\n            <a [routerLink]=\"[{ outlets: { logged: ['dashboard'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Dashboard</a>\n            <a [routerLink]=\"[{ outlets: { logged: ['exams'] } }]\" outletName=[logged] routerLinkActive=\"active\" class=\"nav-link nav-text\">Esami</a>\n          </div>\n          <div class=\"header-actions\">\n            <clr-dropdown>\n                <button class=\"nav-icon\" clrDropdownTrigger>\n                    <clr-icon shape=\"user\"></clr-icon>\n                    <clr-icon shape=\"caret down\"></clr-icon>\n                </button>\n                <clr-dropdown-menu *clrIfOpen clrPosition=\"bottom-right\">\n                    <a (click)=\"basic = true\" clrDropdownItem>Log out</a>\n                </clr-dropdown-menu>\n            </clr-dropdown>\n          </div>\n\n    </header>\n    <!--\n    <nav class=\"subnav\">\n        [subnav]\n    </nav>\n    -->\n    <div>\n      <router-outlet name=\"logged\"></router-outlet>\n    </div>\n</div>\n\n<clr-modal [(clrModalOpen)]=\"basic\" [clrModalSize]=\"'sm'\">\n    <h3 class=\"modal-title\">Attenzione</h3>\n    <div class=\"modal-body\">\n        <p>Stai per effettuare il Logout. Sei sicuro?</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"logout()\">Ok</button>\n    </div>\n</clr-modal>"
 
 /***/ }),
 
@@ -2157,6 +2160,106 @@ var LoginComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/pdf-export/pdf-export.component.html":
+/*!******************************************************!*\
+  !*** ./src/app/pdf-export/pdf-export.component.html ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"content\" #content> \n<div>\n <input type=\"button\" value=\"CAPTURE\" (click)=\"generatePDF()\"/> \n </div> \n</div> \n<div > \n <table id=\"contentToConvert\"> \n <tr> \n <th>Column1</th> \n <th>Column2</th> \n <th>Column3</th> \n </tr> \n <tr> \n <td>Row 1</td> \n <td>Row 1</td> \n <td>Row 1</td> \n </tr> \n <tr> \n <td>Row 2</td> \n <td>Row 2</td> \n <td>Row 2</td> \n </tr> \n <tr> \n <td>Row 3</td> \n <td>Row 3</td> \n <td>Row 3</td> \n </tr> \n <tr> \n <td>Row 4</td> \n <td>Row 4</td> \n <td>Row 4</td> \n </tr> \n </table> \n \n</div> "
+
+/***/ }),
+
+/***/ "./src/app/pdf-export/pdf-export.component.scss":
+/*!******************************************************!*\
+  !*** ./src/app/pdf-export/pdf-export.component.scss ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwZGYtZXhwb3J0L3BkZi1leHBvcnQuY29tcG9uZW50LnNjc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/pdf-export/pdf-export.component.ts":
+/*!****************************************************!*\
+  !*** ./src/app/pdf-export/pdf-export.component.ts ***!
+  \****************************************************/
+/*! exports provided: PdfExportComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PdfExportComponent", function() { return PdfExportComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+var PdfExportComponent = /** @class */ (function () {
+    function PdfExportComponent(examService, patientService) {
+        this.examService = examService;
+        this.patientService = patientService;
+    }
+    PdfExportComponent.prototype.ngOnInit = function () {
+        this.title = this.getTitle();
+        console.log(this.title);
+        console.log(this.examService.getActiveExamVoices());
+    };
+    PdfExportComponent.prototype.getTitle = function () {
+        var out = "";
+        out += this.patientService.getActivePatient().nome + " ";
+        out += this.patientService.getActivePatient().cognome + " - ";
+        var d = (new Date(this.examService.getActiveExam().date));
+        out += d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
+        return out;
+    };
+    PdfExportComponent.prototype.generatePDF = function () {
+        var data = document.getElementById('contentToConvert');
+        html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(data).then(function (canvas) {
+            // Few necessary setting options 
+            var imgWidth = 208;
+            var pageHeight = 295;
+            var imgHeight = canvas.height * imgWidth / canvas.width;
+            var heightLeft = imgHeight;
+            var contentDataURL = canvas.toDataURL('image/png');
+            var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1__('p', 'mm', 'a4'); // A4 size page of PDF 
+            var position = 0;
+            pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+            pdf.save('MYPdf.pdf'); // Generated PDF  
+        });
+    };
+    PdfExportComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'app-pdf-export',
+            template: __webpack_require__(/*! ./pdf-export.component.html */ "./src/app/pdf-export/pdf-export.component.html"),
+            styles: [__webpack_require__(/*! ./pdf-export.component.scss */ "./src/app/pdf-export/pdf-export.component.scss")]
+        }),
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["ExamService"], _services__WEBPACK_IMPORTED_MODULE_3__["PatientService"]])
+    ], PdfExportComponent);
+    return PdfExportComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/pdf-resume/pdf-resume.component.html":
 /*!******************************************************!*\
   !*** ./src/app/pdf-resume/pdf-resume.component.html ***!
@@ -2164,7 +2267,7 @@ var LoginComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" class=\"btn btn-primary\">\n  <clr-icon shape=\"file\"></clr-icon>Genera PDF\n</button>\n<clr-modal [(clrModalOpen)]=\"pdf_modal\" [clrModalSize]=\"'xl'\">\n    <h3 class=\"modal-title\">Ecco l'anteprima del tuo documento</h3>\n    <div class=\"modal-body\">\n        <p>--- anteprima ---</p>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"pdf_modal = false\" title=\"Annulla\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadPdf()\" title=\"Scarica PDF\">\n          <clr-icon shape=\"download\"></clr-icon>Scarica PDF\n        </button>\n    </div>\n</clr-modal>\n"
+module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" class=\"btn btn-primary\">\n  <clr-icon shape=\"file\"></clr-icon>Genera PDF\n</button>\n<clr-modal [(clrModalOpen)]=\"pdf_modal\" [clrModalSize]=\"'xl'\">\n    <h3 class=\"modal-title\">Ecco l'anteprima del tuo documento</h3>\n    <div class=\"modal-body\">\n        <div id=\"contentToConvert\" class=\"clr-row\"> \n            <div class=\"clr-col-6\">\n                <h4>Paziente: <strong>{{nome}} {{cognome}}</strong></h4>\n                <h5>ID esame: <strong>{{id}}</strong></h5>\n            </div>\n            <div class=\"clr-col-6\">\n                <h4>Data esame: <strong>{{data | date:\"dd/MM/yyyy\"}}</strong></h4>\n                <h5>ID esaminatore: <strong>{{esaminatore}}</strong></h5>\n            </div>\n            <table class=\"table\">\n                <thead>\n                    <tr>\n                        <th class=\"thead left\"></th>\n                        <th class=\"thead\">Molto spesso o sempre</th>\n                        <th class=\"thead\">Qualche volta</th>\n                        <th class=\"thead\">Mai</th>\n                        <th class=\"thead\">Totale</th>\n                    </tr>\n                </thead>\n                <tbody *ngFor=\"let g of examData\">\n                    <tr class=\"trow\">\n                        <td colspan=5 class=\"left\">{{groups[g[0].gruppo-1].nome}}</td>\n                    </tr>\n                    <tr *ngFor=\"let voice of g\">\n                        <td class=\"left\">{{voice.nome}}</td>\n                        <td><span *ngIf=\"voice.m\">V</span></td>\n                        <td><span *ngIf=\"voice.qv\">V</span></td>\n                        <td><span *ngIf=\"voice.s\">V</span></td>\n                        <td>\n                            <span><strong>{{voice.punteggio}}</strong></span>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n            <div>\n                <h3>Totale: <strong>{{totalscore}}</strong>/44</h3>\n            </div>\n        </div> \n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"pdf_modal = false\" title=\"Annulla\">Annulla</button>\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadPdf()\" title=\"Scarica PDF\">\n          <clr-icon shape=\"download\"></clr-icon>Scarica PDF\n        </button>\n    </div>\n</clr-modal>\n"
 
 /***/ }),
 
@@ -2175,7 +2278,7 @@ module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwZGYtcmVzdW1lL3BkZi1yZXN1bWUuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = ".thead {\n  background-color: #eeeeee; }\n\n.trow {\n  background-color: #eeeeee; }\n\n.modal-body {\n  padding-top: -5em; }\n\n.modal-body > div {\n  padding: 1em 5em; }\n\ntd {\n  font-size: 120%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBkZi1yZXN1bWUvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9wZGYtcmVzdW1lXFxwZGYtcmVzdW1lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsZUFBZSxFQUFBIiwiZmlsZSI6InBkZi1yZXN1bWUvcGRmLXJlc3VtZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aGVhZCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxufVxyXG5cclxuLnRyb3cge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IHtcclxuICBwYWRkaW5nLXRvcDogLTVlbTtcclxufVxyXG5cclxuLm1vZGFsLWJvZHk+ZGl2IHtcclxuICBwYWRkaW5nOiAxZW0gNWVtO1xyXG59XHJcblxyXG50ZCB7XHJcbiAgZm9udC1zaXplOiAxMjAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2190,6 +2293,11 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PdfResumeComponent", function() { return PdfResumeComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! jspdf */ "./node_modules/jspdf/dist/jspdf.min.js");
+/* harmony import */ var jspdf__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jspdf__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! html2canvas */ "./node_modules/html2canvas/dist/npm/index.js");
+/* harmony import */ var html2canvas__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(html2canvas__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2200,21 +2308,70 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
+
 var PdfResumeComponent = /** @class */ (function () {
-    function PdfResumeComponent() {
+    function PdfResumeComponent(examService, patientService) {
+        this.examService = examService;
+        this.patientService = patientService;
     }
     PdfResumeComponent.prototype.ngOnInit = function () {
+        this.totalscore = this.examService.getActiveExam().score;
+        this.nome = this.patientService.getActivePatient().nome;
+        this.cognome = this.patientService.getActivePatient().cognome;
+        this.data = this.examService.getActiveExam().date;
+        this.esaminatore = this.examService.getActiveExam().user;
+        this.id = this.examService.getActiveExam().id;
+        console.log(this.totalscore);
     };
     PdfResumeComponent.prototype.downloadPdf = function () {
-        console.log("DOWNLOAD PDF");
+        //console.log(this.examData);
+        this.generatePDF();
     };
+    PdfResumeComponent.prototype.getTitle = function () {
+        var out = "";
+        out += this.patientService.getActivePatient().cognome + "_";
+        out += this.patientService.getActivePatient().nome + "_";
+        var d = (new Date(this.examService.getActiveExam().date));
+        out += d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+        return out;
+    };
+    PdfResumeComponent.prototype.generatePDF = function () {
+        var _this = this;
+        var data = document.getElementById('contentToConvert');
+        html2canvas__WEBPACK_IMPORTED_MODULE_2___default()(data).then(function (canvas) {
+            // Few necessary setting options 
+            var aspRatio = canvas.height / canvas.width;
+            var imgWidth = 200;
+            var offsetX = 5;
+            var offsetY = 10;
+            //var pageHeight = 1250; 
+            var imgHeight = aspRatio * imgWidth;
+            var heightLeft = imgHeight;
+            var contentDataURL = canvas.toDataURL('image/png');
+            var pdf = new jspdf__WEBPACK_IMPORTED_MODULE_1__('p', 'mm', 'a4'); // A4 size page of PDF 
+            pdf.addImage(contentDataURL, 'PNG', offsetX, offsetY, imgWidth, imgHeight);
+            pdf.save(_this.getTitle()); // Generated PDF  
+            //console.log(canvas.width,canvas.height);
+        });
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], PdfResumeComponent.prototype, "examData", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], PdfResumeComponent.prototype, "groups", void 0);
     PdfResumeComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-pdf-resume',
             template: __webpack_require__(/*! ./pdf-resume.component.html */ "./src/app/pdf-resume/pdf-resume.component.html"),
             styles: [__webpack_require__(/*! ./pdf-resume.component.scss */ "./src/app/pdf-resume/pdf-resume.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_3__["ExamService"], _services__WEBPACK_IMPORTED_MODULE_3__["PatientService"]])
     ], PdfResumeComponent);
     return PdfResumeComponent;
 }());
@@ -2359,7 +2516,7 @@ var RegisterFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\n  <div class=\"card-block\">\n      <h4 class=\"card-title\">Note sullo sviluppo</h4>\n      Ultimo aggiornamento: 19/03/2019\n  </div>\n  <div class=\"card-block\">\n    <ul>\n      <li><strong>N.B.</strong>Spesso il server sembra essere irraggiungibile e restituisce errore, credo sia un limite del VPS</li>\n      <li>Mancano ancora la generazione del PDF e la registrazione/salvataggio dell'audio</li>\n      <li>Aggiunta la scheda \"RESUME\" in modalità intervista</li>\n      <li>Sistemati molti CSS, non ancora tutti</li>\n      <li>Bisogna ancora sistemare i routes di default, e in generale vorrei abbellire un po' gli URI</li>\n      <li>Per l'esecuzione di un esame ho pensato ad una \"modalità intervista\", alla quale si può accedere da Lista esami -> modifica esame. Per ora non mi entusiasma come soluzione, ma non saprei come integrare l'intervista con il resto dell'interfaccia</li>\n      <li>Devo ancora terminare di gestire il salvataggio automatico dei dati. Vorrei avvisare l'utente che esce di eventuali modifiche non salvate, permettendo (tramite alert) di salvare e uscire, uscire o restare.</li>\n      <li>Oltre ai dati personali sull'utente, non so cos'altro inserire nella dashboard</li>\n    </ul>\n  </div>\n\n  <!--\n  <div class=\"card-block\">\n    <ul>\n      <li *ngFor=\"let exam of lastExams\">\n        {{ exam.id }} - {{exam.date}}\n      </li>\n    </ul>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getMyExam()\">\n        GET ALL MY EXAMS\n    </button>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n        CREATE NEW EXAM AS CURRENT USER\n    </button>\n  </div>\n  \n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getActualExamId()\">\n        GET ACTUAL EXAM ID\n    </button>\n  </div>\n  \n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"test()\">\n        test\n    </button>\n  </div>\n\n  \n\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"testDel()\">\n        delete examdata where id=\n    </button>\n  </div>\n  -->\n</div>"
+module.exports = "<div class=\"card\">\n  <div class=\"card-block\">\n      <h4 class=\"card-title\">Note sullo sviluppo</h4>\n      Ultimo aggiornamento: <strong>25/03/2019</strong>\n  </div>\n  <div class=\"card-block\">\n    <ul>\n      <li><strong>N.B.</strong>Spesso il server sembra essere irraggiungibile e restituisce errore, credo sia un limite del VPS</li>\n      <li>Mancano ancora la registrazione/salvataggio dell'audio</li>\n      <li>Dalla scheda \"RESUME\" ora si può esportare il PDF della scheda</li>\n      <li>Aggiunta la scheda \"RESUME\" in modalità intervista</li>\n      <li>Sistemati molti CSS (non ancora tutti)</li>\n      <li>Bisogna ancora sistemare i routes di default, e in generale vorrei abbellire un po' gli URI</li>\n      <li>Per l'esecuzione di un esame ho pensato ad una \"modalità intervista\", alla quale si può accedere da Lista esami -> modifica esame. Per ora non mi entusiasma come soluzione, ma non saprei come integrare l'intervista con il resto dell'interfaccia</li>\n      <li>Devo ancora terminare di gestire il salvataggio automatico dei dati. Vorrei avvisare l'utente che esce di eventuali modifiche non salvate, permettendo (tramite alert) di salvare e uscire, uscire o restare.</li>\n      <li>Oltre ai dati personali sull'utente, non so cos'altro inserire nella dashboard</li>\n    </ul>\n  </div>\n\n  <!--\n  <div class=\"card-block\">\n    <ul>\n      <li *ngFor=\"let exam of lastExams\">\n        {{ exam.id }} - {{exam.date}}\n      </li>\n    </ul>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getMyExam()\">\n        GET ALL MY EXAMS\n    </button>\n  </div>\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\n        CREATE NEW EXAM AS CURRENT USER\n    </button>\n  </div>\n  \n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getActualExamId()\">\n        GET ACTUAL EXAM ID\n    </button>\n  </div>\n  \n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"test()\">\n        test\n    </button>\n  </div>\n\n  \n\n  <div class=\"card-block\">\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"testDel()\">\n        delete examdata where id=\n    </button>\n  </div>\n  -->\n</div>"
 
 /***/ }),
 
