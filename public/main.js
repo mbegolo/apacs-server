@@ -675,6 +675,53 @@ var AudioRecordingService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/_services/data/data.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/_services/data/data.service.ts ***!
+  \************************************************/
+/*! exports provided: DataService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm5/index.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var DataService = /** @class */ (function () {
+    function DataService() {
+        this.unstagedChanges = false;
+        this.obs = new rxjs__WEBPACK_IMPORTED_MODULE_1__["Observable"]();
+    }
+    DataService.prototype.pendingChanges = function () {
+        return this.unstagedChanges;
+    };
+    DataService.prototype.setChanges = function (b) {
+        this.unstagedChanges = b;
+    };
+    DataService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [])
+    ], DataService);
+    return DataService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/_services/exam/exam.service.ts":
 /*!************************************************!*\
   !*** ./src/app/_services/exam/exam.service.ts ***!
@@ -783,10 +830,9 @@ var ExamService = /** @class */ (function () {
                     var d = JSON.parse(_data._body);
                     var v = JSON.parse(_voices._body);
                     _this.activeExamVoices = _this.merge(d, v);
-                    console.log(_this.activeExamVoices);
+                    //console.log(this.activeExamVoices);
                     _this.calculateExamScore();
-                    if (redirect)
-                        console.log(id);
+                    //if (redirect) console.log(id);
                 });
             });
             //console.log("EXA service: ",this.activeExam);
@@ -813,10 +859,10 @@ var ExamService = /** @class */ (function () {
         return this.activeExamVoices;
     };
     ExamService.prototype.saveActiveExam = function (e) {
-        console.log("saveActiveExam(e:Exam):todo");
+        //console.log("saveActiveExam(e:Exam):todo");
     };
     ExamService.prototype.saveActiveExamVoices = function (v) {
-        console.log("saveActiveExamVoices(e:Exam):todo");
+        //console.log("saveActiveExamVoices(e:Exam):todo");
     };
     ExamService.prototype.deleteExamData = function (eid) {
         var _this = this;
@@ -824,7 +870,9 @@ var ExamService = /** @class */ (function () {
             var voices = (JSON.parse(data._body));
             for (var _i = 0, voices_1 = voices; _i < voices_1.length; _i++) {
                 var v = voices_1[_i];
-                _this.http.delete(API_URL + '/examdata/' + v.id).subscribe(function (response) { return console.log(response); }, function (errors) { return console.log(errors); });
+                _this.http.delete(API_URL + '/examdata/' + v.id).subscribe(
+                //response => console.log(response), 
+                function (errors) { return console.log(errors); });
             }
         });
     };
@@ -879,15 +927,15 @@ var ExamService = /** @class */ (function () {
     };
     ExamService.prototype.calculateExamScore = function () {
         var _this = this;
-        console.log(typeof this.activeExamVoices);
+        //console.log(typeof this.activeExamVoices);
         var tot = 0;
         for (var _i = 0, _a = this.activeExamVoices; _i < _a.length; _i++) {
             var v = _a[_i];
             tot += v.punteggio;
-            console.log(v.punteggio);
+            //console.log(v.punteggio);
         }
         this.activeExam.score = tot;
-        console.log(tot);
+        //console.log(tot);
         this.saveExam(this.activeExam).subscribe(function (exam) {
             _this.activeExam = JSON.parse(exam._body);
             //console.log(this.activeExam.score);
@@ -913,7 +961,7 @@ var ExamService = /** @class */ (function () {
 /*!************************************!*\
   !*** ./src/app/_services/index.ts ***!
   \************************************/
-/*! exports provided: UserService, ExamService, PatientService */
+/*! exports provided: UserService, ExamService, PatientService, DataService */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -926,6 +974,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _patient_patient_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./patient/patient.service */ "./src/app/_services/patient/patient.service.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PatientService", function() { return _patient_patient_service__WEBPACK_IMPORTED_MODULE_2__["PatientService"]; });
+
+/* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./data/data.service */ "./src/app/_services/data/data.service.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return _data_data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]; });
+
 
 
 
@@ -1158,7 +1210,7 @@ module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\r\n  <div cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvYWxlcnQtbWVzc2FnZS9hbGVydC1tZXNzYWdlLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhbGVydC1tZXNzYWdlL2FsZXJ0LW1lc3NhZ2UuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -1236,23 +1288,6 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 
 
 
-/*
-const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'main', component: LoggedUserWrapperComponent, children: [
-    { path: 'dashboard', component: DashboardComponent, outlet: 'logged' },
-    { path: 'exams', component: ExamListViewComponent, outlet: 'logged' },
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
-  ] },
-  { path: '', redirectTo: 'main', pathMatch: 'prefix'},
-  { path: 'exam', component: ExamViewComponent, children: [
-    { path: 'editpatient', component:EditPatientComponent, outlet: 'exam'},
-    { path: 'interview', component:InterviewComponent, outlet: 'exam'},
-    { path: 'resume', component:ExamResumeComponent, outlet: 'exam'},
-    { path: '', redirectTo: 'exam:editpatient', pathMatch: 'full' }
-  ] }
-];
-*/
 var routes = [
     { path: 'login', component: _login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
     { path: 'dashboard', component: _logged_user_wrapper_logged_user_wrapper_component__WEBPACK_IMPORTED_MODULE_2__["LoggedUserWrapperComponent"] },
@@ -1295,7 +1330,7 @@ module.exports = "<router-outlet name=\"primary\"></router-outlet>\r\n\r\n\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvYXBwLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -1359,25 +1394,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _register_form_register_form_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./register-form/register-form.component */ "./src/app/register-form/register-form.component.ts");
 /* harmony import */ var _alert_message_alert_message_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./alert-message/alert-message.component */ "./src/app/alert-message/alert-message.component.ts");
 /* harmony import */ var _logged_user_wrapper_logged_user_wrapper_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./logged-user-wrapper/logged-user-wrapper.component */ "./src/app/logged-user-wrapper/logged-user-wrapper.component.ts");
-/* harmony import */ var _exam_view_exam_view_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./exam-view/exam-view.component */ "./src/app/exam-view/exam-view.component.ts");
-/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
-/* harmony import */ var _test_test_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./test/test.component */ "./src/app/test/test.component.ts");
-/* harmony import */ var _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./exam-list-view/exam-list-view.component */ "./src/app/exam-list-view/exam-list-view.component.ts");
-/* harmony import */ var _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./edit-patient/edit-patient.component */ "./src/app/edit-patient/edit-patient.component.ts");
-/* harmony import */ var _interview_interview_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./interview/interview.component */ "./src/app/interview/interview.component.ts");
-/* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
-/* harmony import */ var _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./exam-resume/exam-resume.component */ "./src/app/exam-resume/exam-resume.component.ts");
-/* harmony import */ var _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pdf-resume/pdf-resume.component */ "./src/app/pdf-resume/pdf-resume.component.ts");
-/* harmony import */ var _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./pdf-export/pdf-export.component */ "./src/app/pdf-export/pdf-export.component.ts");
-/* harmony import */ var _recording_recording_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./recording/recording.component */ "./src/app/recording/recording.component.ts");
-/* harmony import */ var _exam_navbar_exam_navbar_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./exam-navbar/exam-navbar.component */ "./src/app/exam-navbar/exam-navbar.component.ts");
+/* harmony import */ var _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./dashboard/dashboard.component */ "./src/app/dashboard/dashboard.component.ts");
+/* harmony import */ var _test_test_component__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./test/test.component */ "./src/app/test/test.component.ts");
+/* harmony import */ var _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./exam-list-view/exam-list-view.component */ "./src/app/exam-list-view/exam-list-view.component.ts");
+/* harmony import */ var _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./edit-patient/edit-patient.component */ "./src/app/edit-patient/edit-patient.component.ts");
+/* harmony import */ var _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./interview/interview.component */ "./src/app/interview/interview.component.ts");
+/* harmony import */ var _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./interview-item/interview-item.component */ "./src/app/interview-item/interview-item.component.ts");
+/* harmony import */ var _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./exam-resume/exam-resume.component */ "./src/app/exam-resume/exam-resume.component.ts");
+/* harmony import */ var _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./pdf-resume/pdf-resume.component */ "./src/app/pdf-resume/pdf-resume.component.ts");
+/* harmony import */ var _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./pdf-export/pdf-export.component */ "./src/app/pdf-export/pdf-export.component.ts");
+/* harmony import */ var _recording_recording_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./recording/recording.component */ "./src/app/recording/recording.component.ts");
+/* harmony import */ var _exam_navbar_exam_navbar_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./exam-navbar/exam-navbar.component */ "./src/app/exam-navbar/exam-navbar.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-
 
 
 
@@ -1415,18 +1448,17 @@ var AppModule = /** @class */ (function () {
                 _register_form_register_form_component__WEBPACK_IMPORTED_MODULE_11__["RegisterFormComponent"],
                 _alert_message_alert_message_component__WEBPACK_IMPORTED_MODULE_12__["AlertMessageComponent"],
                 _logged_user_wrapper_logged_user_wrapper_component__WEBPACK_IMPORTED_MODULE_13__["LoggedUserWrapperComponent"],
-                _exam_view_exam_view_component__WEBPACK_IMPORTED_MODULE_14__["ExamViewComponent"],
-                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_15__["DashboardComponent"],
-                _test_test_component__WEBPACK_IMPORTED_MODULE_16__["TestComponent"],
-                _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_17__["ExamListViewComponent"],
-                _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_18__["EditPatientComponent"],
-                _interview_interview_component__WEBPACK_IMPORTED_MODULE_19__["InterviewComponent"],
-                _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_20__["InterviewItemComponent"],
-                _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_21__["ExamResumeComponent"],
-                _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_22__["PdfResumeComponent"],
-                _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_23__["PdfExportComponent"],
-                _recording_recording_component__WEBPACK_IMPORTED_MODULE_24__["RecordingComponent"],
-                _exam_navbar_exam_navbar_component__WEBPACK_IMPORTED_MODULE_25__["ExamNavbarComponent"]
+                _dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_14__["DashboardComponent"],
+                _test_test_component__WEBPACK_IMPORTED_MODULE_15__["TestComponent"],
+                _exam_list_view_exam_list_view_component__WEBPACK_IMPORTED_MODULE_16__["ExamListViewComponent"],
+                _edit_patient_edit_patient_component__WEBPACK_IMPORTED_MODULE_17__["EditPatientComponent"],
+                _interview_interview_component__WEBPACK_IMPORTED_MODULE_18__["InterviewComponent"],
+                _interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_19__["InterviewItemComponent"],
+                _exam_resume_exam_resume_component__WEBPACK_IMPORTED_MODULE_20__["ExamResumeComponent"],
+                _pdf_resume_pdf_resume_component__WEBPACK_IMPORTED_MODULE_21__["PdfResumeComponent"],
+                _pdf_export_pdf_export_component__WEBPACK_IMPORTED_MODULE_22__["PdfExportComponent"],
+                _recording_recording_component__WEBPACK_IMPORTED_MODULE_23__["RecordingComponent"],
+                _exam_navbar_exam_navbar_component__WEBPACK_IMPORTED_MODULE_24__["ExamNavbarComponent"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
@@ -1468,7 +1500,7 @@ module.exports = "<div class=\"clr clr-col-12 clr-col-lg-3\" style=\"display: in
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJkYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -1526,7 +1558,7 @@ var DashboardComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<!--\r\n<alert-message *ngIf=\"!this.patientForm.valid\" msg=\"I campi contrassegnati con * sono obbligatori\"></alert-message>\r\n-->\r\n<form clrForm clrLayout=\"horizontal\" [formGroup]=\"patientForm\" class=\"clr-form clr-form-horizontal\">\r\n    <h2>Dati Esame</h2>\r\n    <div class=\"clr-row\">\r\n      <div class=\"clr-col\">\r\n        <div class=\"form_group\">\r\n          <label>Esaminatore</label>\r\n          <input type=\"text\" formControlName=\"esaminatore\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.esaminatore.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.esaminatore.errors\">\r\n          <alert-message *ngIf=\"f.esaminatore.errors.required\" msg=\"Il campo 'Esaminatore' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"clr-col\">\r\n        <div class=\"form_group\">\r\n          <label>Data</label>\r\n          <input type=\"date\" formControlName=\"data\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.data.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.data.errors\">\r\n          <alert-message *ngIf=\"f.data.errors.required\" msg=\"Il campo 'Data' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"clr-row\">\r\n      <div class=\"column clr-col\">\r\n        <h2>Dati Personali</h2>\r\n\r\n        <div class=\"form_group\">\r\n            <label>* Nome</label>\r\n            <input type=\"text\" formControlName=\"nome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.nome.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.nome.errors\">\r\n          <alert-message *ngIf=\"f.nome.errors.required\" msg=\"Il campo 'Nome' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>* Cognome</label>\r\n          <input type=\"text\" formControlName=\"cognome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.cognome.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.cognome.errors\">\r\n          <alert-message *ngIf=\"f.cognome.errors.required\" msg=\"Il campo 'Cognome' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Sesso</label>\r\n          <div class=\"clr-control-container clr-control-inline\">\r\n            <clr-radio-container clrInline>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"sex-radio1\" formControlName=\"sesso\" value=\"true\" class=\"clr-radio\" [checked]=\"show_sex\">\r\n                <label for=\"sex-radio1\" class=\"clr-control-label\">M</label>\r\n              </clr-radio-wrapper>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"sex-radio2\" formControlName=\"sesso\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_sex\">\r\n                <label for=\"sex-radio2\" class=\"clr-control-label\">F</label>\r\n              </clr-radio-wrapper>\r\n            </clr-radio-container>\r\n            <div class=\"clr-subtext-wrapper\">\r\n              <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n              <span class=\"clr-subtext\">Helper Text</span>\r\n            </div>\r\n          </div>\r\n          <div class=\"errors\" *ngIf=\"submitted && f.sesso.errors\">\r\n            <alert-message *ngIf=\"f.sesso.errors.required\" msg=\"Il campo 'Sesso' è obbligatorio\"></alert-message>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>* Età</label>\r\n          <input type=\"number\" formControlName=\"eta\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.eta.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.eta.errors\">\r\n          <alert-message *ngIf=\"f.eta.errors.required\" msg=\"Il campo 'Età' è obbligatorio\"></alert-message>\r\n          <alert-message *ngIf=\"!f.eta.errors.required\" msg=\"Devi inserire un'età di almeno 10 anni\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Luogo di nascita</label>\r\n          <input type=\"text\" formControlName=\"luogonascita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.luogonascita.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.luogonascita.errors\">\r\n          <alert-message *ngIf=\"f.luogonascita.errors.required\" msg=\"Il campo 'Luogo di nascita' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Professione</label>\r\n          <input type=\"text\" formControlName=\"professione\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.professione.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.professione.errors\">\r\n          <alert-message *ngIf=\"f.professione.errors.required\" msg=\"Il campo 'Professione' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"column clr-col\">\r\n        <h2>Dati Clinici</h2>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Lateralità</label>\r\n          <div class=\"clr-control-container clr-control-inline\">\r\n\r\n            <clr-radio-container clrInline>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"lat-radio1\" formControlName=\"lateralita\" value=\"true\" class=\"clr-radio\" [checked]=\"show_lat\">\r\n                <label for=\"lat-radio1\" class=\"clr-control-label\">DX</label>\r\n              </clr-radio-wrapper>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"lat-radio2\" formControlName=\"lateralita\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_lat\">\r\n                <label for=\"lat-radio2\" class=\"clr-control-label\">SX</label>\r\n              </clr-radio-wrapper>\r\n            </clr-radio-container>\r\n            <div class=\"clr-subtext-wrapper\">\r\n              <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n              <span class=\"clr-subtext\">Helper Text</span>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Lingua</label>\r\n          <input type=\"text\" formControlName=\"lingua\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.lingua.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.lingua.errors\">\r\n          <alert-message *ngIf=\"f.lingua.errors.required\" msg=\"Il campo 'Lingua' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Scolarità</label>\r\n          <input type=\"number\" formControlName=\"scolarita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.scolarita.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.scolarita.errors\">\r\n          <alert-message *ngIf=\"f.scolarita.errors.required\" msg=\"Il campo 'Scolarità' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Diagnosi</label>\r\n          <div>\r\n            <clr-select-container>\r\n              <label></label>\r\n              <select clrSelect formControlName=\"diagnosi\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.diagnosi.errors }\" >\r\n                <option value=\"Nessun disturbo\" > Nessun disturbo </option>\r\n                <option value=\"Disturbo dello Spettro Autistico\" > Disturbo dello Spettro Autistico </option>\r\n                <option value=\"Malattia di Alzheimer\" > Malattia di Alzheimer </option>\r\n                <option value=\"Malattia di Parkinson\" > Malattia di Parkinson </option>\r\n                <option value=\"Schizofrenia\" > Schizofrenia </option>\r\n                <option value=\"Sclerosi Laterale Amiotrofica\" > Sclerosi Laterale Amiotrofica </option>\r\n                <option value=\"Trauma cranico\" > Trauma cranico </option>\r\n                <option value=\"Non nota\" > Non nota </option>\r\n                <option value=\"Multiple (specificare in &quot;Note&quot;)\"> Multiple (specificare in \"Note\") </option>\r\n                <option value=\"Altro... (da riportare in &quot;Note&quot;)\"> Altro... (da riportare in \"Note\") </option>\r\n              </select>\r\n            </clr-select-container>\r\n          </div>\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.diagnosi.errors\">\r\n          <alert-message *ngIf=\"f.diagnosi.errors.required\" msg=\"Il campo 'Diagnosi' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"column clr-col\">\r\n        <h2>Note</h2>\r\n        Altre informazioni\r\n        <textarea formControlName=\"altro\" id=\"altro\" ></textarea>\r\n      </div>\r\n    </div>\r\n\r\n    <button type=\"button\" (click)=\"save_patient = true\" class=\"btn btn-primary\" [disabled]=\"!this.patientForm.valid\">\r\n      <clr-icon shape=\"floppy\"></clr-icon> Salva dati\r\n    </button>\r\n</form>\r\n\r\n<clr-modal [(clrModalOpen)]=\"save_patient\" >\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per salvare i dati anagrafici relativi a questo paziente, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"save_patient = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit(); save_patient = false\">\r\n          <clr-icon shape=\"floppy\"></clr-icon> Si, salva i dati\r\n        </button>\r\n    </div>\r\n</clr-modal>"
+module.exports = "<app-exam-navbar (saveEvent)=\"onSubmit()\"></app-exam-navbar>\r\n<button *ngIf=\"formIsChanged\" type=\"button\" class=\"btn btn-danger\">CHANGED</button>\r\n<!--\r\n<alert-message *ngIf=\"!this.patientForm.valid\" msg=\"I campi contrassegnati con * sono obbligatori\"></alert-message>\r\n-->\r\n<form clrForm clrLayout=\"horizontal\" [formGroup]=\"patientForm\" class=\"clr-form clr-form-horizontal\">\r\n    <h2>Dati Valutazione</h2>\r\n    <div class=\"clr-row\">\r\n      <div class=\"clr-col\">\r\n        <div class=\"form_group\">\r\n          <label>Esaminatore</label>\r\n          <input type=\"text\" formControlName=\"esaminatore\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.esaminatore.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.esaminatore.errors\">\r\n          <alert-message *ngIf=\"f.esaminatore.errors.required\" msg=\"Il campo 'Esaminatore' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n      <div class=\"clr-col\">\r\n        <div class=\"form_group\">\r\n          <label>Data</label>\r\n          <input type=\"date\" formControlName=\"data\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.data.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.data.errors\">\r\n          <alert-message *ngIf=\"f.data.errors.required\" msg=\"Il campo 'Data' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n    </div>\r\n\r\n    <div class=\"clr-row\">\r\n      <div class=\"column clr-col\">\r\n        <h2>Dati Personali</h2>\r\n\r\n        <div class=\"form_group\">\r\n            <label>* Nome</label>\r\n            <input type=\"text\" formControlName=\"nome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.nome.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.nome.errors\">\r\n          <alert-message *ngIf=\"f.nome.errors.required\" msg=\"Il campo 'Nome' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>* Cognome</label>\r\n          <input type=\"text\" formControlName=\"cognome\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.cognome.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.cognome.errors\">\r\n          <alert-message *ngIf=\"f.cognome.errors.required\" msg=\"Il campo 'Cognome' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Sesso</label>\r\n          <div class=\"clr-control-container clr-control-inline\">\r\n            <clr-radio-container clrInline>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"sex-radio1\" formControlName=\"sesso\" value=\"true\" class=\"clr-radio\" [checked]=\"show_sex\">\r\n                <label for=\"sex-radio1\" class=\"clr-control-label\">M</label>\r\n              </clr-radio-wrapper>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"sex-radio2\" formControlName=\"sesso\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_sex\">\r\n                <label for=\"sex-radio2\" class=\"clr-control-label\">F</label>\r\n              </clr-radio-wrapper>\r\n            </clr-radio-container>\r\n            <div class=\"clr-subtext-wrapper\">\r\n              <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n            </div>\r\n          </div>\r\n          <div class=\"errors\" *ngIf=\"submitted && f.sesso.errors\">\r\n            <alert-message *ngIf=\"f.sesso.errors.required\" msg=\"Il campo 'Sesso' è obbligatorio\"></alert-message>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>* Età</label>\r\n          <input type=\"number\" formControlName=\"eta\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.eta.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"f.eta.errors\">\r\n          <alert-message *ngIf=\"f.eta.errors.required\" msg=\"Il campo 'Età' è obbligatorio\"></alert-message>\r\n          <alert-message *ngIf=\"!f.eta.errors.required\" msg=\"Devi inserire un'età di almeno 10 anni\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Luogo di nascita</label>\r\n          <input type=\"text\" formControlName=\"luogonascita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.luogonascita.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.luogonascita.errors\">\r\n          <alert-message *ngIf=\"f.luogonascita.errors.required\" msg=\"Il campo 'Luogo di nascita' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Professione</label>\r\n          <input type=\"text\" formControlName=\"professione\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.professione.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.professione.errors\">\r\n          <alert-message *ngIf=\"f.professione.errors.required\" msg=\"Il campo 'Professione' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"column clr-col\">\r\n        <h2>Dati Clinici</h2>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Lateralità</label>\r\n          <div class=\"clr-control-container clr-control-inline\">\r\n\r\n            <clr-radio-container clrInline>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"lat-radio2\" formControlName=\"lateralita\" value=\"false\" class=\"clr-radio\" [checked]=\"!show_lat\">\r\n                <label for=\"lat-radio2\" class=\"clr-control-label\">SX</label>\r\n              </clr-radio-wrapper>\r\n              <clr-radio-wrapper>\r\n                <input clrRadio type=\"radio\" id=\"lat-radio1\" formControlName=\"lateralita\" value=\"true\" class=\"clr-radio\" [checked]=\"show_lat\">\r\n                <label for=\"lat-radio1\" class=\"clr-control-label\">DX</label>\r\n              </clr-radio-wrapper>\r\n            </clr-radio-container>\r\n            <div class=\"clr-subtext-wrapper\">\r\n              <clr-icon class=\"clr-validate-icon\" shape=\"exclamation-circle\"></clr-icon>\r\n            </div>\r\n          </div>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Lingua</label>\r\n          <input type=\"text\" formControlName=\"lingua\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.lingua.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.lingua.errors\">\r\n          <alert-message *ngIf=\"f.lingua.errors.required\" msg=\"Il campo 'Lingua' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Scolarità</label>\r\n          <input type=\"number\" formControlName=\"scolarita\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.scolarita.errors }\" />\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.scolarita.errors\">\r\n          <alert-message *ngIf=\"f.scolarita.errors.required\" msg=\"Il campo 'Scolarità' è obbligatorio\"></alert-message>\r\n        </div>\r\n\r\n        <div class=\"form_group\">\r\n          <label>Diagnosi</label>\r\n          <div>\r\n            <clr-select-container>\r\n              <label></label>\r\n              <select clrSelect formControlName=\"diagnosi\" class=\"form-control\" [ngClass]=\"{ 'is-invalid': submitted && f.diagnosi.errors }\" >\r\n                <option value=\"Nessun disturbo\" > Nessun disturbo </option>\r\n                <option value=\"Disturbo dello Spettro Autistico\" > Disturbo dello Spettro Autistico </option>\r\n                <option value=\"Malattia di Alzheimer\" > Malattia di Alzheimer </option>\r\n                <option value=\"Malattia di Parkinson\" > Malattia di Parkinson </option>\r\n                <option value=\"Schizofrenia\" > Schizofrenia </option>\r\n                <option value=\"Sclerosi Laterale Amiotrofica\" > Sclerosi Laterale Amiotrofica </option>\r\n                <option value=\"Trauma cranico\" > Trauma cranico </option>\r\n                <option value=\"Non nota\" > Non nota </option>\r\n                <option value=\"Multiple (specificare in &quot;Note&quot;)\"> Multiple (specificare in \"Note\") </option>\r\n                <option value=\"Altro... (da riportare in &quot;Note&quot;)\"> Altro... (da riportare in \"Note\") </option>\r\n              </select>\r\n            </clr-select-container>\r\n          </div>\r\n        </div>\r\n        <div class=\"errors\" *ngIf=\"submitted && f.diagnosi.errors\">\r\n          <alert-message *ngIf=\"f.diagnosi.errors.required\" msg=\"Il campo 'Diagnosi' è obbligatorio\"></alert-message>\r\n        </div>\r\n      </div>\r\n\r\n\r\n      <div class=\"column clr-col\">\r\n        <h2>Note</h2>\r\n        Altre informazioni\r\n        <textarea formControlName=\"altro\" id=\"altro\" ></textarea>\r\n      </div>\r\n    </div>\r\n\r\n    <button type=\"button\" (click)=\"save_patient = true\" class=\"btn btn-primary\" [disabled]=\"!this.patientForm.valid\">\r\n      <clr-icon shape=\"floppy\"></clr-icon> Salva dati\r\n    </button>\r\n</form>\r\n\r\n<clr-modal [(clrModalOpen)]=\"save_patient\" >\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per salvare i dati anagrafici relativi a questo paziente, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"save_patient = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"onSubmit(); save_patient = false\">\r\n          <clr-icon shape=\"floppy\"></clr-icon> Si, salva i dati\r\n        </button>\r\n    </div>\r\n</clr-modal>"
 
 /***/ }),
 
@@ -1537,7 +1569,7 @@ module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<!--\r\n<alert-message 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".clr-row {\n  max-width: 100% !important; }\n\n.form_group {\n  width: 100%;\n  clear: both;\n  margin: 0.5em 0;\n  height: 2.5em; }\n\n.form_group > label {\n  display: block;\n  max-width: 100% !important;\n  width: 10em;\n  float: left; }\n\n.form_group > div, .form_group > input {\n  display: block;\n  max-width: 100% !important;\n  width: calc(100% - 10em);\n  float: right; }\n\nclr-radio-container, clr-select-container, .clr-form-control {\n  margin: 0 !important; }\n\nselect {\n  box-sizing: border-box !important; }\n\nclr-select-container > label {\n  display: none !important; }\n\nclr-select-container > .clr-control-container {\n  padding: 0 !important; }\n\n.clr-select-wrapper {\n  width: 100% !important; }\n\ntextarea {\n  height: 50%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9lZGl0LXBhdGllbnQvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmMvYXBwXFxlZGl0LXBhdGllbnRcXGVkaXQtcGF0aWVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLDBCQUEwQixFQUFBOztBQUc1QjtFQUNFLFdBQVc7RUFDWCxXQUFXO0VBQ1gsZUFBZTtFQUNmLGFBQWEsRUFBQTs7QUFJZjtFQUNFLGNBQWM7RUFDZCwwQkFBMEI7RUFDMUIsV0FBVztFQUNYLFdBQVcsRUFBQTs7QUFHYjtFQUNFLGNBQWM7RUFDZCwwQkFBMEI7RUFDMUIsd0JBQXdCO0VBQ3hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLG9CQUFvQixFQUFBOztBQUd0QjtFQUNFLGlDQUFpQyxFQUFBOztBQUduQztFQUNFLHdCQUF3QixFQUFBOztBQUcxQjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJhcHAvZWRpdC1wYXRpZW50L2VkaXQtcGF0aWVudC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbHItcm93IHtcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxufVxyXG5cclxuLmZvcm1fZ3JvdXAge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGNsZWFyOiBib3RoO1xyXG4gIG1hcmdpbjogMC41ZW0gMDtcclxuICBoZWlnaHQ6IDIuNWVtO1xyXG5cclxufVxyXG5cclxuLmZvcm1fZ3JvdXA+bGFiZWwge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1heC13aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiAxMGVtO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4uZm9ybV9ncm91cD5kaXYsIC5mb3JtX2dyb3VwPmlucHV0IHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxuICB3aWR0aDogY2FsYygxMDAlIC0gMTBlbSk7XHJcbiAgZmxvYXQ6IHJpZ2h0O1xyXG59XHJcblxyXG5jbHItcmFkaW8tY29udGFpbmVyLCBjbHItc2VsZWN0LWNvbnRhaW5lciwgLmNsci1mb3JtLWNvbnRyb2wgIHtcclxuICBtYXJnaW46IDAgIWltcG9ydGFudDtcclxufVxyXG5cclxuc2VsZWN0IHtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94ICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmNsci1zZWxlY3QtY29udGFpbmVyID4gbGFiZWwge1xyXG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcclxufVxyXG5cclxuY2xyLXNlbGVjdC1jb250YWluZXIgPiAuY2xyLWNvbnRyb2wtY29udGFpbmVyIHtcclxuICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5jbHItc2VsZWN0LXdyYXBwZXIge1xyXG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbnRleHRhcmVhIHtcclxuICBoZWlnaHQ6IDUwJTtcclxufSJdfQ== */"
+module.exports = ".clr-row {\n  max-width: 100% !important; }\n\n.form_group {\n  width: 100%;\n  clear: both;\n  margin: 0.5em 0;\n  height: 2.5em; }\n\n.form_group > label {\n  display: block;\n  max-width: 100% !important;\n  width: 10em;\n  float: left; }\n\n.form_group > div, .form_group > input {\n  display: block;\n  max-width: 100% !important;\n  width: calc(100% - 10em);\n  float: right; }\n\nclr-radio-container, clr-select-container, .clr-form-control {\n  margin: 0 !important; }\n\nselect {\n  box-sizing: border-box !important; }\n\nclr-select-container > label {\n  display: none !important; }\n\nclr-select-container > .clr-control-container {\n  padding: 0 !important; }\n\n.clr-select-wrapper {\n  width: 100% !important; }\n\ntextarea {\n  height: 50%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVkaXQtcGF0aWVudC9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyY1xcYXBwL2VkaXQtcGF0aWVudFxcZWRpdC1wYXRpZW50LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsMEJBQTBCLEVBQUE7O0FBRzVCO0VBQ0UsV0FBVztFQUNYLFdBQVc7RUFDWCxlQUFlO0VBQ2YsYUFBYSxFQUFBOztBQUlmO0VBQ0UsY0FBYztFQUNkLDBCQUEwQjtFQUMxQixXQUFXO0VBQ1gsV0FBVyxFQUFBOztBQUdiO0VBQ0UsY0FBYztFQUNkLDBCQUEwQjtFQUMxQix3QkFBd0I7RUFDeEIsWUFBWSxFQUFBOztBQUdkO0VBQ0Usb0JBQW9CLEVBQUE7O0FBR3RCO0VBQ0UsaUNBQWlDLEVBQUE7O0FBR25DO0VBQ0Usd0JBQXdCLEVBQUE7O0FBRzFCO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0Usc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6ImVkaXQtcGF0aWVudC9lZGl0LXBhdGllbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xyLXJvdyB7XHJcbiAgbWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5mb3JtX2dyb3VwIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBjbGVhcjogYm90aDtcclxuICBtYXJnaW46IDAuNWVtIDA7XHJcbiAgaGVpZ2h0OiAyLjVlbTtcclxuXHJcbn1cclxuXHJcbi5mb3JtX2dyb3VwPmxhYmVsIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxuICB3aWR0aDogMTBlbTtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLmZvcm1fZ3JvdXA+ZGl2LCAuZm9ybV9ncm91cD5pbnB1dCB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgbWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDEwZW0pO1xyXG4gIGZsb2F0OiByaWdodDtcclxufVxyXG5cclxuY2xyLXJhZGlvLWNvbnRhaW5lciwgY2xyLXNlbGVjdC1jb250YWluZXIsIC5jbHItZm9ybS1jb250cm9sICB7XHJcbiAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbnNlbGVjdCB7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveCAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5jbHItc2VsZWN0LWNvbnRhaW5lciA+IGxhYmVsIHtcclxuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmNsci1zZWxlY3QtY29udGFpbmVyID4gLmNsci1jb250cm9sLWNvbnRhaW5lciB7XHJcbiAgcGFkZGluZzogMCAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4uY2xyLXNlbGVjdC13cmFwcGVyIHtcclxuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcblxyXG50ZXh0YXJlYSB7XHJcbiAgaGVpZ2h0OiA1MCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -1570,15 +1602,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 var EditPatientComponent = /** @class */ (function () {
-    function EditPatientComponent(route, patientService, examService, userService, formBuilder) {
+    function EditPatientComponent(route, patientService, examService, userService, dataService, formBuilder) {
         this.route = route;
         this.patientService = patientService;
         this.examService = examService;
         this.userService = userService;
+        this.dataService = dataService;
         this.formBuilder = formBuilder;
         this.submitted = true;
+        this.formIsChanged = false;
     }
     EditPatientComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.activeExam = this.examService.getActiveExam();
         this.activePatient = this.patientService.getActivePatient();
         this.loggedUser = this.userService.getLoggedUser();
@@ -1598,15 +1633,27 @@ var EditPatientComponent = /** @class */ (function () {
             data: [('' + this.activeExam.date).substring(0, 10)],
             esaminatore: [this.loggedUser.name + " " + this.loggedUser.surname]
         });
-        this.show_sex = this.activePatient.sesso; // ((this.activePatient.sesso == "true")||(this.activePatient.sesso == true));
-        this.show_lat = this.activePatient.lateralita; // ((this.activePatient.lateralita == "true")||(this.activePatient.lateralita == true));
-        console.log(this.show_sex, this.show_lat);
+        this.show_sex = this.activePatient.sesso;
+        this.show_lat = this.activePatient.lateralita;
+        //console.log(this.patientForm.controls);
+        Object.keys(this.patientForm.controls).forEach(function (key) {
+            //console.log(this.patientForm.controls[key]);
+            _this.patientForm.controls[key].valueChanges.subscribe(function (data) {
+                _this.formChanged();
+            });
+        });
+        this.formIsChanged = false;
+        this.dataService.setChanges(false);
     };
     Object.defineProperty(EditPatientComponent.prototype, "f", {
         get: function () { return this.patientForm.controls; },
         enumerable: true,
         configurable: true
     });
+    EditPatientComponent.prototype.formChanged = function () {
+        this.formIsChanged = true;
+        this.dataService.setChanges(true);
+    };
     EditPatientComponent.prototype.onSubmit = function () {
         //if (confirm("Sicuro di voler salvare? L'azione non è reversibile")) {
         var control = this.patientForm.controls;
@@ -1651,22 +1698,19 @@ var EditPatientComponent = /** @class */ (function () {
         var _this = this;
         this.patientService.savePatient(p).subscribe(function (data) {
             var returnobj = (JSON.parse(data._body));
-            console.log(returnobj);
+            //console.log(returnobj);
             _this.patientService.saveOnLocal(returnobj);
+            _this.formIsChanged = false;
+            _this.dataService.setChanges(false);
         }, function (error) { return console.log(error); });
         this.examService.saveExam(e).subscribe(function (data) {
             var returnobj = (JSON.parse(data._body));
-            console.log(returnobj);
+            //console.log(returnobj);
             _this.examService.saveOnLocal(returnobj);
+            _this.formIsChanged = false;
+            _this.dataService.setChanges(false);
         }, function (error) { return console.log(error); });
         //console.log(e,p);
-    };
-    EditPatientComponent.prototype.printPat = function () {
-        //console.log(this.activePatient);
-        console.log(this.patientForm.valid);
-    };
-    EditPatientComponent.prototype.printExam = function () {
-        //this.patientForm.controls.nome.status="INVALID";
     };
     EditPatientComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -1678,6 +1722,7 @@ var EditPatientComponent = /** @class */ (function () {
             _services__WEBPACK_IMPORTED_MODULE_3__["PatientService"],
             _services__WEBPACK_IMPORTED_MODULE_3__["ExamService"],
             _services__WEBPACK_IMPORTED_MODULE_3__["UserService"],
+            _services__WEBPACK_IMPORTED_MODULE_3__["DataService"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_1__["FormBuilder"]])
     ], EditPatientComponent);
     return EditPatientComponent;
@@ -1694,7 +1739,7 @@ var EditPatientComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\r\n    <clr-icon shape=\"plus\"></clr-icon> Crea un nuovo esame\r\n</button>\r\n<clr-datagrid [clrDgLoading]=\"loading\">\r\n    <clr-dg-column>ID esame</clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'date'\" [clrDgSortOrder]=\"defaultSort\">Data\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'score'\">Punteggio</clr-dg-column>\r\n    <clr-dg-column>Azioni</clr-dg-column>\r\n\r\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\r\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.score}}</clr-dg-cell>\r\n        <clr-dg-cell>\r\n          <button class=\"btn btn-success-outline btn-sm\" (click)=\"redirectExam(exam.id, exam.patient.id)\" title=\"Visualizza resoconto e PDF\">\r\n            <clr-icon shape=\"file\"></clr-icon> pdf\r\n          </button>\r\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\" title=\"Modifica questo esame\">\r\n            <clr-icon shape=\"pencil\"></clr-icon> modifica\r\n          </button>\r\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"delete_exam = true; new_id = exam.id\" title=\"Elimina questo esame\">\r\n          <!--<button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">-->\r\n            <clr-icon shape=\"trash\"></clr-icon> elimina\r\n          </button>\r\n          \r\n        </clr-dg-cell>\r\n    </clr-dg-row>\r\n\r\n    <clr-dg-footer>\r\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\r\n            <clr-dg-page-size [clrPageSizeOptions]=\"[5,10,20,50,100]\">Elementi per pagina</clr-dg-page-size>\r\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\r\n            di {{pagination.totalItems}} esami.\r\n        </clr-dg-pagination>\r\n    </clr-dg-footer>\r\n</clr-datagrid>\r\n\r\n<clr-modal [(clrModalOpen)]=\"delete_exam\" [clrModalSize]=\"'sm'\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per eliminare questo esame, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"delete_exam = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"deleteExam(new_id); delete_exam = false\">Ok</button>\r\n    </div>\r\n</clr-modal>"
+module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\r\n    <clr-icon shape=\"plus\"></clr-icon> Nuova Valutazione\r\n</button>\r\n<clr-datagrid [clrDgLoading]=\"loading\">\r\n    <clr-dg-column>ID valutazione</clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Nome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"nameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'patient.nome'\">Cognome Paziente\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"surnameFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'date'\" [clrDgSortOrder]=\"defaultSort\">Data\r\n      <clr-dg-string-filter [clrDgStringFilter]=\"dateFilter\"></clr-dg-string-filter>\r\n    </clr-dg-column>\r\n    <clr-dg-column [clrDgField]=\"'score'\">Punteggio</clr-dg-column>\r\n    <clr-dg-column>Azioni</clr-dg-column>\r\n\r\n    <clr-dg-row *clrDgItems=\"let exam of exams; let i=index\">\r\n        <clr-dg-cell>{{exam.id}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.nome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.patient.cognome}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.date | date:\"dd/MM/yyyy\"}}</clr-dg-cell>\r\n        <clr-dg-cell>{{exam.score}}</clr-dg-cell>\r\n        <clr-dg-cell>\r\n          <button class=\"btn btn-success-outline btn-sm\" (click)=\"redirectExam(exam.id, exam.patient.id)\" title=\"Visualizza resoconto e PDF\">\r\n            <clr-icon shape=\"file\"></clr-icon> pdf\r\n          </button>\r\n          <button class=\"btn btn-sm\" (click)=\"editExam(exam.id, exam.patient.id)\" title=\"Modifica questo esame\">\r\n            <clr-icon shape=\"pencil\"></clr-icon> modifica\r\n          </button>\r\n          <!--\r\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"delete_exam = true; new_id = exam.id\" title=\"Elimina questo esame\">\r\n          -->\r\n          <button class=\"btn btn-danger-outline btn-sm\" (click)=\"openDeleteModal(exam.id)\" title=\"Elimina questo esame\">\r\n          <!--<button class=\"btn btn-danger-outline btn-sm\" (click)=\"deleteExam(exam.id)\">-->\r\n            <clr-icon shape=\"trash\"></clr-icon> elimina\r\n          </button>\r\n          \r\n        </clr-dg-cell>\r\n    </clr-dg-row>\r\n\r\n    <clr-dg-footer>\r\n        <clr-dg-pagination #pagination [clrDgTotalItems]=\"total\" [clrDgPageSize]=\"10\">\r\n            <clr-dg-page-size [clrPageSizeOptions]=\"[5,10,20,50,100]\">Elementi per pagina</clr-dg-page-size>\r\n            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}}\r\n            di {{pagination.totalItems}} esami.\r\n        </clr-dg-pagination>\r\n    </clr-dg-footer>\r\n</clr-datagrid>\r\n\r\n<clr-modal [(clrModalOpen)]=\"delete_exam\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per eliminare la valutazione di <strong>{{this.patientName}}</strong>, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"delete_exam = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"deleteExam(desiredDeleteId); delete_exam = false\"><clr-icon shape=\"trash\"></clr-icon> Si, elimina</button>\r\n    </div>\r\n</clr-modal>"
 
 /***/ }),
 
@@ -1705,7 +1750,7 @@ module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" tit
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1saXN0LXZpZXcvZXhhbS1saXN0LXZpZXcuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLWxpc3Qtdmlldy9leGFtLWxpc3Qtdmlldy5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1749,7 +1794,7 @@ var DateFilter = /** @class */ (function () {
         this.cf = this.d + "/" + this.m + "/" + this.y + " " + this.cf + this.d + "-" + this.m + "-" + this.y + " " + this.cf + this.d + "." + this.m + "." + this.y + " ";
         this.cf = this.cf + " " + this.y + "/" + this.m + "/" + this.d + " " + this.y + "-" + this.m + "-" + this.d + " " + this.y + "." + this.m + "." + this.d + " ";
         this.cf = this.cf + " " + this.m + "/" + this.d + "/" + this.y + " " + this.m + "-" + this.d + "-" + this.y + " " + this.m + "." + this.d + "." + this.y + " ";
-        console.log(this.cf);
+        //console.log(this.cf);
         return this.cf.includes(search);
     };
     return DateFilter;
@@ -1758,7 +1803,7 @@ var NameFilter = /** @class */ (function () {
     function NameFilter() {
     }
     NameFilter.prototype.accepts = function (exam, search) {
-        console.log(exam.patient.id);
+        //console.log((<any>exam.patient).id);
         return (exam.patient.nome).toLowerCase().includes(search);
     };
     return NameFilter;
@@ -1782,6 +1827,8 @@ var ExamListViewComponent = /** @class */ (function () {
         this.surnameFilter = new SurnameFilter();
         this.loaded_data = false;
         this.defaultSort = _clr_angular__WEBPACK_IMPORTED_MODULE_1__["ClrDatagridSortOrder"].DESC;
+        this.patientName = "";
+        this.delete_exam = false;
     }
     ExamListViewComponent.prototype.ngOnInit = function () {
         this.refresh();
@@ -1834,13 +1881,26 @@ var ExamListViewComponent = /** @class */ (function () {
             });
         });
     };
+    ExamListViewComponent.prototype.openDeleteModal = function (id) {
+        this.delete_exam = true;
+        this.desiredDeleteId = id;
+        this.loadExamInfo(id);
+    };
+    ExamListViewComponent.prototype.loadExamInfo = function (eid) {
+        for (var _i = 0, _a = this.exams; _i < _a.length; _i++) {
+            var e = _a[_i];
+            if (e.id == eid) {
+                this.patientName = e.patient.nome + " " + e.patient.cognome;
+            }
+        }
+    };
     ExamListViewComponent.prototype.deleteExam = function (e) {
         var _this = this;
         this.examService.deleteExam(e).subscribe(function (response) {
             _this.examService.deleteExamData(e);
             _this.refresh();
         }, function (errors) { return console.log(errors); });
-        console.log("elimina ", e);
+        //console.log("elimina ",e);
     };
     ExamListViewComponent.prototype.createNewExam = function () {
         var _this = this;
@@ -1893,7 +1953,7 @@ var ExamListViewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-exam-view></app-exam-view>"
+module.exports = "<header class=\"header header-4\">\r\n      <div class=\"branding\">\r\n        <a class=\"nav-link\">\r\n            <clr-icon shape=\"cursor-hand-click\"></clr-icon>\r\n            <span class=\"title\">Modalità intervista</span>\r\n        </a>\r\n      </div>\r\n      <div class=\"header-nav\">\r\n        <!--\r\n        <a [routerLink]=\"['/editpatient']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\r\n        <a [routerLink]=\"['/interview']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\r\n        <a [routerLink]=\"['/resume']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\r\n        -->\r\n        <!--\r\n        <a [routerLink]=\"['/editpatient']\" (click)=\"checkChanges()\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\r\n        <a [routerLink]=\"['/interview']\" (click)=\"checkChanges()\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\r\n        <a [routerLink]=\"['/resume']\" (click)=\"checkChanges()\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\r\n        -->\r\n\r\n        <a href=\"javascript://\" (click)=\"goTo('/editpatient')\" [class.active]=\"isActive('/editpatient')\" class=\"nav-link nav-text\">Anagrafica</a>\r\n        <a href=\"javascript://\" (click)=\"goTo('/interview')\" [class.active]=\"isActive('/interview')\" class=\"nav-link nav-text\">Intervista</a>\r\n        <a href=\"javascript://\" (click)=\"goTo('/resume')\" [class.active]=\"isActive('/resume')\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\r\n\r\n      </div>\r\n      <div class=\"header-actions\">\r\n        <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"openModal()\" >\r\n          <span>esci dalla modalità intervista</span>\r\n        </a>\r\n        <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"openModal()\" >\r\n          <clr-icon shape=\"times\"></clr-icon> \r\n        </a>\r\n      </div>\r\n\r\n</header>\r\n\r\n<clr-modal [(clrModalOpen)]=\"exitModal\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per uscire dalla modalità intervista. <span *ngIf=\"this.unstagedChanges\">Le ultime modifiche non saranno salvate. Vuoi procedere?</span><span *ngIf=\"!this.unstagedChanges\">Non ci sono modifiche da salvare.</span></p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button *ngIf=\"this.unstagedChanges\" type=\"button\" class=\"btn btn-outline\" (click)=\"closeModal()\">No, annulla</button>\r\n        <button *ngIf=\"this.unstagedChanges\" type=\"button\" class=\"btn btn-danger\" (click)=\"exit()\">Esci senza salvare</button>\r\n        <button *ngIf=\"this.unstagedChanges\" type=\"button\" class=\"btn btn-primary\" (click)=\"saveExit()\"><clr-icon shape=\"floppy\"></clr-icon> Salva ed esci</button>\r\n        <button *ngIf=\"!this.unstagedChanges\" type=\"button\" class=\"btn btn-outline\" (click)=\"closeModal()\">Annulla</button>\r\n        <button *ngIf=\"!this.unstagedChanges\" type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Esci</button>\r\n    </div>\r\n</clr-modal>\r\n\r\n<clr-modal [(clrModalOpen)]=\"switchModal\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per cambiare sezione della tua valutazione, ma alcune modifiche non sono state salvate. Vuoi salvarle?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"closeSwitchModal()\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-danger\" (click)=\"ignoreEdit()\">Non salvare</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"saveMove()\"><clr-icon shape=\"floppy\"></clr-icon> Salva</button>\r\n    </div>\r\n</clr-modal>\r\n"
 
 /***/ }),
 
@@ -1904,7 +1964,7 @@ module.exports = "<app-exam-view></app-exam-view>"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1uYXZiYXIvZXhhbS1uYXZiYXIuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLW5hdmJhci9leGFtLW5hdmJhci5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1919,6 +1979,8 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExamNavbarComponent", function() { return ExamNavbarComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1929,18 +1991,100 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var ExamNavbarComponent = /** @class */ (function () {
-    function ExamNavbarComponent() {
+    function ExamNavbarComponent(examService, patientService, dataService, router) {
+        this.examService = examService;
+        this.patientService = patientService;
+        this.dataService = dataService;
+        this.router = router;
+        this.unstagedChanges = false;
+        this.activePatient = false;
+        this.activeInterview = false;
+        this.activeResume = false;
+        this.saveEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
-    ExamNavbarComponent.prototype.ngOnInit = function () {
+    ExamNavbarComponent.prototype.ngOnInit = function () { };
+    ExamNavbarComponent.prototype.savePatient = function () {
+        this.saveEvent.emit('savePatient');
     };
+    ExamNavbarComponent.prototype.saveInterview = function () {
+        this.saveEvent.emit('saveInterview');
+    };
+    ExamNavbarComponent.prototype.isActive = function (s) {
+        var _url = window.location.href.split('/');
+        var actualUrl = '/' + _url[_url.length - 1];
+        return (s === actualUrl);
+    };
+    ExamNavbarComponent.prototype.goTo = function (url) {
+        this.unstagedChanges = this.dataService.pendingChanges();
+        //var _url = window.location.href.split('/');
+        //var actualUrl = '/'+_url[_url.length-1];
+        var actualUrl = this.getActualUrl;
+        this.desiredUrl = url;
+        if (this.unstagedChanges)
+            this.openSwitchModal();
+        else
+            this.navigateTo(this.desiredUrl);
+    };
+    ExamNavbarComponent.prototype.getActualUrl = function () {
+        var _url = window.location.href.split('/');
+        return '/' + _url[_url.length - 1];
+    };
+    ExamNavbarComponent.prototype.navigateTo = function (url) {
+        this.router.navigate([url]);
+    };
+    ExamNavbarComponent.prototype.ignoreEdit = function () {
+        this.dataService.setChanges(false);
+        this.router.navigate([this.desiredUrl]);
+    };
+    ExamNavbarComponent.prototype.exit = function () {
+        this.examService.setActive(this.examService.activeExam.id);
+        this.router.navigate(['']);
+    };
+    ExamNavbarComponent.prototype.saveExit = function () {
+        if (this.getActualUrl() == '/editpatient')
+            this.saveInterview();
+        else if (this.getActualUrl() == '/interview')
+            this.savePatient();
+        this.exit();
+    };
+    ExamNavbarComponent.prototype.saveMove = function () {
+        if (this.getActualUrl() == '/editpatient')
+            this.saveInterview();
+        else if (this.getActualUrl() == '/interview')
+            this.savePatient();
+        this.navigateTo(this.desiredUrl);
+    };
+    ExamNavbarComponent.prototype.openModal = function () {
+        this.unstagedChanges = this.dataService.pendingChanges();
+        this.exitModal = true;
+    };
+    ExamNavbarComponent.prototype.closeModal = function () {
+        this.exitModal = false;
+    };
+    ExamNavbarComponent.prototype.openSwitchModal = function () {
+        this.unstagedChanges = this.dataService.pendingChanges();
+        this.switchModal = true;
+    };
+    ExamNavbarComponent.prototype.closeSwitchModal = function () {
+        this.switchModal = false;
+    };
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], ExamNavbarComponent.prototype, "saveEvent", void 0);
     ExamNavbarComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-exam-navbar',
             template: __webpack_require__(/*! ./exam-navbar.component.html */ "./src/app/exam-navbar/exam-navbar.component.html"),
             styles: [__webpack_require__(/*! ./exam-navbar.component.scss */ "./src/app/exam-navbar/exam-navbar.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["ExamService"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["PatientService"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["DataService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], ExamNavbarComponent);
     return ExamNavbarComponent;
 }());
@@ -1956,7 +2100,7 @@ var ExamNavbarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<clr-stack-view *ngIf=\"loaded\">\r\n    <clr-stack-header>Riepilogo esame di <strong>{{patient.nome+\" \"+patient.cognome}}</strong> del <strong>{{exam.date | date:\"dd/MM/yyyy\"}}</strong></clr-stack-header>\r\n    <!-- heading -->\r\n    <clr-stack-block>\r\n        <clr-stack-label><strong>Nome</strong></clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Spesso o Sempre</strong></span>\r\n              </div>\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Qualche Volta</strong></span>\r\n              </div>\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Mai</strong></span>\r\n              </div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>Punteggio</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n    </clr-stack-block>\r\n\r\n    <!-- Groups -->\r\n    <clr-stack-block *ngFor=\"let g of examData\">\r\n        <clr-stack-label>{{groups[g[0].gruppo-1].nome}}</clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>{{partialGroupScore(g)}}/{{(g.length)*2}}</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n        <clr-stack-block *ngFor=\"let voice of g\">\r\n          <clr-stack-label>{{voice.nome}}</clr-stack-label>\r\n          <clr-stack-content>\r\n            <div class=\"clr-row\">\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.s\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.qv\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.m\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col-4\">\r\n                    <span><strong>{{voice.punteggio}}/2</strong></span>\r\n                </div>\r\n            </div>\r\n          </clr-stack-content>\r\n        </clr-stack-block>\r\n    </clr-stack-block>\r\n\r\n  <clr-stack-block>\r\n        <clr-stack-label><strong>Totale</strong></clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>{{totalScore()}}/44</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n    </clr-stack-block>\r\n</clr-stack-view>\r\n\r\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\r\n  <span class=\"spinner spinner-inline\">\r\n      Loading...\r\n  </span>\r\n  <span>\r\n      Sto caricando i dati...\r\n  </span>\r\n</div>\r\n\r\n<app-pdf-resume [examData]=\"examData\" [groups]=\"groups\"></app-pdf-resume>"
+module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<clr-stack-view *ngIf=\"loaded\">\r\n    <clr-stack-header>Riepilogo valutazione di <strong>{{patient.nome+\" \"+patient.cognome}}</strong> del <strong>{{exam.date | date:\"dd/MM/yyyy\"}}</strong></clr-stack-header>\r\n    <!-- heading -->\r\n    <clr-stack-block>\r\n        <clr-stack-label><strong>Nome</strong></clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Spesso o Sempre</strong></span>\r\n              </div>\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Qualche Volta</strong></span>\r\n              </div>\r\n              <div class=\"clr-col\">\r\n                  <span><strong>Mai</strong></span>\r\n              </div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>Punteggio</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n    </clr-stack-block>\r\n\r\n    <!-- Groups -->\r\n    <clr-stack-block *ngFor=\"let g of examData\">\r\n        <clr-stack-label>{{groups[g[0].gruppo-1].nome}}</clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>{{partialGroupScore(g)}}/{{(g.length)*2}}</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n        <clr-stack-block *ngFor=\"let voice of g\">\r\n          <clr-stack-label>{{voice.nome}}</clr-stack-label>\r\n          <clr-stack-content>\r\n            <div class=\"clr-row\">\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.s\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.qv\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col\"><clr-icon *ngIf=\"voice.m\" shape=\"check\"></clr-icon></div>\r\n                <div class=\"clr-col-4\">\r\n                    <span><strong>{{voice.punteggio}}/2</strong></span>\r\n                </div>\r\n            </div>\r\n          </clr-stack-content>\r\n        </clr-stack-block>\r\n    </clr-stack-block>\r\n\r\n  <clr-stack-block>\r\n        <clr-stack-label><strong>Totale</strong></clr-stack-label>\r\n        <clr-stack-content>\r\n          <div class=\"clr-row\">\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col\"></div>\r\n              <div class=\"clr-col-4\">\r\n                  <span><strong>{{totalScore()}}/44</strong></span>\r\n              </div>\r\n          </div>\r\n        </clr-stack-content>\r\n    </clr-stack-block>\r\n</clr-stack-view>\r\n\r\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\r\n  <span class=\"spinner spinner-inline\">\r\n      Loading...\r\n  </span>\r\n  <span>\r\n      Sto caricando i dati...\r\n  </span>\r\n</div>\r\n\r\n<app-pdf-resume [examData]=\"examData\" [groups]=\"groups\"></app-pdf-resume>"
 
 /***/ }),
 
@@ -1967,7 +2111,7 @@ module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<clr-stack-view *ngIf=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1yZXN1bWUvZXhhbS1yZXN1bWUuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLXJlc3VtZS9leGFtLXJlc3VtZS5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -2067,79 +2211,6 @@ var ExamResumeComponent = /** @class */ (function () {
 
 /***/ }),
 
-/***/ "./src/app/exam-view/exam-view.component.html":
-/*!****************************************************!*\
-  !*** ./src/app/exam-view/exam-view.component.html ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "<!--\r\n<div class=\"main-container\">\r\n-->\r\n    <header class=\"header header-4\">\r\n          <div class=\"branding\">\r\n            <a class=\"nav-link\">\r\n                <clr-icon shape=\"cursor-hand-click\"></clr-icon>\r\n                <span class=\"title\">Modalità intervista</span>\r\n            </a>\r\n          </div>\r\n          <div class=\"header-nav\">\r\n            <a [routerLink]=\"['/editpatient']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Anagrafica</a>\r\n            <a [routerLink]=\"['/interview']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Intervista</a>\r\n            <a [routerLink]=\"['/resume']\" routerLinkActive=\"active\" class=\"nav-link nav-text\">Resume</a>\r\n          </div>\r\n          <div class=\"header-actions\">\r\n            <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"basic = true\" >\r\n              <span>esci dalla modalità intervista</span>\r\n            </a>\r\n            <a title=\"esci dalla modalità intervista\" href=\"javascript://\" class=\"nav-link nav-text\" (click)=\"basic = true\" >\r\n              <clr-icon shape=\"times\"></clr-icon> \r\n            </a>\r\n          </div>\r\n\r\n    </header>\r\n    <!--\r\n    <div>\r\n      <router-outlet name=\"exam\"></router-outlet>\r\n    </div>\r\n    -->\r\n<!--\r\n</div>\r\n-->\r\n\r\n<clr-modal [(clrModalOpen)]=\"basic\">\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per uscire dalla modalità intervista, i dati non salvati andranno persi. Vuoi procedere?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"basic = false\">No, annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"exit()\">Si, esci</button>\r\n    </div>\r\n</clr-modal>\r\n"
-
-/***/ }),
-
-/***/ "./src/app/exam-view/exam-view.component.scss":
-/*!****************************************************!*\
-  !*** ./src/app/exam-view/exam-view.component.scss ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS12aWV3L2V4YW0tdmlldy5jb21wb25lbnQuc2NzcyJ9 */"
-
-/***/ }),
-
-/***/ "./src/app/exam-view/exam-view.component.ts":
-/*!**************************************************!*\
-  !*** ./src/app/exam-view/exam-view.component.ts ***!
-  \**************************************************/
-/*! exports provided: ExamViewComponent */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ExamViewComponent", function() { return ExamViewComponent; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
-/* harmony import */ var _services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_services */ "./src/app/_services/index.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-var ExamViewComponent = /** @class */ (function () {
-    function ExamViewComponent(examService, router) {
-        this.examService = examService;
-        this.router = router;
-    }
-    ExamViewComponent.prototype.ngOnInit = function () {
-    };
-    ExamViewComponent.prototype.exit = function () {
-        this.examService.setActive(this.examService.activeExam.id);
-        this.router.navigate(['dashboard']);
-    };
-    ExamViewComponent = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
-            selector: 'app-exam-view',
-            template: __webpack_require__(/*! ./exam-view.component.html */ "./src/app/exam-view/exam-view.component.html"),
-            styles: [__webpack_require__(/*! ./exam-view.component.scss */ "./src/app/exam-view/exam-view.component.scss")]
-        }),
-        __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["ExamService"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
-    ], ExamViewComponent);
-    return ExamViewComponent;
-}());
-
-
-
-/***/ }),
-
 /***/ "./src/app/interview-item/interview-item.component.html":
 /*!**************************************************************!*\
   !*** ./src/app/interview-item/interview-item.component.html ***!
@@ -2158,7 +2229,7 @@ module.exports = "<div *ngIf=\"loaded\" class=\"interview-item\" (click)=\"onCli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".interview-item {\n  margin: 0.5em;\n  padding: 0.5em;\n  padding-top: 0; }\n\n.interview-item:hover {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.item-header {\n  display: block;\n  width: 100%;\n  margin-bottom: -1em;\n  margin-top: 0em;\n  text-align: center; }\n\n.item-header > span {\n  display: inline-block;\n  vertical-align: middle; }\n\n.progress {\n  max-height: 1.5em;\n  color: #123456; }\n\n.item-icon {\n  width: 5em;\n  height: 5em;\n  text-align: center; }\n\n.item-icon > clr-icon {\n  width: 4.5em;\n  height: 4.5em;\n  padding: 0.5em; }\n\n.item-title {\n  max-width: calc(100% - 5em);\n  width: calc(100% - 5em);\n  vertical-align: middle; }\n\nbutton {\n  background-color: rgba(0, 0, 0, 0.1);\n  border: none;\n  border-radius: 50%;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n  border: none;\n  border-radius: 50%; }\n\n.undo-button {\n  display: inline-block;\n  cursor: pointer;\n  text-align: center;\n  width: 3em;\n  height: 2em;\n  padding: 0 0.5em; }\n\n.bar {\n  width: 85%;\n  height: 2em;\n  background: white; }\n\n.bar > input {\n  width: 100%; }\n\ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  background: rgba(255, 255, 255, 0.2); }\n\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  height: 1em;\n  width: 1em;\n  background: #999;\n  cursor: pointer;\n  margin-top: 0;\n  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }\n\ninput[type=range]:focus {\n  outline: none; }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  cursor: pointer;\n  /* Hides the slider so custom styles can be added */\n  background: transparent;\n  border-color: transparent;\n  color: transparent; }\n\n.slider-label {\n  height: 1em;\n  margin-top: -1em; }\n\n.slider-label div {\n  width: 33%;\n  float: left; }\n\n.slider-label .left {\n  text-align: left; }\n\n.slider-label .center {\n  text-align: center; }\n\n.slider-label .right {\n  text-align: right; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pbnRlcnZpZXctaXRlbS9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyYy9hcHBcXGludGVydmlldy1pdGVtXFxpbnRlcnZpZXctaXRlbS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixjQUFjO0VBQ2QsY0FBYyxFQUFBOztBQUdoQjtFQUNFLG9DQUFpQyxFQUFBOztBQUduQztFQUNFLGNBQWM7RUFDZCxXQUFXO0VBQ1gsbUJBQW1CO0VBQ25CLGVBQWU7RUFDZixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxxQkFBcUI7RUFDckIsc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsaUJBQWlCO0VBQ2pCLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxVQUFVO0VBQ1YsV0FBVTtFQUNWLGtCQUFrQixFQUFBOztBQUdwQjtFQUNFLFlBQVk7RUFDWixhQUFZO0VBQ1osY0FBYyxFQUFBOztBQUdoQjtFQUNFLDJCQUEyQjtFQUMzQix1QkFBdUI7RUFDdkIsc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0Usb0NBQWlDO0VBQ2pDLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsZUFBZSxFQUFBOztBQUdqQjtFQUNFLHFDQUFrQztFQUNsQyxZQUFZO0VBQ1osa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UscUJBQXFCO0VBQ3JCLGVBQWU7RUFDZixrQkFBa0I7RUFDbEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxnQkFBZ0IsRUFBQTs7QUFFbEI7RUFDRSxVQUFVO0VBQ1YsV0FBVTtFQUNWLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHdCQUF3QjtFQUN4QixXQUFXO0VBQ1gsb0NBQWlDLEVBQUE7O0FBR25DO0VBQ0Msd0JBQXdCO0VBQ3ZCLFdBQVc7RUFDWCxVQUFVO0VBQ1YsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZixhQUFhO0VBQUUsa0ZBQUEsRUFBbUY7O0FBR3BHO0VBQ0UsYUFBYSxFQUFBOztBQUdmO0VBQ0UsV0FBVztFQUNYLGVBQWU7RUFDZixtREFBQTtFQUNBLHVCQUF1QjtFQUN2Qix5QkFBeUI7RUFDekIsa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsV0FBVztFQUNYLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLFVBQVM7RUFDVCxXQUFXLEVBQUE7O0FBRWI7RUFDRSxnQkFBZ0IsRUFBQTs7QUFFbEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFFcEI7RUFDRSxpQkFBaUIsRUFBQSIsImZpbGUiOiJhcHAvaW50ZXJ2aWV3LWl0ZW0vaW50ZXJ2aWV3LWl0ZW0uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWl0ZW0ge1xyXG4gIG1hcmdpbjogMC41ZW07XHJcbiAgcGFkZGluZzogMC41ZW07XHJcbiAgcGFkZGluZy10b3A6IDA7XHJcbn1cclxuXHJcbi5pbnRlcnZpZXctaXRlbTpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLDAsMCwwLjEpO1xyXG59XHJcblxyXG4uaXRlbS1oZWFkZXIge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIG1hcmdpbi1ib3R0b206IC0xZW07XHJcbiAgbWFyZ2luLXRvcDogMGVtO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLml0ZW0taGVhZGVyID5zcGFuIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuLnByb2dyZXNzIHtcclxuICBtYXgtaGVpZ2h0OiAxLjVlbTtcclxuICBjb2xvcjogIzEyMzQ1NjtcclxufVxyXG5cclxuLml0ZW0taWNvbiB7XHJcbiAgd2lkdGg6IDVlbTtcclxuICBoZWlnaHQ6NWVtO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLml0ZW0taWNvbj5jbHItaWNvbiB7XHJcbiAgd2lkdGg6IDQuNWVtO1xyXG4gIGhlaWdodDo0LjVlbTtcclxuICBwYWRkaW5nOiAwLjVlbTtcclxufVxyXG5cclxuLml0ZW0tdGl0bGUge1xyXG4gIG1heC13aWR0aDogY2FsYygxMDAlIC0gNWVtKTtcclxuICB3aWR0aDogY2FsYygxMDAlIC0gNWVtKTtcclxuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC4xKTtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuYnV0dG9uOmhvdmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsMCwwLDAuMDUpO1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbn1cclxuXHJcbi51bmRvLWJ1dHRvbiB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgd2lkdGg6IDNlbTtcclxuICBoZWlnaHQ6IDJlbTtcclxuICBwYWRkaW5nOiAwIDAuNWVtO1xyXG59XHJcbi5iYXIge1xyXG4gIHdpZHRoOiA4NSU7XHJcbiAgaGVpZ2h0OjJlbTtcclxuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcclxufVxyXG5cclxuLmJhcj5pbnB1dCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdIHtcclxuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgYmFja2dyb3VuZDogcmdiYSgyNTUsMjU1LDI1NSwwLjIpOyBcclxufVxyXG5cclxuaW5wdXRbdHlwZT1yYW5nZV06Oi13ZWJraXQtc2xpZGVyLXRodW1iIHtcclxuIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcclxuICBoZWlnaHQ6IDFlbTtcclxuICB3aWR0aDogMWVtO1xyXG4gIGJhY2tncm91bmQ6ICM5OTk7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIG1hcmdpbi10b3A6IDA7IC8qIFlvdSBuZWVkIHRvIHNwZWNpZnkgYSBtYXJnaW4gaW4gQ2hyb21lLCBidXQgaW4gRmlyZWZveCBhbmQgSUUgaXQgaXMgYXV0b21hdGljICovXHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdOmZvY3VzIHtcclxuICBvdXRsaW5lOiBub25lO1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXTo6LW1zLXRyYWNrIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgLyogSGlkZXMgdGhlIHNsaWRlciBzbyBjdXN0b20gc3R5bGVzIGNhbiBiZSBhZGRlZCAqL1xyXG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50OyBcclxuICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50O1xyXG4gIGNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuLnNsaWRlci1sYWJlbCB7XHJcbiAgaGVpZ2h0OiAxZW07XHJcbiAgbWFyZ2luLXRvcDogLTFlbTtcclxufVxyXG4uc2xpZGVyLWxhYmVsIGRpdiB7XHJcbiAgd2lkdGg6MzMlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLmxlZnQge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuLnNsaWRlci1sYWJlbCAuY2VudGVyIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuLnNsaWRlci1sYWJlbCAucmlnaHQge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59Il19 */"
+module.exports = ".interview-item {\n  margin: 0.5em;\n  padding: 0.5em;\n  padding-top: 0; }\n\n.interview-item:hover {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.item-header {\n  display: block;\n  width: 100%;\n  margin-bottom: -1em;\n  margin-top: 0em;\n  text-align: center; }\n\n.item-header > span {\n  display: inline-block;\n  vertical-align: middle; }\n\n.progress {\n  max-height: 1.5em;\n  color: #123456; }\n\n.progress-block {\n  margin-top: 0.4em; }\n\n.item-icon {\n  width: 5em;\n  height: 5em;\n  text-align: center; }\n\n.item-icon > clr-icon {\n  width: 4.5em;\n  height: 4.5em;\n  padding: 0.5em; }\n\n.item-title {\n  max-width: calc(100% - 5em);\n  width: calc(100% - 5em);\n  vertical-align: middle; }\n\nbutton {\n  background-color: rgba(0, 0, 0, 0.1);\n  border: none;\n  border-radius: 50%;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n  border: none;\n  border-radius: 50%; }\n\n.undo-button {\n  display: inline-block;\n  cursor: pointer;\n  text-align: center;\n  width: 3em;\n  height: 2em;\n  padding: 0 0.5em; }\n\n.bar {\n  width: 85%;\n  height: 2em;\n  background: white; }\n\n.bar > input {\n  width: 100%; }\n\ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  background: rgba(255, 255, 255, 0.2); }\n\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  height: 1em;\n  width: 1em;\n  background: #999;\n  cursor: pointer;\n  margin-top: 0;\n  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }\n\ninput[type=range]:focus {\n  outline: none; }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  cursor: pointer;\n  /* Hides the slider so custom styles can be added */\n  background: transparent;\n  border-color: transparent;\n  color: transparent; }\n\n.slider-label {\n  height: 1em;\n  margin-top: -1em; }\n\n.slider-label div {\n  width: 33%;\n  float: left; }\n\n.slider-label .left {\n  text-align: left; }\n\n.slider-label .center {\n  text-align: center; }\n\n.slider-label .right {\n  text-align: right; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy1pdGVtL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjXFxhcHAvaW50ZXJ2aWV3LWl0ZW1cXGludGVydmlldy1pdGVtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBYTtFQUNiLGNBQWM7RUFDZCxjQUFjLEVBQUE7O0FBR2hCO0VBQ0Usb0NBQWlDLEVBQUE7O0FBR25DO0VBQ0UsY0FBYztFQUNkLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsZUFBZTtFQUNmLGtCQUFrQixFQUFBOztBQUdwQjtFQUNFLHFCQUFxQjtFQUNyQixzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxpQkFBaUI7RUFDakIsY0FBYyxFQUFBOztBQUdoQjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFVBQVU7RUFDVixXQUFVO0VBQ1Ysa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsWUFBWTtFQUNaLGFBQVk7RUFDWixjQUFjLEVBQUE7O0FBR2hCO0VBQ0UsMkJBQTJCO0VBQzNCLHVCQUF1QjtFQUN2QixzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxvQ0FBaUM7RUFDakMsWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBR2pCO0VBQ0UscUNBQWtDO0VBQ2xDLFlBQVk7RUFDWixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixVQUFVO0VBQ1YsV0FBVztFQUNYLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLFVBQVU7RUFDVixXQUFVO0VBQ1YsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsV0FBVyxFQUFBOztBQUdiO0VBQ0Usd0JBQXdCO0VBQ3hCLFdBQVc7RUFDWCxvQ0FBaUMsRUFBQTs7QUFHbkM7RUFDQyx3QkFBd0I7RUFDdkIsV0FBVztFQUNYLFVBQVU7RUFDVixnQkFBZ0I7RUFDaEIsZUFBZTtFQUNmLGFBQWE7RUFBRSxrRkFBQSxFQUFtRjs7QUFHcEc7RUFDRSxhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsZUFBZTtFQUNmLG1EQUFBO0VBQ0EsdUJBQXVCO0VBQ3ZCLHlCQUF5QjtFQUN6QixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCLEVBQUE7O0FBRWxCO0VBQ0UsVUFBUztFQUNULFdBQVcsRUFBQTs7QUFFYjtFQUNFLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGtCQUFrQixFQUFBOztBQUVwQjtFQUNFLGlCQUFpQixFQUFBIiwiZmlsZSI6ImludGVydmlldy1pdGVtL2ludGVydmlldy1pdGVtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmludGVydmlldy1pdGVtIHtcclxuICBtYXJnaW46IDAuNWVtO1xyXG4gIHBhZGRpbmc6IDAuNWVtO1xyXG4gIHBhZGRpbmctdG9wOiAwO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWl0ZW06aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC4xKTtcclxufVxyXG5cclxuLml0ZW0taGVhZGVyIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXJnaW4tYm90dG9tOiAtMWVtO1xyXG4gIG1hcmdpbi10b3A6IDBlbTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pdGVtLWhlYWRlciA+c3BhbiB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbn1cclxuXHJcbi5wcm9ncmVzcyB7XHJcbiAgbWF4LWhlaWdodDogMS41ZW07XHJcbiAgY29sb3I6ICMxMjM0NTY7XHJcbn1cclxuXHJcbi5wcm9ncmVzcy1ibG9jayB7XHJcbiAgbWFyZ2luLXRvcDogMC40ZW07XHJcbn1cclxuXHJcbi5pdGVtLWljb24ge1xyXG4gIHdpZHRoOiA1ZW07XHJcbiAgaGVpZ2h0OjVlbTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pdGVtLWljb24+Y2xyLWljb24ge1xyXG4gIHdpZHRoOiA0LjVlbTtcclxuICBoZWlnaHQ6NC41ZW07XHJcbiAgcGFkZGluZzogMC41ZW07XHJcbn1cclxuXHJcbi5pdGVtLXRpdGxlIHtcclxuICBtYXgtd2lkdGg6IGNhbGMoMTAwJSAtIDVlbSk7XHJcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDVlbSk7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuYnV0dG9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsMCwwLDAuMSk7XHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuXHJcbmJ1dHRvbjpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLDAsMCwwLjA1KTtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG59XHJcblxyXG4udW5kby1idXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIHdpZHRoOiAzZW07XHJcbiAgaGVpZ2h0OiAyZW07XHJcbiAgcGFkZGluZzogMCAwLjVlbTtcclxufVxyXG4uYmFyIHtcclxuICB3aWR0aDogODUlO1xyXG4gIGhlaWdodDoyZW07XHJcbiAgYmFja2dyb3VuZDogd2hpdGU7XHJcbn1cclxuXHJcbi5iYXI+aW5wdXQge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXSB7XHJcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC4yKTsgXHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdOjotd2Via2l0LXNsaWRlci10aHVtYiB7XHJcbiAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgaGVpZ2h0OiAxZW07XHJcbiAgd2lkdGg6IDFlbTtcclxuICBiYWNrZ3JvdW5kOiAjOTk5O1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBtYXJnaW4tdG9wOiAwOyAvKiBZb3UgbmVlZCB0byBzcGVjaWZ5IGEgbWFyZ2luIGluIENocm9tZSwgYnV0IGluIEZpcmVmb3ggYW5kIElFIGl0IGlzIGF1dG9tYXRpYyAqL1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXTpmb2N1cyB7XHJcbiAgb3V0bGluZTogbm9uZTtcclxufVxyXG5cclxuaW5wdXRbdHlwZT1yYW5nZV06Oi1tcy10cmFjayB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIC8qIEhpZGVzIHRoZSBzbGlkZXIgc28gY3VzdG9tIHN0eWxlcyBjYW4gYmUgYWRkZWQgKi9cclxuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDsgXHJcbiAgYm9yZGVyLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuICBjb2xvcjogdHJhbnNwYXJlbnQ7XHJcbn1cclxuXHJcbi5zbGlkZXItbGFiZWwge1xyXG4gIGhlaWdodDogMWVtO1xyXG4gIG1hcmdpbi10b3A6IC0xZW07XHJcbn1cclxuLnNsaWRlci1sYWJlbCBkaXYge1xyXG4gIHdpZHRoOjMzJTtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG4uc2xpZGVyLWxhYmVsIC5sZWZ0IHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLmNlbnRlciB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLnJpZ2h0IHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -2253,7 +2324,7 @@ var InterviewItemComponent = /** @class */ (function () {
         //this.clear();
     };
     InterviewItemComponent.prototype.editProgress = function (n) {
-        console.log("edit-progress");
+        //console.log("edit-progress");
         this.progress += n;
         this.stile = (this.progress) / (this.max) * 100 + "%";
     };
@@ -2327,7 +2398,7 @@ var InterviewItemComponent = /** @class */ (function () {
         //console.log(to_upload);
         localStorage.setItem('exam' + this.id, JSON.stringify(this.item));
         this.examService.saveExamData(this.item.id, to_upload).subscribe(function (data) {
-            console.log(JSON.parse(data._body));
+            //console.log(JSON.parse((<any>data)._body));
         });
     };
     InterviewItemComponent.prototype.reset = function () {
@@ -2374,7 +2445,7 @@ var InterviewItemComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<div>\r\n  <span *ngIf=\"enabled\" class=\"registration_on\">\r\n    <clr-icon shape=\"microphone\" class=\"is-inverse\" size=\"36\" title=\"Registrazione in corso\"></clr-icon>\r\n  </span>\r\n  <span *ngIf=\"!enabled\">\r\n    <clr-icon shape=\"microphone\" size=\"36\" title=\"Nessuna registrazione attiva\"></clr-icon>\r\n  </span>\r\n  <button *ngIf=\"!enabled\" (click)=\"startRecording()\" class=\"btn btn-success-outline\"><clr-icon shape=\"microphone\"></clr-icon> Inizia registrazione</button>\r\n  <button *ngIf=\"enabled\" (click)=\"stopRecording()\" class=\"btn btn-warning-outline\"><clr-icon shape=\"microphone\"></clr-icon> Ferma registrazione</button>\r\n  <button (click)=\"saveData()\" class=\"btn btn-primary\"><clr-icon shape=\"floppy\"></clr-icon> Salva dati</button>\r\n  <button (click)=\"reset_data = true\" class=\"btn btn-warning-outline\"><clr-icon shape=\"history\"></clr-icon> Reset di tutti i dati</button>\r\n</div>\r\n<div *ngIf=\"loaded\" class=\"grid\">\r\n  <ul *ngFor=\"let c of examData; index as i\" class=\"col\" [ngStyle]=\"{'background-color': palette[i]}\">\r\n    <li *ngFor=\"let item of c\" [ngClass]=\"{inactive: !enabled}\" class=\"interview-component\">\r\n      <app-interview-item [itemid]=\"item.id\" [active]=\"enabled\"></app-interview-item>\r\n    </li>\r\n  </ul>\r\n</div>\r\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\r\n  <span class=\"spinner spinner-inline\">\r\n      Loading...\r\n  </span>\r\n  <span>\r\n      Sto caricando i dati...\r\n  </span>\r\n</div>\r\n\r\n<clr-modal [(clrModalOpen)]=\"reset_data\" >\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per resettare completamente i dati relativi a quest'intervista, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"reset_data = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"resetData(); reset_data = false\">\r\n          <clr-icon shape=\"history\"></clr-icon> Si, resetta i dati\r\n        </button>\r\n    </div>\r\n</clr-modal>"
+module.exports = "<app-exam-navbar (saveEvent)=\"saveData()\"></app-exam-navbar>\r\n<button *ngIf='changesOccurred' type=\"button\" class=\"btn btn-warning\">CHANGED DATA</button>\r\n<div>\r\n  <span *ngIf=\"enabled\" class=\"registration_on\">\r\n    <clr-icon shape=\"microphone\" class=\"is-inverse\" size=\"36\" title=\"Registrazione in corso\"></clr-icon>\r\n  </span>\r\n  <span *ngIf=\"!enabled\">\r\n    <clr-icon shape=\"microphone\" size=\"36\" title=\"Nessuna registrazione attiva\"></clr-icon>\r\n  </span>\r\n  <button *ngIf=\"!enabled\" (click)=\"startRecording()\" class=\"btn btn-success-outline\"><clr-icon shape=\"microphone\"></clr-icon> Inizia registrazione</button>\r\n  <button *ngIf=\"enabled\" (click)=\"stopRecording()\" class=\"btn btn-warning-outline\"><clr-icon shape=\"microphone\"></clr-icon> Ferma registrazione</button>\r\n  <button (click)=\"saveData()\" class=\"btn btn-primary\"><clr-icon shape=\"floppy\"></clr-icon> Salva dati</button>\r\n  <button (click)=\"reset_data = true\" class=\"btn btn-warning-outline\"><clr-icon shape=\"history\"></clr-icon> Reset di tutti i dati</button>\r\n</div>\r\n<div *ngIf=\"loaded\" class=\"grid\">\r\n  <ul *ngFor=\"let c of examData; index as i\" class=\"col\" [ngStyle]=\"{'background-color': palette[i]}\">\r\n    <li *ngFor=\"let item of c\" [ngClass]=\"{inactive: !enabled}\" class=\"interview-component\">\r\n      <app-interview-item [itemid]=\"item.id\" [active]=\"enabled\"></app-interview-item>\r\n    </li>\r\n  </ul>\r\n</div>\r\n<div *ngIf=\"!loaded\" [ngStyle]=\"{'margin': '0 auto','width':'100%','text-align':'center'}\">\r\n  <span class=\"spinner spinner-inline\">\r\n      Loading...\r\n  </span>\r\n  <span>\r\n      Sto caricando i dati...\r\n  </span>\r\n</div>\r\n\r\n<clr-modal [(clrModalOpen)]=\"reset_data\" >\r\n    <h3 class=\"modal-title\">Attenzione</h3>\r\n    <div class=\"modal-body\">\r\n        <p>Stai per resettare completamente i dati relativi a quest'intervista, l'azione non è reversibile. Sei sicuro?</p>\r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"reset_data = false\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-warning\" (click)=\"resetData(); reset_data = false\">\r\n          <clr-icon shape=\"history\"></clr-icon> Si, resetta i dati\r\n        </button>\r\n    </div>\r\n</clr-modal>"
 
 /***/ }),
 
@@ -2385,7 +2456,7 @@ module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<div>\r\n  <span *ngIf=
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".interview-component {\n  cursor: pointer; }\n\n.interview-component.inactive {\n  opacity: 0.5;\n  cursor: not-allowed; }\n\ndiv.grid {\n  display: flex;\n  width: 100%; }\n\nul.col {\n  /*\r\n  flex: 1;\r\n  margin: 0;\r\n  padding: 0;\r\n  */\n  width: 20%; }\n\nli {\n  list-style-type: none; }\n\n.audio-bar, .saving-bar {\n  width: 50%;\n  margin: 0;\n  float: left; }\n\n.saving-bar {\n  text-align: right; }\n\n.saving-bar button {\n  display: inline-block; }\n\ndiv.registration {\n  width: 60px;\n  height: 60px;\n  padding: 6px;\n  text-align: center;\n  border-radius: 50%;\n  float: left; }\n\n.registration.on {\n  background-color: red; }\n\n.registration.off {\n  background-color: grey; }\n\ndiv.microphone-control {\n  clear: both; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pbnRlcnZpZXcvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmMvYXBwXFxpbnRlcnZpZXdcXGludGVydmlldy5jb21wb25lbnQuc2NzcyIsImFwcC9pbnRlcnZpZXcvaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBZSxFQUFBOztBQUdqQjtFQUNFLFlBQVk7RUFDWixtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSxhQUFhO0VBQ2IsV0FDRixFQUFBOztBQUVBO0VBQ0E7Ozs7R0NDRztFRElELFVBQVUsRUFBQTs7QUFHWjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLFVBQVU7RUFDVixTQUFTO0VBQ1QsV0FBVyxFQUFBOztBQUdiO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLGtCQUFrQjtFQUNsQixXQUFXLEVBQUE7O0FBR2I7RUFDRSxxQkFBcUIsRUFBQTs7QUFHdkI7RUFDRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxXQUFXLEVBQUEiLCJmaWxlIjoiYXBwL2ludGVydmlldy9pbnRlcnZpZXcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWNvbXBvbmVudCB7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWNvbXBvbmVudC5pbmFjdGl2ZSB7XHJcbiAgb3BhY2l0eTogMC41O1xyXG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn1cclxuXHJcbmRpdi5ncmlkIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIHdpZHRoOiAxMDAlXHJcbn1cclxuXHJcbnVsLmNvbCB7XHJcbi8qXHJcbiAgZmxleDogMTtcclxuICBtYXJnaW46IDA7XHJcbiAgcGFkZGluZzogMDtcclxuICAqL1xyXG4gIHdpZHRoOiAyMCU7XHJcbn1cclxuXHJcbmxpIHtcclxuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbn1cclxuXHJcbi5hdWRpby1iYXIsIC5zYXZpbmctYmFyIHtcclxuICB3aWR0aDogNTAlO1xyXG4gIG1hcmdpbjogMDtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLnNhdmluZy1iYXIge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uc2F2aW5nLWJhciBidXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG5cclxuZGl2LnJlZ2lzdHJhdGlvbiB7XHJcbiAgd2lkdGg6IDYwcHg7XHJcbiAgaGVpZ2h0OiA2MHB4O1xyXG4gIHBhZGRpbmc6IDZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4ucmVnaXN0cmF0aW9uLm9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5yZWdpc3RyYXRpb24ub2ZmIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmV5O1xyXG59XHJcblxyXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcclxuICBjbGVhcjogYm90aDtcclxufSIsIi5pbnRlcnZpZXctY29tcG9uZW50IHtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi5pbnRlcnZpZXctY29tcG9uZW50LmluYWN0aXZlIHtcbiAgb3BhY2l0eTogMC41O1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkOyB9XG5cbmRpdi5ncmlkIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDEwMCU7IH1cblxudWwuY29sIHtcbiAgLypcclxuICBmbGV4OiAxO1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG4gICovXG4gIHdpZHRoOiAyMCU7IH1cblxubGkge1xuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7IH1cblxuLmF1ZGlvLWJhciwgLnNhdmluZy1iYXIge1xuICB3aWR0aDogNTAlO1xuICBtYXJnaW46IDA7XG4gIGZsb2F0OiBsZWZ0OyB9XG5cbi5zYXZpbmctYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7IH1cblxuLnNhdmluZy1iYXIgYnV0dG9uIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrOyB9XG5cbmRpdi5yZWdpc3RyYXRpb24ge1xuICB3aWR0aDogNjBweDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBwYWRkaW5nOiA2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmbG9hdDogbGVmdDsgfVxuXG4ucmVnaXN0cmF0aW9uLm9uIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkOyB9XG5cbi5yZWdpc3RyYXRpb24ub2ZmIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JleTsgfVxuXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcbiAgY2xlYXI6IGJvdGg7IH1cbiJdfQ== */"
+module.exports = ".interview-component {\n  cursor: pointer; }\n\n.interview-component.inactive {\n  opacity: 0.5;\n  cursor: not-allowed; }\n\ndiv.grid {\n  display: flex;\n  width: 100%; }\n\nul.col {\n  /*\r\n  flex: 1;\r\n  margin: 0;\r\n  padding: 0;\r\n  */\n  width: 20%; }\n\nli {\n  list-style-type: none; }\n\n.audio-bar, .saving-bar {\n  width: 50%;\n  margin: 0;\n  float: left; }\n\n.saving-bar {\n  text-align: right; }\n\n.saving-bar button {\n  display: inline-block; }\n\ndiv.registration {\n  width: 60px;\n  height: 60px;\n  padding: 6px;\n  text-align: center;\n  border-radius: 50%;\n  float: left; }\n\n.registration.on {\n  background-color: red; }\n\n.registration.off {\n  background-color: grey; }\n\ndiv.microphone-control {\n  clear: both; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyY1xcYXBwL2ludGVydmlld1xcaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIiwiaW50ZXJ2aWV3L2ludGVydmlldy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWUsRUFBQTs7QUFHakI7RUFDRSxZQUFZO0VBQ1osbUJBQW1CLEVBQUE7O0FBR3JCO0VBQ0UsYUFBYTtFQUNiLFdBQ0YsRUFBQTs7QUFFQTtFQUNBOzs7O0dDQ0c7RURJRCxVQUFVLEVBQUE7O0FBR1o7RUFDRSxxQkFBcUIsRUFBQTs7QUFHdkI7RUFDRSxVQUFVO0VBQ1YsU0FBUztFQUNULFdBQVcsRUFBQTs7QUFHYjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBQ1osWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixrQkFBa0I7RUFDbEIsV0FBVyxFQUFBOztBQUdiO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0Usc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6ImludGVydmlldy9pbnRlcnZpZXcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWNvbXBvbmVudCB7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWNvbXBvbmVudC5pbmFjdGl2ZSB7XHJcbiAgb3BhY2l0eTogMC41O1xyXG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn1cclxuXHJcbmRpdi5ncmlkIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIHdpZHRoOiAxMDAlXHJcbn1cclxuXHJcbnVsLmNvbCB7XHJcbi8qXHJcbiAgZmxleDogMTtcclxuICBtYXJnaW46IDA7XHJcbiAgcGFkZGluZzogMDtcclxuICAqL1xyXG4gIHdpZHRoOiAyMCU7XHJcbn1cclxuXHJcbmxpIHtcclxuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbn1cclxuXHJcbi5hdWRpby1iYXIsIC5zYXZpbmctYmFyIHtcclxuICB3aWR0aDogNTAlO1xyXG4gIG1hcmdpbjogMDtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLnNhdmluZy1iYXIge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uc2F2aW5nLWJhciBidXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG5cclxuZGl2LnJlZ2lzdHJhdGlvbiB7XHJcbiAgd2lkdGg6IDYwcHg7XHJcbiAgaGVpZ2h0OiA2MHB4O1xyXG4gIHBhZGRpbmc6IDZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4ucmVnaXN0cmF0aW9uLm9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5yZWdpc3RyYXRpb24ub2ZmIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmV5O1xyXG59XHJcblxyXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcclxuICBjbGVhcjogYm90aDtcclxufSIsIi5pbnRlcnZpZXctY29tcG9uZW50IHtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi5pbnRlcnZpZXctY29tcG9uZW50LmluYWN0aXZlIHtcbiAgb3BhY2l0eTogMC41O1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkOyB9XG5cbmRpdi5ncmlkIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDEwMCU7IH1cblxudWwuY29sIHtcbiAgLypcclxuICBmbGV4OiAxO1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG4gICovXG4gIHdpZHRoOiAyMCU7IH1cblxubGkge1xuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7IH1cblxuLmF1ZGlvLWJhciwgLnNhdmluZy1iYXIge1xuICB3aWR0aDogNTAlO1xuICBtYXJnaW46IDA7XG4gIGZsb2F0OiBsZWZ0OyB9XG5cbi5zYXZpbmctYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7IH1cblxuLnNhdmluZy1iYXIgYnV0dG9uIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrOyB9XG5cbmRpdi5yZWdpc3RyYXRpb24ge1xuICB3aWR0aDogNjBweDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBwYWRkaW5nOiA2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmbG9hdDogbGVmdDsgfVxuXG4ucmVnaXN0cmF0aW9uLm9uIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkOyB9XG5cbi5yZWdpc3RyYXRpb24ub2ZmIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JleTsgfVxuXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcbiAgY2xlYXI6IGJvdGg7IH1cbiJdfQ== */"
 
 /***/ }),
 
@@ -2414,20 +2485,21 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
-
-
 var InterviewComponent = /** @class */ (function () {
     //constructor(private  apiService:  APIService) { }
-    function InterviewComponent(userService, examService, patientService) {
+    function InterviewComponent(userService, examService, dataService, patientService) {
         this.userService = userService;
         this.examService = examService;
+        this.dataService = dataService;
         this.patientService = patientService;
         this.registration_on = true;
         this.loaded = false;
         this.palette = ["", "", "", "", ""];
         this.enabled = false;
+        this.changesOccurred = false;
     }
     InterviewComponent.prototype.ngOnInit = function () {
+        this.changesOccurred = false;
         this.loadData();
         this.loadPalette();
         //this.startRecording();
@@ -2452,19 +2524,13 @@ var InterviewComponent = /** @class */ (function () {
     InterviewComponent.prototype.setLoaded = function () {
         this.loaded = true;
     };
-    InterviewComponent.prototype.printExam = function () {
-        console.log(this.exam);
-    };
-    InterviewComponent.prototype.printData = function () {
-        console.log(this.examData);
-    };
     InterviewComponent.prototype.loadPalette = function () {
         var _this = this;
         this.examService.loadPalette().subscribe(function (data) {
             var d = JSON.parse(data._body);
             for (var _i = 0, d_1 = d; _i < d_1.length; _i++) {
                 var p = d_1[_i];
-                console.log(p.colore, p.ordine);
+                //console.log(p.colore,p.ordine);
                 _this.palette[p.ordine - 1] = p.colore;
             }
         });
@@ -2474,6 +2540,8 @@ var InterviewComponent = /** @class */ (function () {
         this.children.forEach(function (it) {
             it.save();
         });
+        this.changesOccurred = false;
+        this.dataService.setChanges(false);
         this.loadData();
     };
     InterviewComponent.prototype.resetData = function () {
@@ -2481,17 +2549,17 @@ var InterviewComponent = /** @class */ (function () {
         this.children.forEach(function (it) {
             it.reset();
         });
+        this.changesOccurred = false;
+        this.dataService.setChanges(false);
         this.loadData();
     };
     InterviewComponent.prototype.startRecording = function () {
         this.enabled = true;
+        this.changesOccurred = true;
+        this.dataService.setChanges(true);
     };
     InterviewComponent.prototype.stopRecording = function () {
         this.enabled = false;
-    };
-    InterviewComponent.prototype.test = function () {
-        //this.examService.calculateExamScore();
-        console.log(this.examService.activeExam.score);
     };
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ViewChildren"])(_interview_item_interview_item_component__WEBPACK_IMPORTED_MODULE_1__["InterviewItemComponent"]),
@@ -2505,6 +2573,7 @@ var InterviewComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [_services__WEBPACK_IMPORTED_MODULE_2__["UserService"],
             _services__WEBPACK_IMPORTED_MODULE_2__["ExamService"],
+            _services__WEBPACK_IMPORTED_MODULE_2__["DataService"],
             _services__WEBPACK_IMPORTED_MODULE_2__["PatientService"]])
     ], InterviewComponent);
     return InterviewComponent;
@@ -2532,7 +2601,7 @@ module.exports = "<div class=\"main-container\">\r\n    <!--\r\n    <div class=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvbG9nZ2VkLXVzZXItd3JhcHBlci9sb2dnZWQtdXNlci13cmFwcGVyLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dnZWQtdXNlci13cmFwcGVyL2xvZ2dlZC11c2VyLXdyYXBwZXIuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -2613,7 +2682,7 @@ module.exports = "<div class=\"login-wrapper\">\r\n    <form class=\"login\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvbG9naW4vbG9naW4uY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi9sb2dpbi5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -2736,7 +2805,7 @@ module.exports = "<div id=\"content\" #content> \r\n<div>\r\n <input type=\"butt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvcGRmLWV4cG9ydC9wZGYtZXhwb3J0LmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwZGYtZXhwb3J0L3BkZi1leHBvcnQuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -2825,7 +2894,7 @@ var PdfExportComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" class=\"btn btn-primary\">\r\n  <clr-icon shape=\"file\"></clr-icon>Genera PDF\r\n</button>\r\n<clr-modal [(clrModalOpen)]=\"pdf_modal\" [clrModalSize]=\"'xl'\">\r\n    <h3 class=\"modal-title\">Ecco l'anteprima del tuo documento</h3>\r\n    <div class=\"modal-body\">\r\n        <div id=\"contentToConvert\" class=\"clr-row\"> \r\n            <div class=\"clr-col-6\">\r\n                <h4>Paziente: <strong>{{nome}} {{cognome}}</strong></h4>\r\n                <h5>ID esame: <strong>{{id}}</strong></h5>\r\n            </div>\r\n            <div class=\"clr-col-6\">\r\n                <h4>Data esame: <strong>{{data | date:\"dd/MM/yyyy\"}}</strong></h4>\r\n                <h5>ID esaminatore: <strong>{{esaminatore}}</strong></h5>\r\n            </div>\r\n            <table class=\"table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th class=\"thead left\"></th>\r\n                        <th class=\"thead\">Molto spesso o sempre</th>\r\n                        <th class=\"thead\">Qualche volta</th>\r\n                        <th class=\"thead\">Mai</th>\r\n                        <th class=\"thead\">Totale</th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody *ngFor=\"let g of examData\">\r\n                    <tr class=\"trow\">\r\n                        <td colspan=5 class=\"left\">{{groups[g[0].gruppo-1].nome}}</td>\r\n                    </tr>\r\n                    <tr *ngFor=\"let voice of g\">\r\n                        <td class=\"left\">{{voice.nome}}</td>\r\n                        <td><span *ngIf=\"voice.m\">V</span></td>\r\n                        <td><span *ngIf=\"voice.qv\">V</span></td>\r\n                        <td><span *ngIf=\"voice.s\">V</span></td>\r\n                        <td>\r\n                            <span><strong>{{voice.punteggio}}</strong></span>\r\n                        </td>\r\n                    </tr>\r\n                </tbody>\r\n            </table>\r\n            <div>\r\n                <h3>Totale: <strong>{{totalscore}}</strong>/44</h3>\r\n            </div>\r\n        </div> \r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"pdf_modal = false\" title=\"Annulla\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadPdf()\" title=\"Scarica PDF\">\r\n          <clr-icon shape=\"download\"></clr-icon>Scarica PDF\r\n        </button>\r\n    </div>\r\n</clr-modal>\r\n"
+module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" class=\"btn btn-primary\">\r\n  <clr-icon shape=\"file\"></clr-icon>Genera PDF\r\n</button>\r\n<clr-modal [(clrModalOpen)]=\"pdf_modal\" [clrModalSize]=\"'xl'\">\r\n    <h3 class=\"modal-title\">Ecco l'anteprima del tuo documento</h3>\r\n    <div class=\"modal-body\">\r\n        <div id=\"contentToConvert\" class=\"clr-row\"> \r\n            <div class=\"clr-col-6\">\r\n                <h4>Paziente: <strong>{{nome}} {{cognome}}</strong></h4>\r\n                <h5>ID valutazione: <strong>{{id}}</strong></h5>\r\n            </div>\r\n            <div class=\"clr-col-6\">\r\n                <h4>Data valutazione: <strong>{{data | date:\"dd/MM/yyyy\"}}</strong></h4>\r\n                <h5>ID esaminatore: <strong>{{esaminatore}}</strong></h5>\r\n            </div>\r\n            <table class=\"table\">\r\n                <thead>\r\n                    <tr>\r\n                        <th class=\"thead left\"></th>\r\n                        <th class=\"thead\">Molto spesso o sempre</th>\r\n                        <th class=\"thead\">Qualche volta</th>\r\n                        <th class=\"thead\">Mai</th>\r\n                        <th class=\"thead\">Totale</th>\r\n                    </tr>\r\n                </thead>\r\n                <tbody *ngFor=\"let g of examData\">\r\n                    <tr class=\"trow\">\r\n                        <td colspan=5 class=\"left\">{{groups[g[0].gruppo-1].nome}}</td>\r\n                    </tr>\r\n                    <tr *ngFor=\"let voice of g\">\r\n                        <td class=\"left\">{{voice.nome}}</td>\r\n                        <td><span *ngIf=\"voice.m\">V</span></td>\r\n                        <td><span *ngIf=\"voice.qv\">V</span></td>\r\n                        <td><span *ngIf=\"voice.s\">V</span></td>\r\n                        <td>\r\n                            <span><strong>{{voice.punteggio}}</strong></span>\r\n                        </td>\r\n                    </tr>\r\n                </tbody>\r\n            </table>\r\n            <div>\r\n                <h3>Totale: <strong>{{totalscore}}</strong>/44</h3>\r\n            </div>\r\n        </div> \r\n    </div>\r\n    <div class=\"modal-footer\">\r\n        <button type=\"button\" class=\"btn btn-outline\" (click)=\"pdf_modal = false\" title=\"Annulla\">Annulla</button>\r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"downloadPdf()\" title=\"Scarica PDF\">\r\n          <clr-icon shape=\"download\"></clr-icon>Scarica PDF\r\n        </button>\r\n    </div>\r\n</clr-modal>\r\n"
 
 /***/ }),
 
@@ -2836,7 +2905,7 @@ module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".thead {\n  background-color: #eeeeee; }\n\n.trow {\n  background-color: #eeeeee; }\n\n.modal-body {\n  padding-top: -5em; }\n\n.modal-body > div {\n  padding: 1em 5em; }\n\ntd {\n  font-size: 120%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9wZGYtcmVzdW1lL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjL2FwcFxccGRmLXJlc3VtZVxccGRmLXJlc3VtZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUF5QixFQUFBOztBQUczQjtFQUNFLHlCQUF5QixFQUFBOztBQUczQjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGVBQWUsRUFBQSIsImZpbGUiOiJhcHAvcGRmLXJlc3VtZS9wZGYtcmVzdW1lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRoZWFkIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlZWVlO1xyXG59XHJcblxyXG4udHJvdyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxufVxyXG5cclxuLm1vZGFsLWJvZHkge1xyXG4gIHBhZGRpbmctdG9wOiAtNWVtO1xyXG59XHJcblxyXG4ubW9kYWwtYm9keT5kaXYge1xyXG4gIHBhZGRpbmc6IDFlbSA1ZW07XHJcbn1cclxuXHJcbnRkIHtcclxuICBmb250LXNpemU6IDEyMCU7XHJcbn0iXX0= */"
+module.exports = ".thead {\n  background-color: #eeeeee; }\n\n.trow {\n  background-color: #eeeeee; }\n\n.modal-body {\n  padding-top: -5em; }\n\n.modal-body > div {\n  padding: 1em 5em; }\n\ntd {\n  font-size: 120%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBkZi1yZXN1bWUvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9wZGYtcmVzdW1lXFxwZGYtcmVzdW1lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsZUFBZSxFQUFBIiwiZmlsZSI6InBkZi1yZXN1bWUvcGRmLXJlc3VtZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aGVhZCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxufVxyXG5cclxuLnRyb3cge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IHtcclxuICBwYWRkaW5nLXRvcDogLTVlbTtcclxufVxyXG5cclxuLm1vZGFsLWJvZHk+ZGl2IHtcclxuICBwYWRkaW5nOiAxZW0gNWVtO1xyXG59XHJcblxyXG50ZCB7XHJcbiAgZm9udC1zaXplOiAxMjAlO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2882,7 +2951,7 @@ var PdfResumeComponent = /** @class */ (function () {
         this.data = this.examService.getActiveExam().date;
         this.esaminatore = this.examService.getActiveExam().user;
         this.id = this.examService.getActiveExam().id;
-        console.log(this.totalscore);
+        //console.log(this.totalscore);
     };
     PdfResumeComponent.prototype.downloadPdf = function () {
         //console.log(this.examData);
@@ -2956,7 +3025,7 @@ module.exports = "\r\n<!--\r\n<div>\r\n  <button class=\"start-button\" *ngIf=\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvcmVjb3JkaW5nL3JlY29yZGluZy5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZWNvcmRpbmcvcmVjb3JkaW5nLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -3083,7 +3152,7 @@ module.exports = "<form clrForm clrLayout=\"vertical\" [formGroup]=\"registerFor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yZWdpc3Rlci1mb3JtL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjL2FwcFxccmVnaXN0ZXItZm9ybVxccmVnaXN0ZXItZm9ybS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJhcHAvcmVnaXN0ZXItZm9ybS9yZWdpc3Rlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5vRmxvYXQge1xyXG4gIGZsb2F0OiBub25lO1xyXG59Il19 */"
+module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlZ2lzdGVyLWZvcm0vQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9yZWdpc3Rlci1mb3JtXFxyZWdpc3Rlci1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6InJlZ2lzdGVyLWZvcm0vcmVnaXN0ZXItZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ub0Zsb2F0IHtcclxuICBmbG9hdDogbm9uZTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -3212,7 +3281,7 @@ module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvdGVzdC90ZXN0LmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0ZXN0L3Rlc3QuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -3369,7 +3438,7 @@ module.exports = "\r\n<clr-modal [(clrModalOpen)]=\"editUserModal\">\r\n  <h3 cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvdXNlci1jb21wb25lbnQvdXNlci1jb21wb25lbnQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyLWNvbXBvbmVudC91c2VyLWNvbXBvbmVudC5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -3465,21 +3534,20 @@ var UserComponentComponent = /** @class */ (function () {
     };
     UserComponentComponent.prototype.onSave = function () {
         var _this = this;
-        if (!this.save())
-            this.abort();
-        else {
-            this.logged_user.username = this.editUserForm.controls.username.value;
-            this.logged_user.email = this.editUserForm.controls.email.value;
-            this.logged_user.password = this.editUserForm.controls.password.value;
-            this.logged_user.name = this.editUserForm.controls.name.value;
-            this.logged_user.surname = this.editUserForm.controls.surname.value;
-            this.userService.updateUser(this.logged_user).subscribe(function (data) {
-                var new_usr = JSON.parse(data._body);
-                _this.userService.logUser(new_usr);
-            }, function (error) {
-                console.log(error);
-            });
-        }
+        //if (!this.save()) this.abort();
+        //else {
+        this.logged_user.username = this.editUserForm.controls.username.value;
+        this.logged_user.email = this.editUserForm.controls.email.value;
+        this.logged_user.password = this.editUserForm.controls.password.value;
+        this.logged_user.name = this.editUserForm.controls.name.value;
+        this.logged_user.surname = this.editUserForm.controls.surname.value;
+        this.userService.updateUser(this.logged_user).subscribe(function (data) {
+            var new_usr = JSON.parse(data._body);
+            _this.userService.logUser(new_usr);
+        }, function (error) {
+            console.log(error);
+        });
+        //}
     };
     UserComponentComponent.prototype.save = function () {
         return confirm("Sicuro di voler salvare? L'azione non è reversibile");
