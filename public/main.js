@@ -516,12 +516,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var recordrtc__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(recordrtc__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var lamejs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lamejs */ "./node_modules/lamejs/src/js/index.js");
+/* harmony import */ var lamejs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lamejs__WEBPACK_IMPORTED_MODULE_4__);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -579,20 +582,6 @@ var AudioRecordingService = /** @class */ (function () {
         }
         var time = this.toString(this.totalTime.minutes()) + ':' + this.toString(this.totalTime.seconds());
         this._recordingTime.next(time);
-        console.log(this.recorder);
-        /*
-        navigator.mediaDevices.getUserMedia({ audio: true }).then(s => {
-          this.stream = s;
-          this.recorder = new RecordRTC.StereoAudioRecorder(this.stream, {
-            type: 'audio',
-            mimeType: 'audio/webm'
-          });
-          this.startTime = moment();
-          this.record();
-        }).catch(error => {
-          this._recordingFailed.next();
-        });
-        */
         this.startTime = moment__WEBPACK_IMPORTED_MODULE_3__();
         this.record();
     };
@@ -603,9 +592,28 @@ var AudioRecordingService = /** @class */ (function () {
                 this.resumeRecording();
             this.recorder.stop(function (blob) {
                 if (_this.startTime) {
-                    var mp3Name = encodeURIComponent('audio_' + new Date().getTime() + '.mp3');
+                    var mp3Name_1 = encodeURIComponent('audio_' + new Date().getTime() + '.mp3');
+                    _this.buffer = _this.recorder.buffer;
+                    //var prova = new Int16Array(this.buffer);
                     _this.stopMedia();
-                    _this._recorded.next({ blob: blob, title: mp3Name });
+                    fetch(URL.createObjectURL(blob)).then(function (res) {
+                        res.arrayBuffer().then(function (data) {
+                            _this.buffer = data;
+                            _this._recorded.next({ blob: _this.convertAudio(), title: mp3Name_1 });
+                        });
+                    });
+                    //this._recorded.next({ blob: this.convertAudio(), title: mp3Name });
+                    //this._recorded.next({ blob: blob, title: mp3Name });
+                    /*
+          
+                    var arrayBuffer;
+                    var fileReader = new FileReader();
+                    fileReader.onload = function(event) {
+                        arrayBuffer = (<any>event.target).result;
+                    };
+                    var out = fileReader.readAsArrayBuffer(blob);
+                    console.log(out);
+                    */
                 }
             }, function () {
                 _this.stopMedia();
@@ -629,6 +637,9 @@ var AudioRecordingService = /** @class */ (function () {
         this.paused = false;
         this.recorder.resume();
         console.log("resume @ ", this._recordingTime.next());
+    };
+    AudioRecordingService.prototype.getBuffer = function () {
+        return this.buffer;
     };
     AudioRecordingService.prototype.record = function () {
         var _this = this;
@@ -654,6 +665,20 @@ var AudioRecordingService = /** @class */ (function () {
                 this.stream = null;
             }
         }
+    };
+    AudioRecordingService.prototype.convertAudio = function () {
+        var mp3Data = [];
+        var mp3encoder = new lamejs__WEBPACK_IMPORTED_MODULE_4___default.a.Mp3Encoder(1, 44100, 64); //mono 44.1khz encode to 128kbps
+        console.log(this.buffer);
+        var samples = new Int16Array(this.buffer);
+        console.log(samples);
+        var mp3Tmp = mp3encoder.encodeBuffer(samples); //encode mp3
+        mp3Data.push(mp3Tmp);
+        mp3Tmp = mp3encoder.flush();
+        mp3Data.push(mp3Tmp);
+        var blob = new Blob(mp3Data, { type: 'audio/mp3' });
+        //var url = window.URL.createObjectURL(blob);
+        return blob;
     };
     AudioRecordingService.prototype.toString = function (value) {
         var val = value;
@@ -1210,7 +1235,7 @@ module.exports = "<div class=\"alert alert-danger\" role=\"alert\">\r\n  <div cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhbGVydC1tZXNzYWdlL2FsZXJ0LW1lc3NhZ2UuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvYWxlcnQtbWVzc2FnZS9hbGVydC1tZXNzYWdlLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -1330,7 +1355,7 @@ module.exports = "<router-outlet name=\"primary\"></router-outlet>\r\n\r\n\r\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvYXBwLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -1489,7 +1514,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"clr clr-col-12 clr-col-lg-3\" style=\"display: inline-block; vertical-align: top;\">\r\n  <app-user-component></app-user-component>\r\n</div>\r\n<div class=\"clr clr-col-12 clr-col-lg-9\" style=\"display: inline-block; vertical-align: top;\">\r\n  \r\n  <div class=\"card\">\r\n    <div class=\"card-block\">\r\n        <h4 class=\"card-title\">Valutazioni</h4>\r\n        <p class=\"card-text\">\r\n          Da qui puoi gestire e visualizzare vecchie valutazioni, oppure crearne una nuova.\r\n        </p>\r\n        <p class=\"card-text\">\r\n          Puoi ordinare i risultati per colonna cliccando sulla relativa intestazione, oppure filtrarli con l'icona <strong><clr-icon shape=\"filter\"></clr-icon></strong>.\r\n        </p>\r\n    </div>\r\n    <div class=\"card-block\">\r\n      <app-exam-list-view></app-exam-list-view>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n"
+module.exports = "<div class=\"clr clr-col-12\">\r\n  <app-recording></app-recording>\r\n</div>\r\n<div class=\"clr clr-col-12 clr-col-lg-3\" style=\"display: inline-block; vertical-align: top;\">\r\n  <app-user-component></app-user-component>\r\n</div>\r\n<div class=\"clr clr-col-12 clr-col-lg-9\" style=\"display: inline-block; vertical-align: top;\">\r\n  \r\n  <div class=\"card\">\r\n    <div class=\"card-block\">\r\n        <h4 class=\"card-title\">Valutazioni</h4>\r\n        <p class=\"card-text\">\r\n          Da qui puoi gestire e visualizzare vecchie valutazioni, oppure crearne una nuova.\r\n        </p>\r\n        <p class=\"card-text\">\r\n          Puoi ordinare i risultati per colonna cliccando sulla relativa intestazione, oppure filtrarli con l'icona <strong><clr-icon shape=\"filter\"></clr-icon></strong>.\r\n        </p>\r\n    </div>\r\n    <div class=\"card-block\">\r\n      <app-exam-list-view></app-exam-list-view>\r\n    </div>\r\n  </div>\r\n</div>\r\n\r\n\r\n\r\n"
 
 /***/ }),
 
@@ -1500,7 +1525,7 @@ module.exports = "<div class=\"clr clr-col-12 clr-col-lg-3\" style=\"display: in
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJkYXNoYm9hcmQvZGFzaGJvYXJkLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZGFzaGJvYXJkL2Rhc2hib2FyZC5jb21wb25lbnQuc2NzcyJ9 */"
 
 /***/ }),
 
@@ -1569,7 +1594,7 @@ module.exports = "<app-exam-navbar (saveEvent)=\"onSubmit()\"></app-exam-navbar>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".clr-row {\n  max-width: 100% !important; }\n\n.form_group {\n  width: 100%;\n  clear: both;\n  margin: 0.5em 0;\n  height: 2.5em; }\n\n.form_group > label {\n  display: block;\n  max-width: 100% !important;\n  width: 10em;\n  float: left; }\n\n.form_group > div, .form_group > input {\n  display: block;\n  max-width: 100% !important;\n  width: calc(100% - 10em);\n  float: right; }\n\nclr-radio-container, clr-select-container, .clr-form-control {\n  margin: 0 !important; }\n\nselect {\n  box-sizing: border-box !important; }\n\nclr-select-container > label {\n  display: none !important; }\n\nclr-select-container > .clr-control-container {\n  padding: 0 !important; }\n\n.clr-select-wrapper {\n  width: 100% !important; }\n\ntextarea {\n  height: 50%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImVkaXQtcGF0aWVudC9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyY1xcYXBwL2VkaXQtcGF0aWVudFxcZWRpdC1wYXRpZW50LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsMEJBQTBCLEVBQUE7O0FBRzVCO0VBQ0UsV0FBVztFQUNYLFdBQVc7RUFDWCxlQUFlO0VBQ2YsYUFBYSxFQUFBOztBQUlmO0VBQ0UsY0FBYztFQUNkLDBCQUEwQjtFQUMxQixXQUFXO0VBQ1gsV0FBVyxFQUFBOztBQUdiO0VBQ0UsY0FBYztFQUNkLDBCQUEwQjtFQUMxQix3QkFBd0I7RUFDeEIsWUFBWSxFQUFBOztBQUdkO0VBQ0Usb0JBQW9CLEVBQUE7O0FBR3RCO0VBQ0UsaUNBQWlDLEVBQUE7O0FBR25DO0VBQ0Usd0JBQXdCLEVBQUE7O0FBRzFCO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0Usc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6ImVkaXQtcGF0aWVudC9lZGl0LXBhdGllbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2xyLXJvdyB7XHJcbiAgbWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5mb3JtX2dyb3VwIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBjbGVhcjogYm90aDtcclxuICBtYXJnaW46IDAuNWVtIDA7XHJcbiAgaGVpZ2h0OiAyLjVlbTtcclxuXHJcbn1cclxuXHJcbi5mb3JtX2dyb3VwPmxhYmVsIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxuICB3aWR0aDogMTBlbTtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLmZvcm1fZ3JvdXA+ZGl2LCAuZm9ybV9ncm91cD5pbnB1dCB7XHJcbiAgZGlzcGxheTogYmxvY2s7XHJcbiAgbWF4LXdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDEwZW0pO1xyXG4gIGZsb2F0OiByaWdodDtcclxufVxyXG5cclxuY2xyLXJhZGlvLWNvbnRhaW5lciwgY2xyLXNlbGVjdC1jb250YWluZXIsIC5jbHItZm9ybS1jb250cm9sICB7XHJcbiAgbWFyZ2luOiAwICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbnNlbGVjdCB7XHJcbiAgYm94LXNpemluZzogYm9yZGVyLWJveCAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5jbHItc2VsZWN0LWNvbnRhaW5lciA+IGxhYmVsIHtcclxuICBkaXNwbGF5OiBub25lICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmNsci1zZWxlY3QtY29udGFpbmVyID4gLmNsci1jb250cm9sLWNvbnRhaW5lciB7XHJcbiAgcGFkZGluZzogMCAhaW1wb3J0YW50O1xyXG59XHJcblxyXG4uY2xyLXNlbGVjdC13cmFwcGVyIHtcclxuICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG59XHJcblxyXG50ZXh0YXJlYSB7XHJcbiAgaGVpZ2h0OiA1MCU7XHJcbn0iXX0= */"
+module.exports = ".clr-row {\n  max-width: 100% !important; }\n\n.form_group {\n  width: 100%;\n  clear: both;\n  margin: 0.5em 0;\n  height: 2.5em; }\n\n.form_group > label {\n  display: block;\n  max-width: 100% !important;\n  width: 10em;\n  float: left; }\n\n.form_group > div, .form_group > input {\n  display: block;\n  max-width: 100% !important;\n  width: calc(100% - 10em);\n  float: right; }\n\nclr-radio-container, clr-select-container, .clr-form-control {\n  margin: 0 !important; }\n\nselect {\n  box-sizing: border-box !important; }\n\nclr-select-container > label {\n  display: none !important; }\n\nclr-select-container > .clr-control-container {\n  padding: 0 !important; }\n\n.clr-select-wrapper {\n  width: 100% !important; }\n\ntextarea {\n  height: 50%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9lZGl0LXBhdGllbnQvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmMvYXBwXFxlZGl0LXBhdGllbnRcXGVkaXQtcGF0aWVudC5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLDBCQUEwQixFQUFBOztBQUc1QjtFQUNFLFdBQVc7RUFDWCxXQUFXO0VBQ1gsZUFBZTtFQUNmLGFBQWEsRUFBQTs7QUFJZjtFQUNFLGNBQWM7RUFDZCwwQkFBMEI7RUFDMUIsV0FBVztFQUNYLFdBQVcsRUFBQTs7QUFHYjtFQUNFLGNBQWM7RUFDZCwwQkFBMEI7RUFDMUIsd0JBQXdCO0VBQ3hCLFlBQVksRUFBQTs7QUFHZDtFQUNFLG9CQUFvQixFQUFBOztBQUd0QjtFQUNFLGlDQUFpQyxFQUFBOztBQUduQztFQUNFLHdCQUF3QixFQUFBOztBQUcxQjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLHNCQUFzQixFQUFBOztBQUd4QjtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJhcHAvZWRpdC1wYXRpZW50L2VkaXQtcGF0aWVudC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5jbHItcm93IHtcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxufVxyXG5cclxuLmZvcm1fZ3JvdXAge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGNsZWFyOiBib3RoO1xyXG4gIG1hcmdpbjogMC41ZW0gMDtcclxuICBoZWlnaHQ6IDIuNWVtO1xyXG5cclxufVxyXG5cclxuLmZvcm1fZ3JvdXA+bGFiZWwge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIG1heC13aWR0aDogMTAwJSAhaW1wb3J0YW50O1xyXG4gIHdpZHRoOiAxMGVtO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4uZm9ybV9ncm91cD5kaXYsIC5mb3JtX2dyb3VwPmlucHV0IHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICBtYXgtd2lkdGg6IDEwMCUgIWltcG9ydGFudDtcclxuICB3aWR0aDogY2FsYygxMDAlIC0gMTBlbSk7XHJcbiAgZmxvYXQ6IHJpZ2h0O1xyXG59XHJcblxyXG5jbHItcmFkaW8tY29udGFpbmVyLCBjbHItc2VsZWN0LWNvbnRhaW5lciwgLmNsci1mb3JtLWNvbnRyb2wgIHtcclxuICBtYXJnaW46IDAgIWltcG9ydGFudDtcclxufVxyXG5cclxuc2VsZWN0IHtcclxuICBib3gtc2l6aW5nOiBib3JkZXItYm94ICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmNsci1zZWxlY3QtY29udGFpbmVyID4gbGFiZWwge1xyXG4gIGRpc3BsYXk6IG5vbmUgIWltcG9ydGFudDtcclxufVxyXG5cclxuY2xyLXNlbGVjdC1jb250YWluZXIgPiAuY2xyLWNvbnRyb2wtY29udGFpbmVyIHtcclxuICBwYWRkaW5nOiAwICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbi5jbHItc2VsZWN0LXdyYXBwZXIge1xyXG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbnRleHRhcmVhIHtcclxuICBoZWlnaHQ6IDUwJTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -1750,7 +1775,7 @@ module.exports = "<button type=\"button\" class=\"btn btn-icon btn-primary\" tit
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLWxpc3Qtdmlldy9leGFtLWxpc3Qtdmlldy5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1saXN0LXZpZXcvZXhhbS1saXN0LXZpZXcuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -1964,7 +1989,7 @@ module.exports = "<header class=\"header header-4\">\r\n      <div class=\"brand
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLW5hdmJhci9leGFtLW5hdmJhci5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1uYXZiYXIvZXhhbS1uYXZiYXIuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -2111,7 +2136,7 @@ module.exports = "<app-exam-navbar></app-exam-navbar>\r\n<clr-stack-view *ngIf=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJleGFtLXJlc3VtZS9leGFtLXJlc3VtZS5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvZXhhbS1yZXN1bWUvZXhhbS1yZXN1bWUuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -2229,7 +2254,7 @@ module.exports = "<div *ngIf=\"loaded\" class=\"interview-item\" (click)=\"onCli
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".interview-item {\n  margin: 0.5em;\n  padding: 0.5em;\n  padding-top: 0; }\n\n.interview-item:hover {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.item-header {\n  display: block;\n  width: 100%;\n  margin-bottom: -1em;\n  margin-top: 0em;\n  text-align: center; }\n\n.item-header > span {\n  display: inline-block;\n  vertical-align: middle; }\n\n.progress {\n  max-height: 1.5em;\n  color: #123456; }\n\n.progress-block {\n  margin-top: 0.4em; }\n\n.item-icon {\n  width: 5em;\n  height: 5em;\n  text-align: center; }\n\n.item-icon > clr-icon {\n  width: 4.5em;\n  height: 4.5em;\n  padding: 0.5em; }\n\n.item-title {\n  max-width: calc(100% - 5em);\n  width: calc(100% - 5em);\n  vertical-align: middle; }\n\nbutton {\n  background-color: rgba(0, 0, 0, 0.1);\n  border: none;\n  border-radius: 50%;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n  border: none;\n  border-radius: 50%; }\n\n.undo-button {\n  display: inline-block;\n  cursor: pointer;\n  text-align: center;\n  width: 3em;\n  height: 2em;\n  padding: 0 0.5em; }\n\n.bar {\n  width: 85%;\n  height: 2em;\n  background: white; }\n\n.bar > input {\n  width: 100%; }\n\ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  background: rgba(255, 255, 255, 0.2); }\n\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  height: 1em;\n  width: 1em;\n  background: #999;\n  cursor: pointer;\n  margin-top: 0;\n  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }\n\ninput[type=range]:focus {\n  outline: none; }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  cursor: pointer;\n  /* Hides the slider so custom styles can be added */\n  background: transparent;\n  border-color: transparent;\n  color: transparent; }\n\n.slider-label {\n  height: 1em;\n  margin-top: -1em; }\n\n.slider-label div {\n  width: 33%;\n  float: left; }\n\n.slider-label .left {\n  text-align: left; }\n\n.slider-label .center {\n  text-align: center; }\n\n.slider-label .right {\n  text-align: right; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy1pdGVtL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjXFxhcHAvaW50ZXJ2aWV3LWl0ZW1cXGludGVydmlldy1pdGVtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsYUFBYTtFQUNiLGNBQWM7RUFDZCxjQUFjLEVBQUE7O0FBR2hCO0VBQ0Usb0NBQWlDLEVBQUE7O0FBR25DO0VBQ0UsY0FBYztFQUNkLFdBQVc7RUFDWCxtQkFBbUI7RUFDbkIsZUFBZTtFQUNmLGtCQUFrQixFQUFBOztBQUdwQjtFQUNFLHFCQUFxQjtFQUNyQixzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxpQkFBaUI7RUFDakIsY0FBYyxFQUFBOztBQUdoQjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFVBQVU7RUFDVixXQUFVO0VBQ1Ysa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsWUFBWTtFQUNaLGFBQVk7RUFDWixjQUFjLEVBQUE7O0FBR2hCO0VBQ0UsMkJBQTJCO0VBQzNCLHVCQUF1QjtFQUN2QixzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxvQ0FBaUM7RUFDakMsWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixlQUFlLEVBQUE7O0FBR2pCO0VBQ0UscUNBQWtDO0VBQ2xDLFlBQVk7RUFDWixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxxQkFBcUI7RUFDckIsZUFBZTtFQUNmLGtCQUFrQjtFQUNsQixVQUFVO0VBQ1YsV0FBVztFQUNYLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLFVBQVU7RUFDVixXQUFVO0VBQ1YsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsV0FBVyxFQUFBOztBQUdiO0VBQ0Usd0JBQXdCO0VBQ3hCLFdBQVc7RUFDWCxvQ0FBaUMsRUFBQTs7QUFHbkM7RUFDQyx3QkFBd0I7RUFDdkIsV0FBVztFQUNYLFVBQVU7RUFDVixnQkFBZ0I7RUFDaEIsZUFBZTtFQUNmLGFBQWE7RUFBRSxrRkFBQSxFQUFtRjs7QUFHcEc7RUFDRSxhQUFhLEVBQUE7O0FBR2Y7RUFDRSxXQUFXO0VBQ1gsZUFBZTtFQUNmLG1EQUFBO0VBQ0EsdUJBQXVCO0VBQ3ZCLHlCQUF5QjtFQUN6QixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxXQUFXO0VBQ1gsZ0JBQWdCLEVBQUE7O0FBRWxCO0VBQ0UsVUFBUztFQUNULFdBQVcsRUFBQTs7QUFFYjtFQUNFLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLGtCQUFrQixFQUFBOztBQUVwQjtFQUNFLGlCQUFpQixFQUFBIiwiZmlsZSI6ImludGVydmlldy1pdGVtL2ludGVydmlldy1pdGVtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmludGVydmlldy1pdGVtIHtcclxuICBtYXJnaW46IDAuNWVtO1xyXG4gIHBhZGRpbmc6IDAuNWVtO1xyXG4gIHBhZGRpbmctdG9wOiAwO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWl0ZW06aG92ZXIge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC4xKTtcclxufVxyXG5cclxuLml0ZW0taGVhZGVyIHtcclxuICBkaXNwbGF5OiBibG9jaztcclxuICB3aWR0aDogMTAwJTtcclxuICBtYXJnaW4tYm90dG9tOiAtMWVtO1xyXG4gIG1hcmdpbi10b3A6IDBlbTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pdGVtLWhlYWRlciA+c3BhbiB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIHZlcnRpY2FsLWFsaWduOiBtaWRkbGU7XHJcbn1cclxuXHJcbi5wcm9ncmVzcyB7XHJcbiAgbWF4LWhlaWdodDogMS41ZW07XHJcbiAgY29sb3I6ICMxMjM0NTY7XHJcbn1cclxuXHJcbi5wcm9ncmVzcy1ibG9jayB7XHJcbiAgbWFyZ2luLXRvcDogMC40ZW07XHJcbn1cclxuXHJcbi5pdGVtLWljb24ge1xyXG4gIHdpZHRoOiA1ZW07XHJcbiAgaGVpZ2h0OjVlbTtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuXHJcbi5pdGVtLWljb24+Y2xyLWljb24ge1xyXG4gIHdpZHRoOiA0LjVlbTtcclxuICBoZWlnaHQ6NC41ZW07XHJcbiAgcGFkZGluZzogMC41ZW07XHJcbn1cclxuXHJcbi5pdGVtLXRpdGxlIHtcclxuICBtYXgtd2lkdGg6IGNhbGMoMTAwJSAtIDVlbSk7XHJcbiAgd2lkdGg6IGNhbGMoMTAwJSAtIDVlbSk7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuYnV0dG9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsMCwwLDAuMSk7XHJcbiAgYm9yZGVyOiBub25lO1xyXG4gIGJvcmRlci1yYWRpdXM6IDUwJTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbn1cclxuXHJcbmJ1dHRvbjpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLDAsMCwwLjA1KTtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG59XHJcblxyXG4udW5kby1idXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gIHdpZHRoOiAzZW07XHJcbiAgaGVpZ2h0OiAyZW07XHJcbiAgcGFkZGluZzogMCAwLjVlbTtcclxufVxyXG4uYmFyIHtcclxuICB3aWR0aDogODUlO1xyXG4gIGhlaWdodDoyZW07XHJcbiAgYmFja2dyb3VuZDogd2hpdGU7XHJcbn1cclxuXHJcbi5iYXI+aW5wdXQge1xyXG4gIHdpZHRoOiAxMDAlO1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXSB7XHJcbiAgLXdlYmtpdC1hcHBlYXJhbmNlOiBub25lO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIGJhY2tncm91bmQ6IHJnYmEoMjU1LDI1NSwyNTUsMC4yKTsgXHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdOjotd2Via2l0LXNsaWRlci10aHVtYiB7XHJcbiAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgaGVpZ2h0OiAxZW07XHJcbiAgd2lkdGg6IDFlbTtcclxuICBiYWNrZ3JvdW5kOiAjOTk5O1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICBtYXJnaW4tdG9wOiAwOyAvKiBZb3UgbmVlZCB0byBzcGVjaWZ5IGEgbWFyZ2luIGluIENocm9tZSwgYnV0IGluIEZpcmVmb3ggYW5kIElFIGl0IGlzIGF1dG9tYXRpYyAqL1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXTpmb2N1cyB7XHJcbiAgb3V0bGluZTogbm9uZTtcclxufVxyXG5cclxuaW5wdXRbdHlwZT1yYW5nZV06Oi1tcy10cmFjayB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIC8qIEhpZGVzIHRoZSBzbGlkZXIgc28gY3VzdG9tIHN0eWxlcyBjYW4gYmUgYWRkZWQgKi9cclxuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDsgXHJcbiAgYm9yZGVyLWNvbG9yOiB0cmFuc3BhcmVudDtcclxuICBjb2xvcjogdHJhbnNwYXJlbnQ7XHJcbn1cclxuXHJcbi5zbGlkZXItbGFiZWwge1xyXG4gIGhlaWdodDogMWVtO1xyXG4gIG1hcmdpbi10b3A6IC0xZW07XHJcbn1cclxuLnNsaWRlci1sYWJlbCBkaXYge1xyXG4gIHdpZHRoOjMzJTtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG4uc2xpZGVyLWxhYmVsIC5sZWZ0IHtcclxuICB0ZXh0LWFsaWduOiBsZWZ0O1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLmNlbnRlciB7XHJcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLnJpZ2h0IHtcclxuICB0ZXh0LWFsaWduOiByaWdodDtcclxufSJdfQ== */"
+module.exports = ".interview-item {\n  margin: 0.5em;\n  padding: 0.5em;\n  padding-top: 0; }\n\n.interview-item:hover {\n  background-color: rgba(0, 0, 0, 0.1); }\n\n.item-header {\n  display: block;\n  width: 100%;\n  margin-bottom: -1em;\n  margin-top: 0em;\n  text-align: center; }\n\n.item-header > span {\n  display: inline-block;\n  vertical-align: middle; }\n\n.progress {\n  max-height: 1.5em;\n  color: #123456; }\n\n.progress-block {\n  margin-top: 0.4em; }\n\n.item-icon {\n  width: 5em;\n  height: 5em;\n  text-align: center; }\n\n.item-icon > clr-icon {\n  width: 4.5em;\n  height: 4.5em;\n  padding: 0.5em; }\n\n.item-title {\n  max-width: calc(100% - 5em);\n  width: calc(100% - 5em);\n  vertical-align: middle; }\n\nbutton {\n  background-color: rgba(0, 0, 0, 0.1);\n  border: none;\n  border-radius: 50%;\n  cursor: pointer; }\n\nbutton:hover {\n  background-color: rgba(0, 0, 0, 0.05);\n  border: none;\n  border-radius: 50%; }\n\n.undo-button {\n  display: inline-block;\n  cursor: pointer;\n  text-align: center;\n  width: 3em;\n  height: 2em;\n  padding: 0 0.5em; }\n\n.bar {\n  width: 85%;\n  height: 2em;\n  background: white; }\n\n.bar > input {\n  width: 100%; }\n\ninput[type=range] {\n  -webkit-appearance: none;\n  width: 100%;\n  background: rgba(255, 255, 255, 0.2); }\n\ninput[type=range]::-webkit-slider-thumb {\n  -webkit-appearance: none;\n  height: 1em;\n  width: 1em;\n  background: #999;\n  cursor: pointer;\n  margin-top: 0;\n  /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */ }\n\ninput[type=range]:focus {\n  outline: none; }\n\ninput[type=range]::-ms-track {\n  width: 100%;\n  cursor: pointer;\n  /* Hides the slider so custom styles can be added */\n  background: transparent;\n  border-color: transparent;\n  color: transparent; }\n\n.slider-label {\n  height: 1em;\n  margin-top: -1em; }\n\n.slider-label div {\n  width: 33%;\n  float: left; }\n\n.slider-label .left {\n  text-align: left; }\n\n.slider-label .center {\n  text-align: center; }\n\n.slider-label .right {\n  text-align: right; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pbnRlcnZpZXctaXRlbS9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyYy9hcHBcXGludGVydmlldy1pdGVtXFxpbnRlcnZpZXctaXRlbS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGFBQWE7RUFDYixjQUFjO0VBQ2QsY0FBYyxFQUFBOztBQUdoQjtFQUNFLG9DQUFpQyxFQUFBOztBQUduQztFQUNFLGNBQWM7RUFDZCxXQUFXO0VBQ1gsbUJBQW1CO0VBQ25CLGVBQWU7RUFDZixrQkFBa0IsRUFBQTs7QUFHcEI7RUFDRSxxQkFBcUI7RUFDckIsc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsaUJBQWlCO0VBQ2pCLGNBQWMsRUFBQTs7QUFHaEI7RUFDRSxpQkFBaUIsRUFBQTs7QUFHbkI7RUFDRSxVQUFVO0VBQ1YsV0FBVTtFQUNWLGtCQUFrQixFQUFBOztBQUdwQjtFQUNFLFlBQVk7RUFDWixhQUFZO0VBQ1osY0FBYyxFQUFBOztBQUdoQjtFQUNFLDJCQUEyQjtFQUMzQix1QkFBdUI7RUFDdkIsc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0Usb0NBQWlDO0VBQ2pDLFlBQVk7RUFDWixrQkFBa0I7RUFDbEIsZUFBZSxFQUFBOztBQUdqQjtFQUNFLHFDQUFrQztFQUNsQyxZQUFZO0VBQ1osa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UscUJBQXFCO0VBQ3JCLGVBQWU7RUFDZixrQkFBa0I7RUFDbEIsVUFBVTtFQUNWLFdBQVc7RUFDWCxnQkFBZ0IsRUFBQTs7QUFFbEI7RUFDRSxVQUFVO0VBQ1YsV0FBVTtFQUNWLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLFdBQVcsRUFBQTs7QUFHYjtFQUNFLHdCQUF3QjtFQUN4QixXQUFXO0VBQ1gsb0NBQWlDLEVBQUE7O0FBR25DO0VBQ0Msd0JBQXdCO0VBQ3ZCLFdBQVc7RUFDWCxVQUFVO0VBQ1YsZ0JBQWdCO0VBQ2hCLGVBQWU7RUFDZixhQUFhO0VBQUUsa0ZBQUEsRUFBbUY7O0FBR3BHO0VBQ0UsYUFBYSxFQUFBOztBQUdmO0VBQ0UsV0FBVztFQUNYLGVBQWU7RUFDZixtREFBQTtFQUNBLHVCQUF1QjtFQUN2Qix5QkFBeUI7RUFDekIsa0JBQWtCLEVBQUE7O0FBR3BCO0VBQ0UsV0FBVztFQUNYLGdCQUFnQixFQUFBOztBQUVsQjtFQUNFLFVBQVM7RUFDVCxXQUFXLEVBQUE7O0FBRWI7RUFDRSxnQkFBZ0IsRUFBQTs7QUFFbEI7RUFDRSxrQkFBa0IsRUFBQTs7QUFFcEI7RUFDRSxpQkFBaUIsRUFBQSIsImZpbGUiOiJhcHAvaW50ZXJ2aWV3LWl0ZW0vaW50ZXJ2aWV3LWl0ZW0uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWl0ZW0ge1xyXG4gIG1hcmdpbjogMC41ZW07XHJcbiAgcGFkZGluZzogMC41ZW07XHJcbiAgcGFkZGluZy10b3A6IDA7XHJcbn1cclxuXHJcbi5pbnRlcnZpZXctaXRlbTpob3ZlciB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogcmdiYSgwLDAsMCwwLjEpO1xyXG59XHJcblxyXG4uaXRlbS1oZWFkZXIge1xyXG4gIGRpc3BsYXk6IGJsb2NrO1xyXG4gIHdpZHRoOiAxMDAlO1xyXG4gIG1hcmdpbi1ib3R0b206IC0xZW07XHJcbiAgbWFyZ2luLXRvcDogMGVtO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLml0ZW0taGVhZGVyID5zcGFuIHtcclxuICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XHJcbiAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcclxufVxyXG5cclxuLnByb2dyZXNzIHtcclxuICBtYXgtaGVpZ2h0OiAxLjVlbTtcclxuICBjb2xvcjogIzEyMzQ1NjtcclxufVxyXG5cclxuLnByb2dyZXNzLWJsb2NrIHtcclxuICBtYXJnaW4tdG9wOiAwLjRlbTtcclxufVxyXG5cclxuLml0ZW0taWNvbiB7XHJcbiAgd2lkdGg6IDVlbTtcclxuICBoZWlnaHQ6NWVtO1xyXG4gIHRleHQtYWxpZ246IGNlbnRlcjtcclxufVxyXG5cclxuLml0ZW0taWNvbj5jbHItaWNvbiB7XHJcbiAgd2lkdGg6IDQuNWVtO1xyXG4gIGhlaWdodDo0LjVlbTtcclxuICBwYWRkaW5nOiAwLjVlbTtcclxufVxyXG5cclxuLml0ZW0tdGl0bGUge1xyXG4gIG1heC13aWR0aDogY2FsYygxMDAlIC0gNWVtKTtcclxuICB3aWR0aDogY2FsYygxMDAlIC0gNWVtKTtcclxuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcblxyXG5idXR0b24ge1xyXG4gIGJhY2tncm91bmQtY29sb3I6IHJnYmEoMCwwLDAsMC4xKTtcclxuICBib3JkZXI6IG5vbmU7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxufVxyXG5cclxuYnV0dG9uOmhvdmVyIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZ2JhKDAsMCwwLDAuMDUpO1xyXG4gIGJvcmRlcjogbm9uZTtcclxuICBib3JkZXItcmFkaXVzOiA1MCU7XHJcbn1cclxuXHJcbi51bmRvLWJ1dHRvbiB7XHJcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xyXG4gIGN1cnNvcjogcG9pbnRlcjtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgd2lkdGg6IDNlbTtcclxuICBoZWlnaHQ6IDJlbTtcclxuICBwYWRkaW5nOiAwIDAuNWVtO1xyXG59XHJcbi5iYXIge1xyXG4gIHdpZHRoOiA4NSU7XHJcbiAgaGVpZ2h0OjJlbTtcclxuICBiYWNrZ3JvdW5kOiB3aGl0ZTtcclxufVxyXG5cclxuLmJhcj5pbnB1dCB7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdIHtcclxuICAtd2Via2l0LWFwcGVhcmFuY2U6IG5vbmU7XHJcbiAgd2lkdGg6IDEwMCU7XHJcbiAgYmFja2dyb3VuZDogcmdiYSgyNTUsMjU1LDI1NSwwLjIpOyBcclxufVxyXG5cclxuaW5wdXRbdHlwZT1yYW5nZV06Oi13ZWJraXQtc2xpZGVyLXRodW1iIHtcclxuIC13ZWJraXQtYXBwZWFyYW5jZTogbm9uZTtcclxuICBoZWlnaHQ6IDFlbTtcclxuICB3aWR0aDogMWVtO1xyXG4gIGJhY2tncm91bmQ6ICM5OTk7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG4gIG1hcmdpbi10b3A6IDA7IC8qIFlvdSBuZWVkIHRvIHNwZWNpZnkgYSBtYXJnaW4gaW4gQ2hyb21lLCBidXQgaW4gRmlyZWZveCBhbmQgSUUgaXQgaXMgYXV0b21hdGljICovXHJcbn1cclxuXHJcbmlucHV0W3R5cGU9cmFuZ2VdOmZvY3VzIHtcclxuICBvdXRsaW5lOiBub25lO1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPXJhbmdlXTo6LW1zLXRyYWNrIHtcclxuICB3aWR0aDogMTAwJTtcclxuICBjdXJzb3I6IHBvaW50ZXI7XHJcbiAgLyogSGlkZXMgdGhlIHNsaWRlciBzbyBjdXN0b20gc3R5bGVzIGNhbiBiZSBhZGRlZCAqL1xyXG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50OyBcclxuICBib3JkZXItY29sb3I6IHRyYW5zcGFyZW50O1xyXG4gIGNvbG9yOiB0cmFuc3BhcmVudDtcclxufVxyXG5cclxuLnNsaWRlci1sYWJlbCB7XHJcbiAgaGVpZ2h0OiAxZW07XHJcbiAgbWFyZ2luLXRvcDogLTFlbTtcclxufVxyXG4uc2xpZGVyLWxhYmVsIGRpdiB7XHJcbiAgd2lkdGg6MzMlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcbi5zbGlkZXItbGFiZWwgLmxlZnQge1xyXG4gIHRleHQtYWxpZ246IGxlZnQ7XHJcbn1cclxuLnNsaWRlci1sYWJlbCAuY2VudGVyIHtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbn1cclxuLnNsaWRlci1sYWJlbCAucmlnaHQge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -2456,7 +2481,7 @@ module.exports = "<app-exam-navbar (saveEvent)=\"saveData()\"></app-exam-navbar>
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".interview-component {\n  cursor: pointer; }\n\n.interview-component.inactive {\n  opacity: 0.5;\n  cursor: not-allowed; }\n\ndiv.grid {\n  display: flex;\n  width: 100%; }\n\nul.col {\n  /*\r\n  flex: 1;\r\n  margin: 0;\r\n  padding: 0;\r\n  */\n  width: 20%; }\n\nli {\n  list-style-type: none; }\n\n.audio-bar, .saving-bar {\n  width: 50%;\n  margin: 0;\n  float: left; }\n\n.saving-bar {\n  text-align: right; }\n\n.saving-bar button {\n  display: inline-block; }\n\ndiv.registration {\n  width: 60px;\n  height: 60px;\n  padding: 6px;\n  text-align: center;\n  border-radius: 50%;\n  float: left; }\n\n.registration.on {\n  background-color: red; }\n\n.registration.off {\n  background-color: grey; }\n\ndiv.microphone-control {\n  clear: both; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImludGVydmlldy9DOlxcd29ya3NwYWNlXFxhcGFjcy1jbGllbnRcXHNyY1xcYXBwL2ludGVydmlld1xcaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIiwiaW50ZXJ2aWV3L2ludGVydmlldy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGVBQWUsRUFBQTs7QUFHakI7RUFDRSxZQUFZO0VBQ1osbUJBQW1CLEVBQUE7O0FBR3JCO0VBQ0UsYUFBYTtFQUNiLFdBQ0YsRUFBQTs7QUFFQTtFQUNBOzs7O0dDQ0c7RURJRCxVQUFVLEVBQUE7O0FBR1o7RUFDRSxxQkFBcUIsRUFBQTs7QUFHdkI7RUFDRSxVQUFVO0VBQ1YsU0FBUztFQUNULFdBQVcsRUFBQTs7QUFHYjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLFdBQVc7RUFDWCxZQUFZO0VBQ1osWUFBWTtFQUNaLGtCQUFrQjtFQUNsQixrQkFBa0I7RUFDbEIsV0FBVyxFQUFBOztBQUdiO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0Usc0JBQXNCLEVBQUE7O0FBR3hCO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6ImludGVydmlldy9pbnRlcnZpZXcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWNvbXBvbmVudCB7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWNvbXBvbmVudC5pbmFjdGl2ZSB7XHJcbiAgb3BhY2l0eTogMC41O1xyXG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn1cclxuXHJcbmRpdi5ncmlkIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIHdpZHRoOiAxMDAlXHJcbn1cclxuXHJcbnVsLmNvbCB7XHJcbi8qXHJcbiAgZmxleDogMTtcclxuICBtYXJnaW46IDA7XHJcbiAgcGFkZGluZzogMDtcclxuICAqL1xyXG4gIHdpZHRoOiAyMCU7XHJcbn1cclxuXHJcbmxpIHtcclxuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbn1cclxuXHJcbi5hdWRpby1iYXIsIC5zYXZpbmctYmFyIHtcclxuICB3aWR0aDogNTAlO1xyXG4gIG1hcmdpbjogMDtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLnNhdmluZy1iYXIge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uc2F2aW5nLWJhciBidXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG5cclxuZGl2LnJlZ2lzdHJhdGlvbiB7XHJcbiAgd2lkdGg6IDYwcHg7XHJcbiAgaGVpZ2h0OiA2MHB4O1xyXG4gIHBhZGRpbmc6IDZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4ucmVnaXN0cmF0aW9uLm9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5yZWdpc3RyYXRpb24ub2ZmIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmV5O1xyXG59XHJcblxyXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcclxuICBjbGVhcjogYm90aDtcclxufSIsIi5pbnRlcnZpZXctY29tcG9uZW50IHtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi5pbnRlcnZpZXctY29tcG9uZW50LmluYWN0aXZlIHtcbiAgb3BhY2l0eTogMC41O1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkOyB9XG5cbmRpdi5ncmlkIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDEwMCU7IH1cblxudWwuY29sIHtcbiAgLypcclxuICBmbGV4OiAxO1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG4gICovXG4gIHdpZHRoOiAyMCU7IH1cblxubGkge1xuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7IH1cblxuLmF1ZGlvLWJhciwgLnNhdmluZy1iYXIge1xuICB3aWR0aDogNTAlO1xuICBtYXJnaW46IDA7XG4gIGZsb2F0OiBsZWZ0OyB9XG5cbi5zYXZpbmctYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7IH1cblxuLnNhdmluZy1iYXIgYnV0dG9uIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrOyB9XG5cbmRpdi5yZWdpc3RyYXRpb24ge1xuICB3aWR0aDogNjBweDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBwYWRkaW5nOiA2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmbG9hdDogbGVmdDsgfVxuXG4ucmVnaXN0cmF0aW9uLm9uIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkOyB9XG5cbi5yZWdpc3RyYXRpb24ub2ZmIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JleTsgfVxuXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcbiAgY2xlYXI6IGJvdGg7IH1cbiJdfQ== */"
+module.exports = ".interview-component {\n  cursor: pointer; }\n\n.interview-component.inactive {\n  opacity: 0.5;\n  cursor: not-allowed; }\n\ndiv.grid {\n  display: flex;\n  width: 100%; }\n\nul.col {\n  /*\r\n  flex: 1;\r\n  margin: 0;\r\n  padding: 0;\r\n  */\n  width: 20%; }\n\nli {\n  list-style-type: none; }\n\n.audio-bar, .saving-bar {\n  width: 50%;\n  margin: 0;\n  float: left; }\n\n.saving-bar {\n  text-align: right; }\n\n.saving-bar button {\n  display: inline-block; }\n\ndiv.registration {\n  width: 60px;\n  height: 60px;\n  padding: 6px;\n  text-align: center;\n  border-radius: 50%;\n  float: left; }\n\n.registration.on {\n  background-color: red; }\n\n.registration.off {\n  background-color: grey; }\n\ndiv.microphone-control {\n  clear: both; }\n\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pbnRlcnZpZXcvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmMvYXBwXFxpbnRlcnZpZXdcXGludGVydmlldy5jb21wb25lbnQuc2NzcyIsImFwcC9pbnRlcnZpZXcvaW50ZXJ2aWV3LmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsZUFBZSxFQUFBOztBQUdqQjtFQUNFLFlBQVk7RUFDWixtQkFBbUIsRUFBQTs7QUFHckI7RUFDRSxhQUFhO0VBQ2IsV0FDRixFQUFBOztBQUVBO0VBQ0E7Ozs7R0NDRztFRElELFVBQVUsRUFBQTs7QUFHWjtFQUNFLHFCQUFxQixFQUFBOztBQUd2QjtFQUNFLFVBQVU7RUFDVixTQUFTO0VBQ1QsV0FBVyxFQUFBOztBQUdiO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UscUJBQXFCLEVBQUE7O0FBR3ZCO0VBQ0UsV0FBVztFQUNYLFlBQVk7RUFDWixZQUFZO0VBQ1osa0JBQWtCO0VBQ2xCLGtCQUFrQjtFQUNsQixXQUFXLEVBQUE7O0FBR2I7RUFDRSxxQkFBcUIsRUFBQTs7QUFHdkI7RUFDRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxXQUFXLEVBQUEiLCJmaWxlIjoiYXBwL2ludGVydmlldy9pbnRlcnZpZXcuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuaW50ZXJ2aWV3LWNvbXBvbmVudCB7XHJcbiAgY3Vyc29yOiBwb2ludGVyO1xyXG59XHJcblxyXG4uaW50ZXJ2aWV3LWNvbXBvbmVudC5pbmFjdGl2ZSB7XHJcbiAgb3BhY2l0eTogMC41O1xyXG4gIGN1cnNvcjogbm90LWFsbG93ZWQ7XHJcbn1cclxuXHJcbmRpdi5ncmlkIHtcclxuICBkaXNwbGF5OiBmbGV4O1xyXG4gIHdpZHRoOiAxMDAlXHJcbn1cclxuXHJcbnVsLmNvbCB7XHJcbi8qXHJcbiAgZmxleDogMTtcclxuICBtYXJnaW46IDA7XHJcbiAgcGFkZGluZzogMDtcclxuICAqL1xyXG4gIHdpZHRoOiAyMCU7XHJcbn1cclxuXHJcbmxpIHtcclxuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7XHJcbn1cclxuXHJcbi5hdWRpby1iYXIsIC5zYXZpbmctYmFyIHtcclxuICB3aWR0aDogNTAlO1xyXG4gIG1hcmdpbjogMDtcclxuICBmbG9hdDogbGVmdDtcclxufVxyXG5cclxuLnNhdmluZy1iYXIge1xyXG4gIHRleHQtYWxpZ246IHJpZ2h0O1xyXG59XHJcblxyXG4uc2F2aW5nLWJhciBidXR0b24ge1xyXG4gIGRpc3BsYXk6IGlubGluZS1ibG9jaztcclxufVxyXG5cclxuZGl2LnJlZ2lzdHJhdGlvbiB7XHJcbiAgd2lkdGg6IDYwcHg7XHJcbiAgaGVpZ2h0OiA2MHB4O1xyXG4gIHBhZGRpbmc6IDZweDtcclxuICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xyXG4gIGZsb2F0OiBsZWZ0O1xyXG59XHJcblxyXG4ucmVnaXN0cmF0aW9uLm9uIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiByZWQ7XHJcbn1cclxuXHJcbi5yZWdpc3RyYXRpb24ub2ZmIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiBncmV5O1xyXG59XHJcblxyXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcclxuICBjbGVhcjogYm90aDtcclxufSIsIi5pbnRlcnZpZXctY29tcG9uZW50IHtcbiAgY3Vyc29yOiBwb2ludGVyOyB9XG5cbi5pbnRlcnZpZXctY29tcG9uZW50LmluYWN0aXZlIHtcbiAgb3BhY2l0eTogMC41O1xuICBjdXJzb3I6IG5vdC1hbGxvd2VkOyB9XG5cbmRpdi5ncmlkIHtcbiAgZGlzcGxheTogZmxleDtcbiAgd2lkdGg6IDEwMCU7IH1cblxudWwuY29sIHtcbiAgLypcclxuICBmbGV4OiAxO1xyXG4gIG1hcmdpbjogMDtcclxuICBwYWRkaW5nOiAwO1xyXG4gICovXG4gIHdpZHRoOiAyMCU7IH1cblxubGkge1xuICBsaXN0LXN0eWxlLXR5cGU6IG5vbmU7IH1cblxuLmF1ZGlvLWJhciwgLnNhdmluZy1iYXIge1xuICB3aWR0aDogNTAlO1xuICBtYXJnaW46IDA7XG4gIGZsb2F0OiBsZWZ0OyB9XG5cbi5zYXZpbmctYmFyIHtcbiAgdGV4dC1hbGlnbjogcmlnaHQ7IH1cblxuLnNhdmluZy1iYXIgYnV0dG9uIHtcbiAgZGlzcGxheTogaW5saW5lLWJsb2NrOyB9XG5cbmRpdi5yZWdpc3RyYXRpb24ge1xuICB3aWR0aDogNjBweDtcbiAgaGVpZ2h0OiA2MHB4O1xuICBwYWRkaW5nOiA2cHg7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgYm9yZGVyLXJhZGl1czogNTAlO1xuICBmbG9hdDogbGVmdDsgfVxuXG4ucmVnaXN0cmF0aW9uLm9uIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogcmVkOyB9XG5cbi5yZWdpc3RyYXRpb24ub2ZmIHtcbiAgYmFja2dyb3VuZC1jb2xvcjogZ3JleTsgfVxuXG5kaXYubWljcm9waG9uZS1jb250cm9sIHtcbiAgY2xlYXI6IGJvdGg7IH1cbiJdfQ== */"
 
 /***/ }),
 
@@ -2601,7 +2626,7 @@ module.exports = "<div class=\"main-container\">\r\n    <!--\r\n    <div class=\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dnZWQtdXNlci13cmFwcGVyL2xvZ2dlZC11c2VyLXdyYXBwZXIuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvbG9nZ2VkLXVzZXItd3JhcHBlci9sb2dnZWQtdXNlci13cmFwcGVyLmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -2682,7 +2707,7 @@ module.exports = "<div class=\"login-wrapper\">\r\n    <form class=\"login\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi9sb2dpbi5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvbG9naW4vbG9naW4uY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
@@ -2805,7 +2830,7 @@ module.exports = "<div id=\"content\" #content> \r\n<div>\r\n <input type=\"butt
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwZGYtZXhwb3J0L3BkZi1leHBvcnQuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvcGRmLWV4cG9ydC9wZGYtZXhwb3J0LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -2905,7 +2930,7 @@ module.exports = "<button title=\"Genera PDF\" (click)=\"pdf_modal = true\" clas
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".thead {\n  background-color: #eeeeee; }\n\n.trow {\n  background-color: #eeeeee; }\n\n.modal-body {\n  padding-top: -5em; }\n\n.modal-body > div {\n  padding: 1em 5em; }\n\ntd {\n  font-size: 120%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInBkZi1yZXN1bWUvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9wZGYtcmVzdW1lXFxwZGYtcmVzdW1lLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UseUJBQXlCLEVBQUE7O0FBRzNCO0VBQ0UsaUJBQWlCLEVBQUE7O0FBR25CO0VBQ0UsZ0JBQWdCLEVBQUE7O0FBR2xCO0VBQ0UsZUFBZSxFQUFBIiwiZmlsZSI6InBkZi1yZXN1bWUvcGRmLXJlc3VtZS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi50aGVhZCB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxufVxyXG5cclxuLnRyb3cge1xyXG4gIGJhY2tncm91bmQtY29sb3I6ICNlZWVlZWU7XHJcbn1cclxuXHJcbi5tb2RhbC1ib2R5IHtcclxuICBwYWRkaW5nLXRvcDogLTVlbTtcclxufVxyXG5cclxuLm1vZGFsLWJvZHk+ZGl2IHtcclxuICBwYWRkaW5nOiAxZW0gNWVtO1xyXG59XHJcblxyXG50ZCB7XHJcbiAgZm9udC1zaXplOiAxMjAlO1xyXG59Il19 */"
+module.exports = ".thead {\n  background-color: #eeeeee; }\n\n.trow {\n  background-color: #eeeeee; }\n\n.modal-body {\n  padding-top: -5em; }\n\n.modal-body > div {\n  padding: 1em 5em; }\n\ntd {\n  font-size: 120%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9wZGYtcmVzdW1lL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjL2FwcFxccGRmLXJlc3VtZVxccGRmLXJlc3VtZS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLHlCQUF5QixFQUFBOztBQUczQjtFQUNFLHlCQUF5QixFQUFBOztBQUczQjtFQUNFLGlCQUFpQixFQUFBOztBQUduQjtFQUNFLGdCQUFnQixFQUFBOztBQUdsQjtFQUNFLGVBQWUsRUFBQSIsImZpbGUiOiJhcHAvcGRmLXJlc3VtZS9wZGYtcmVzdW1lLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnRoZWFkIHtcclxuICBiYWNrZ3JvdW5kLWNvbG9yOiAjZWVlZWVlO1xyXG59XHJcblxyXG4udHJvdyB7XHJcbiAgYmFja2dyb3VuZC1jb2xvcjogI2VlZWVlZTtcclxufVxyXG5cclxuLm1vZGFsLWJvZHkge1xyXG4gIHBhZGRpbmctdG9wOiAtNWVtO1xyXG59XHJcblxyXG4ubW9kYWwtYm9keT5kaXYge1xyXG4gIHBhZGRpbmc6IDFlbSA1ZW07XHJcbn1cclxuXHJcbnRkIHtcclxuICBmb250LXNpemU6IDEyMCU7XHJcbn0iXX0= */"
 
 /***/ }),
 
@@ -3014,7 +3039,7 @@ var PdfResumeComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<!--\r\n<div>\r\n  <button class=\"start-button\" *ngIf=\"!isRecording && !blobUrl\" (click)=\"startRecording()\">Inizia nuova registrazione</button>\r\n  <button class=\"stop-button\" *ngIf=\"isRecording && !blobUrl\" (click)=\"stopRecording()\">Ferma la registrazione</button>\r\n  <button class=\"cancel-button\" *ngIf=\"!isRecording && blobUrl\" (click)=\"clearRecordedData()\">Elimina la registrazione</button>\r\n</div>\r\n-->\r\n<!--\r\n<div>\r\n  <button class=\"start-button\"  (click)=\"startRecording()\">Inizia nuova registrazione</button>\r\n  <button class=\"stop-button\" (click)=\"stopRecording()\">Terminala registrazione</button>\r\n\r\n</div>\r\n-->\r\n\r\n<div>\r\n  <button class=\"start-button\" *ngIf=\"!isRecording && !blobUrl\" (click)=\"startRecording()\">Inizia nuova registrazione</button>\r\n  <button class=\"stop-button\" *ngIf=\"isRecording && !blobUrl\" (click)=\"stopRecording()\">Termina la registrazione</button>\r\n</div>\r\n\r\n<div>\r\n  <button class=\"start-button\" *ngIf=\"isRecording && isPaused\" (click)=\"resumeRecording()\">Riprendi la registrazione</button>\r\n  <button class=\"stop-button\" *ngIf=\"isRecording && !isPaused\" (click)=\"pauseRecording()\">Metti in pausa la registrazione</button>\r\n</div>\r\n<div>\r\n  <button class=\"cancel-button\" (click)=\"clearRecordedData()\">Elimina registrazione</button>\r\n</div>\r\n<div>\r\n  <button class=\"cancel-button\" (click)=\"print()\">---PRINT---</button>\r\n</div>\r\n\r\n\r\n<div>\r\n  <div> {{recordedTime}} </div>\r\n  <div>\r\n  <audio *ngIf=\"blobUrl\"  controls>\r\n    <source [src]=\"blobUrl\" type=\"audio/webm\">\r\n  </audio>\r\n  </div>\r\n</div>\r\n"
+module.exports = "  <button title=\"Tempo di registrazione\" class=\"btn\" disabled > {{recordedTime}} </button>\r\n\r\n  <clr-icon *ngIf=\"isRecording && !blobUrl\" shape=\"circle\" class=\"is-solid blink red\"></clr-icon>\r\n  <clr-icon *ngIf=\"!(isRecording && !blobUrl)\" shape=\"circle\" class=\"is-solid\"></clr-icon>\r\n\r\n  <button title=\"Avvia nuova registrazione\" class=\"btn\" *ngIf=\"!isRecording && !blobUrl\" (click)=\"startRecording()\">\r\n      <clr-icon shape=\"microphone\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n  <button title=\"Avvia nuova registrazione\" class=\"btn\" disabled *ngIf=\"!(!isRecording && !blobUrl)\" (click)=\"startRecording()\">\r\n      <clr-icon shape=\"microphone\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n\r\n  <button title=\"Termina registrazione corrente\" class=\"btn\" *ngIf=\"isRecording && !blobUrl\" (click)=\"stopRecording()\">\r\n      <clr-icon shape=\"microphone-mute\"></clr-icon>\r\n  </button>\r\n  <button title=\"Termina registrazione corrente\" class=\"btn\" disabled *ngIf=\"!(isRecording && !blobUrl)\" (click)=\"stopRecording()\">\r\n      <clr-icon shape=\"microphone-mute\"></clr-icon>\r\n  </button>\r\n\r\n  <button title=\"Riprendi la registrazione corrente\" class=\"btn\" *ngIf=\"isRecording && isPaused\" (click)=\"resumeRecording()\">\r\n      <clr-icon shape=\"play\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n  <button title=\"Riprendi la registrazione corrente\" class=\"btn\" disabled *ngIf=\"!(isRecording && isPaused)\" (click)=\"resumeRecording()\">\r\n      <clr-icon shape=\"play\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n\r\n  <button title=\"Metti in pausa la registrazione corrente\" class=\"btn\" *ngIf=\"isRecording && !isPaused\" (click)=\"pauseRecording()\">\r\n      <clr-icon shape=\"pause\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n  <button title=\"Metti in pausa la registrazione corrente\" class=\"btn\" disabled *ngIf=\"!(isRecording && !isPaused)\" (click)=\"pauseRecording()\">\r\n      <clr-icon shape=\"pause\" class=\"is-solid\"></clr-icon>\r\n  </button>\r\n\r\n\r\n  <button *ngIf=\"blobUrl\" title=\"Elimina la registrazione corrente\" class=\"btn btn-danger-outline\" (click)=\"clearRecordedData()\">\r\n    <clr-icon shape=\"trash\"></clr-icon>\r\n  </button>\r\n\r\n  <a *ngIf=\"blobUrl\" title=\"Avvia il download del file audio con la registrazione corrente\" [href]=\"blobUrl\" [download]=\"blobName\" class=\"btn btn-outline\"><clr-icon shape=\"download\"></clr-icon> File</a>\r\n\r\n\r\n<div>\r\n  <div> {{recordedTime}} </div>\r\n\r\n  <div *ngIf=\"audioConverting\" class=\"alert alert-warning\" role=\"alert\">\r\n      <div class=\"alert-items\">\r\n          <div class=\"alert-item static\">\r\n              <div class=\"alert-icon-wrapper\">\r\n                  <clr-icon class=\"alert-icon spin\" shape=\"cog\"></clr-icon>\r\n              </div>\r\n              <span class=\"alert-text\">La registrazione è in elaborazione, si prega di attendere. Potrebbe volerci un po' di tempo, soprattutto in caso di registrazioni lunghe</span>\r\n          </div>\r\n      </div>\r\n  </div>\r\n\r\n  <div *ngIf=\"audioUploading\" class=\"alert alert-info\" role=\"alert\">\r\n      <div class=\"alert-items\">\r\n          <div class=\"alert-item static\">\r\n              <div class=\"alert-icon-wrapper\">\r\n                  <clr-icon class=\"alert-icon spin\" shape=\"sync\"></clr-icon>\r\n              </div>\r\n              <span class=\"alert-text\">E' in corso il salvataggio della registrazione sul server. L'operazione potrebbe richiedere parecchio tempo.</span>\r\n              <h4>NON ANCORA FUNZIONANTE!</h4>\r\n          </div>\r\n      </div>\r\n  </div>\r\n\r\n  <div *ngIf=\"blobUrl\" class=\"vertical-align-middle\">\r\n    <audio controls download=\"CIAO.mp3\" controlsList=\"nodownload\">\r\n      <source [src]=\"blobUrl\" type=\"audio/webm\">\r\n    </audio>\r\n  </div>\r\n</div>\r\n"
 
 /***/ }),
 
@@ -3025,7 +3050,7 @@ module.exports = "\r\n<!--\r\n<div>\r\n  <button class=\"start-button\" *ngIf=\"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJyZWNvcmRpbmcvcmVjb3JkaW5nLmNvbXBvbmVudC5zY3NzIn0= */"
+module.exports = ".vertical-align-middle > a,\n.vertical-align-middle > audio {\n  vertical-align: middle; }\n\n.red {\n  color: red; }\n\n.spinning, .spin {\n  -webkit-animation: spin 2000ms infinite linear;\n  animation: spin 2000ms infinite linear; }\n\n@-webkit-keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg); } }\n\n@keyframes spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n    transform: rotate(0deg); }\n  100% {\n    -webkit-transform: rotate(359deg);\n    transform: rotate(359deg); } }\n\n@keyframes blink {\n  0% {\n    opacity: 0; }\n  30% {\n    opacity: 1; }\n  70% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@-webkit-keyframes blink {\n  0% {\n    opacity: 0; }\n  30% {\n    opacity: 1; }\n  70% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.blink {\n  -webkit-animation: blink 1s linear infinite;\n  animation: blink 1s linear infinite; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yZWNvcmRpbmcvQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmMvYXBwXFxyZWNvcmRpbmdcXHJlY29yZGluZy5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7RUFFRSxzQkFBc0IsRUFBQTs7QUFHeEI7RUFDRSxVQUFVLEVBQUE7O0FBR1o7RUFDSSw4Q0FBOEM7RUFDOUMsc0NBQXNDLEVBQUE7O0FBRTFDO0VBQ0k7SUFDSSwrQkFBK0I7SUFDL0IsdUJBQXVCLEVBQUE7RUFFM0I7SUFDSSxpQ0FBaUM7SUFDakMseUJBQXlCLEVBQUEsRUFBQTs7QUFHakM7RUFDSTtJQUNJLCtCQUErQjtJQUMvQix1QkFBdUIsRUFBQTtFQUUzQjtJQUNJLGlDQUFpQztJQUNqQyx5QkFBeUIsRUFBQSxFQUFBOztBQUlqQztFQUNFO0lBQUssVUFBVSxFQUFBO0VBQ2Y7SUFBTSxVQUFVLEVBQUE7RUFDaEI7SUFBTSxVQUFVLEVBQUE7RUFDaEI7SUFBTyxVQUFVLEVBQUEsRUFBQTs7QUFFbkI7RUFDRTtJQUFLLFVBQVUsRUFBQTtFQUNmO0lBQU0sVUFBVSxFQUFBO0VBQ2hCO0lBQU0sVUFBVSxFQUFBO0VBQ2hCO0lBQU8sVUFBVSxFQUFBLEVBQUE7O0FBRW5CO0VBQ0UsMkNBQTJDO0VBRTNDLG1DQUFtQyxFQUFBIiwiZmlsZSI6ImFwcC9yZWNvcmRpbmcvcmVjb3JkaW5nLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLnZlcnRpY2FsLWFsaWduLW1pZGRsZT5hLFxyXG4udmVydGljYWwtYWxpZ24tbWlkZGxlPmF1ZGlvIHtcclxuICB2ZXJ0aWNhbC1hbGlnbjogbWlkZGxlO1xyXG59XHJcblxyXG4ucmVkIHtcclxuICBjb2xvcjogcmVkO1xyXG59XHJcblxyXG4uc3Bpbm5pbmcsIC5zcGluIHtcclxuICAgIC13ZWJraXQtYW5pbWF0aW9uOiBzcGluIDIwMDBtcyBpbmZpbml0ZSBsaW5lYXI7XHJcbiAgICBhbmltYXRpb246IHNwaW4gMjAwMG1zIGluZmluaXRlIGxpbmVhcjtcclxufVxyXG5ALXdlYmtpdC1rZXlmcmFtZXMgc3BpbiB7XHJcbiAgICAwJSB7XHJcbiAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICAgIH1cclxuICAgIDEwMCUge1xyXG4gICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoMzU5ZGVnKTtcclxuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNTlkZWcpO1xyXG4gICAgfVxyXG59XHJcbkBrZXlmcmFtZXMgc3BpbiB7XHJcbiAgICAwJSB7XHJcbiAgICAgICAgLXdlYmtpdC10cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgwZGVnKTtcclxuICAgIH1cclxuICAgIDEwMCUge1xyXG4gICAgICAgIC13ZWJraXQtdHJhbnNmb3JtOiByb3RhdGUoMzU5ZGVnKTtcclxuICAgICAgICB0cmFuc2Zvcm06IHJvdGF0ZSgzNTlkZWcpO1xyXG4gICAgfVxyXG59XHJcblxyXG5Aa2V5ZnJhbWVzIGJsaW5rIHsgIFxyXG4gIDAlIHsgb3BhY2l0eTogMDsgfVxyXG4gIDMwJSB7IG9wYWNpdHk6IDE7IH1cclxuICA3MCUgeyBvcGFjaXR5OiAxOyB9XHJcbiAgMTAwJSB7IG9wYWNpdHk6IDA7IH1cclxufVxyXG5ALXdlYmtpdC1rZXlmcmFtZXMgYmxpbmsge1xyXG4gIDAlIHsgb3BhY2l0eTogMDsgfVxyXG4gIDMwJSB7IG9wYWNpdHk6IDE7IH1cclxuICA3MCUgeyBvcGFjaXR5OiAxOyB9XHJcbiAgMTAwJSB7IG9wYWNpdHk6IDA7IH1cclxufVxyXG4uYmxpbmsge1xyXG4gIC13ZWJraXQtYW5pbWF0aW9uOiBibGluayAxcyBsaW5lYXIgaW5maW5pdGU7XHJcbiAgLW1vei1hbmltYXRpb246IGJsaW5rIDFzIGxpbmVhciBpbmZpbml0ZTtcclxuICBhbmltYXRpb246IGJsaW5rIDFzIGxpbmVhciBpbmZpbml0ZTtcclxufSAiXX0= */"
 
 /***/ }),
 
@@ -3054,6 +3079,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 
 
+//import btb from 'blob-to-buffer';
 var RecordingComponent = /** @class */ (function () {
     function RecordingComponent(audioRecordingService, sanitizer) {
         var _this = this;
@@ -3061,6 +3087,7 @@ var RecordingComponent = /** @class */ (function () {
         this.sanitizer = sanitizer;
         this.isRecording = false;
         this.isPaused = false;
+        this.audioConverting = false;
         this.recordedTime = "00:00";
         this.audioRecordingService.recordingFailed().subscribe(function () {
             _this.isRecording = false;
@@ -3069,7 +3096,11 @@ var RecordingComponent = /** @class */ (function () {
             _this.recordedTime = time;
         });
         this.audioRecordingService.getRecordedBlob().subscribe(function (data) {
+            _this.blob = data.blob;
+            _this.blobName = data.title;
+            console.log(_this.blobName);
             _this.blobUrl = _this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(data.blob));
+            _this.audioConverting = false;
         });
     }
     RecordingComponent.prototype.ngOnInit = function () {
@@ -3108,6 +3139,7 @@ var RecordingComponent = /** @class */ (function () {
         if (this.isRecording) {
             this.audioRecordingService.stopRecording();
             this.isRecording = false;
+            this.audioConverting = true;
         }
     };
     RecordingComponent.prototype.clearRecordedData = function () {
@@ -3152,7 +3184,7 @@ module.exports = "<form clrForm clrLayout=\"vertical\" [formGroup]=\"registerFor
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlZ2lzdGVyLWZvcm0vQzpcXHdvcmtzcGFjZVxcYXBhY3MtY2xpZW50XFxzcmNcXGFwcC9yZWdpc3Rlci1mb3JtXFxyZWdpc3Rlci1mb3JtLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsV0FBVyxFQUFBIiwiZmlsZSI6InJlZ2lzdGVyLWZvcm0vcmVnaXN0ZXItZm9ybS5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5ub0Zsb2F0IHtcclxuICBmbG9hdDogbm9uZTtcclxufSJdfQ== */"
+module.exports = ".noFloat {\n  float: none; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9yZWdpc3Rlci1mb3JtL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjL2FwcFxccmVnaXN0ZXItZm9ybVxccmVnaXN0ZXItZm9ybS5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLFdBQVcsRUFBQSIsImZpbGUiOiJhcHAvcmVnaXN0ZXItZm9ybS9yZWdpc3Rlci1mb3JtLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLm5vRmxvYXQge1xyXG4gIGZsb2F0OiBub25lO1xyXG59Il19 */"
 
 /***/ }),
 
@@ -3270,7 +3302,7 @@ var RegisterFormComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      <h4 class=\"card-title\">Note sullo sviluppo</h4>\r\n      Ultimo aggiornamento: <strong>05/04/2019</strong>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <app-recording></app-recording>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <ul>\r\n      <li><strong>N.B.</strong>Spesso il server sembra essere irraggiungibile e restituisce errore, credo sia un limite del VPS</li>\r\n      <li>La registrazione dell'audio funziona, e può essere messa in pausa. Bisogna ancora definirne l'UI e dare la possibilità di continuare la registrazione anche di una sessione precedente. Manca ancora il salvataggio su server e in locale</li>\r\n      <li>Dalla scheda \"RESUME\" ora si può esportare il PDF della scheda</li>\r\n      <li>Aggiunta la scheda \"RESUME\" in modalità intervista</li>\r\n      <li>Sistemati molti CSS (non ancora tutti)</li>\r\n      <li>Bisogna ancora sistemare i routes di default, e in generale vorrei abbellire un po' gli URI</li>\r\n      <li>Per l'esecuzione di un esame ho pensato ad una \"modalità intervista\", alla quale si può accedere da Lista esami -> modifica esame. Per ora non mi entusiasma come soluzione, ma non saprei come integrare l'intervista con il resto dell'interfaccia</li>\r\n      <li>Devo ancora terminare di gestire il salvataggio automatico dei dati. Vorrei avvisare l'utente che esce di eventuali modifiche non salvate, permettendo (tramite alert) di salvare e uscire, uscire o restare.</li>\r\n      <li>Oltre ai dati personali sull'utente, non so cos'altro inserire nella dashboard</li>\r\n    </ul>\r\n  </div>\r\n\r\n  <!--\r\n  <div class=\"card-block\">\r\n    <ul>\r\n      <li *ngFor=\"let exam of lastExams\">\r\n        {{ exam.id }} - {{exam.date}}\r\n      </li>\r\n    </ul>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getMyExam()\">\r\n        GET ALL MY EXAMS\r\n    </button>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"createNewExam()\">\r\n        CREATE NEW EXAM AS CURRENT USER\r\n    </button>\r\n  </div>\r\n  \r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"getActualExamId()\">\r\n        GET ACTUAL EXAM ID\r\n    </button>\r\n  </div>\r\n  \r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"test()\">\r\n        test\r\n    </button>\r\n  </div>\r\n\r\n  \r\n\r\n  <div class=\"card-block\">\r\n    <button type=\"button\" class=\"btn btn-icon\" title=\"Modifica il tuo profilo\" (click)=\"testDel()\">\r\n        delete examdata where id=\r\n    </button>\r\n  </div>\r\n  -->\r\n</div>"
+module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      <h4 class=\"card-title\">Note sullo sviluppo</h4>\r\n      Ultimo aggiornamento: <strong>05/04/2019</strong>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <app-recording></app-recording>\r\n  </div>\r\n  <div class=\"card-block\">\r\n    <ul>\r\n      <li><strong>N.B.</strong>Spesso il server sembra essere irraggiungibile e restituisce errore, credo sia un limite del VPS</li>\r\n      <li>La registrazione dell'audio funziona, e può essere messa in pausa. Bisogna ancora definirne l'UI e dare la possibilità di continuare la registrazione anche di una sessione precedente. Manca ancora il salvataggio su server e in locale</li>\r\n      <li>Dalla scheda \"RESUME\" ora si può esportare il PDF della scheda</li>\r\n      <li>Aggiunta la scheda \"RESUME\" in modalità intervista</li>\r\n      <li>Sistemati molti CSS (non ancora tutti)</li>\r\n      <li>Bisogna ancora sistemare i routes di default, e in generale vorrei abbellire un po' gli URI</li>\r\n      <li>Per l'esecuzione di un esame ho pensato ad una \"modalità intervista\", alla quale si può accedere da Lista esami -> modifica esame. Per ora non mi entusiasma come soluzione, ma non saprei come integrare l'intervista con il resto dell'interfaccia</li>\r\n      <li>Devo ancora terminare di gestire il salvataggio automatico dei dati. Vorrei avvisare l'utente che esce di eventuali modifiche non salvate, permettendo (tramite alert) di salvare e uscire, uscire o restare.</li>\r\n      <li>Oltre ai dati personali sull'utente, non so cos'altro inserire nella dashboard</li>\r\n    </ul>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -3281,7 +3313,7 @@ module.exports = "<div class=\"card\">\r\n  <div class=\"card-block\">\r\n      
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ0ZXN0L3Rlc3QuY29tcG9uZW50LnNjc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvdGVzdC90ZXN0LmNvbXBvbmVudC5zY3NzIn0= */"
 
 /***/ }),
 
@@ -3438,7 +3470,7 @@ module.exports = "\r\n<clr-modal [(clrModalOpen)]=\"editUserModal\">\r\n  <h3 cl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJ1c2VyLWNvbXBvbmVudC91c2VyLWNvbXBvbmVudC5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvdXNlci1jb21wb25lbnQvdXNlci1jb21wb25lbnQuY29tcG9uZW50LnNjc3MifQ== */"
 
 /***/ }),
 
