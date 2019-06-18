@@ -1,0 +1,13 @@
+{
+	"type": "Collection",
+	"properties": {
+		"mp3options": {
+			"name": "mp3options",
+			"type": "object",
+			"typeLabel": "object",
+			"required": false,
+			"id": "mp3options",
+			"order": 0
+		}
+	}
+}
