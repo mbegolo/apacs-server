@@ -2974,7 +2974,7 @@ module.exports = "<div class=\"login-wrapper\">\r\n    <form class=\"login\">\r\
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJsb2dpbi9sb2dpbi5jb21wb25lbnQuc2NzcyJ9 */"
+module.exports = ".link-pointer {\n  cursor: pointer !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImxvZ2luL0M6XFx3b3Jrc3BhY2VcXGFwYWNzLWNsaWVudFxcc3JjXFxhcHAvbG9naW5cXGxvZ2luLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0UsMEJBQTBCLEVBQUEiLCJmaWxlIjoibG9naW4vbG9naW4uY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIubGluay1wb2ludGVyIHtcclxuICBjdXJzb3I6IHBvaW50ZXIgIWltcG9ydGFudDtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -3647,9 +3647,11 @@ var RegisterFormComponent = /** @class */ (function () {
                     _this.userService.logUser(usr);
                     _this.router.navigate(['']);
                 });
-            }, function (error) {
-                console.log(error);
             });
+        }, function (error) {
+            console.log(JSON.parse(error._body));
+            var msg = JSON.stringify(JSON.parse(error._body).errors);
+            alert(msg);
         });
     };
     RegisterFormComponent = __decorate([
